@@ -52,7 +52,7 @@ app.post('/api/v1/users', (req, res) => {
 })
 
 app.delete('/api/v1/users/:id', (req, res) => {
-  const user_exist =  !(users.find((element) => element.id = req.params.id) === undefined)
+  const user_exist =  !(users.find((element) => element.id == req.params.id) === undefined)
   if (!user_exist) {
     res.sendStatus(404)
     return
@@ -60,6 +60,19 @@ app.delete('/api/v1/users/:id', (req, res) => {
   users = users.filter((element) => element.id != req.params.id)
   res.send(200)
   
+})
+
+app.put('/api/v1/users/:id', (req, res) => {
+  let user_index =  users.findIndex((element) => element.id == req.params.id)
+  if (user_index === -1) {
+    res.sendStatus(404)
+    return
+  }
+  users[user_index].name = req.body.name ?? users[user_index].name
+  users[user_index].age = req.body.age ?? users[user_index].age
+  users[user_index].fav_princess = req.body.fav_princess ?? users[user_index].fav_princess
+
+  res.send(200)
 })
 
 app.listen(port, () => {
