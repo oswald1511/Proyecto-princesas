@@ -40,6 +40,16 @@ app.get('/api/v1/users/:id', (req, res) => {
   res.json(user)
 })
 
+app.post('/api/v1/users', (req, res) => {
+  users.push({
+    id: users.length + 1,
+    name: req.body.name,
+    age: req.body.age,
+    fav_princess: req.body.fav_princess
+  })
+  res.sendStatus(201)
+})
+
 app.listen(port, () => {
   console.log(`Princesas app listening on port ${port}`)
 })
