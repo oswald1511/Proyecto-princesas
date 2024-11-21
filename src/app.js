@@ -24,7 +24,7 @@ let the_prince_of_the_princess = []
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Princesas app')
 })
 
 app.get('/api/v1/users', (req, res) => {
@@ -42,13 +42,14 @@ app.get('/api/v1/users/:id', (req, res) => {
 })
 
 app.post('/api/v1/users', (req, res) => {
-  users.push({
+  const user = {
     id: users.length + 1,
     name: req.body.name,
     age: req.body.age,
     fav_princess: req.body.fav_princess
-  })
-  res.sendStatus(201)
+  }
+  users.push(user)
+  res.sendStatus(201).send(user)
 })
 
 app.delete('/api/v1/users/:id', (req, res) => {
