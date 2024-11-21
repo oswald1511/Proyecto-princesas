@@ -17,8 +17,8 @@ model Usuario {
   id Int @id @default(autoincrement())
   nombre String
   princesscoin Decimal @default(0)
-  fecha_de_nacimiento DateTime
-  cantidad_de_princesas Int
+  edad Int
+  cantidad_de_princesas Int @default(0)
   princesa_fav String
 }
 
