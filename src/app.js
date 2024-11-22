@@ -10,6 +10,7 @@ app.get('/', (req, res) => {
   res.send('Princesas app')
 })
 
+
 app.get('/api/v1/usuarios', async (req, res) => {
   const usuarios = await prisma.usuario.findMany()
   res.json(usuarios)
