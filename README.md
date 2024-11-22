@@ -23,6 +23,13 @@ Aqui veriamos como se deberia de ver el proyecto terminado
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 
+## Variables de Entorno
+
+Para correr este proyecto, vas a necesitar añadir las siguientes variables de entorno a tu archivo .env
+
+`DATABASE_URL='postgres://user:password@localhost:port?db_name'
+`
+
 ## Como levantar el FE
 
 ejecutar el siguiente comando 
@@ -36,4 +43,4 @@ ejecutar el siguiente comando
 ejecutar el siguiente comando 
 ```bash
   TBD
-```# Proyecto-princesas
+```
