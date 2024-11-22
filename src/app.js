@@ -10,12 +10,12 @@ app.get('/', (req, res) => {
   res.send('Princesas app')
 })
 
-app.get('/api/v1/users', async (req, res) => {
-  const users = await prisma.usuario.findMany()
-  res.json(users)
+app.get('/api/v1/usuarios', async (req, res) => {
+  const usuarios = await prisma.usuario.findMany()
+  res.json(usuarios)
   })
 
-app.get('/api/v1/users/:id', async (req, res) => {
+app.get('/api/v1/usuarios/:id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
       id : parseInt(req.params.id)
@@ -29,7 +29,7 @@ app.get('/api/v1/users/:id', async (req, res) => {
   res.json(usuario)
 })
 
-app.post('/api/v1/users', async (req, res) => {
+app.post('/api/v1/usuarios', async (req, res) => {
   const usuario = await prisma.usuario.create({
     data:{
       nombre: req.body.nombre,
@@ -40,7 +40,7 @@ app.post('/api/v1/users', async (req, res) => {
   res.status(201).send(usuario)
 })
 
-app.delete('/api/v1/users/:id', async (req, res) => {
+app.delete('/api/v1/usuarios/:id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
       id : parseInt(req.params.id)
@@ -61,7 +61,7 @@ app.delete('/api/v1/users/:id', async (req, res) => {
   
 })
 
-app.put('/api/v1/users/:id', async(req, res) => {
+app.put('/api/v1/usuarios/:id', async(req, res) => {
   let usuario =  await prisma.usuario.findUnique({
     where:{
       id: parseInt(req.params.id)
@@ -89,5 +89,5 @@ app.put('/api/v1/users/:id', async(req, res) => {
 })
 
 app.listen(puerto, () => {
-  console.log(`Princesas app listening port ${puerto}`)
+  console.log(`Princesas escuchando en el puerto ${puerto}`)
 })
