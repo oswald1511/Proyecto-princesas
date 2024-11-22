@@ -2,16 +2,7 @@ const { PrismaClient } = require('@prisma/client')
 const express = require('express')
 const app = express()
 const puerto = 3000
-
 const prisma = new PrismaClient()
-
-let princesses = []
-let princes = []
-let villains = []
-let favorite_princess = []
-let princess_villain = []
-let the_prince_of_the_princess = []
-
 
 app.use(express.json())
 
