@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id Int @id @default(autoincrement())
+  nombre String
+  princesscoin Decimal @default(0)
+  edad Int
+  cantidad_de_princesas Int @default(0)
+  princesa_fav String
+
+  usuarios_princesas usuario_princesa[]
+}
+
+model Princesa {
+  id Int @id @default(autoincrement())
+  nombre String
+  origen String
+  virtud String
+  nemesis String
+  habilidad String
+  principe String
+
+  usuarios_princesas usuario_princesa[]
+  princesa_villano princesa_villano[]
+  princesa_princeso princesa_princeso[]
+}
+
+model Villano {
+  id Int @id @default(autoincrement())
+  nombre String
+  nivel_de_maldad Int
+  tiene_magia Boolean
+  alias String
+  debilidad String
+
+  princesa_villano princesa_villano[]
+
+}
+
+model Princeso {
+  id Int @id @default(autoincrement())
+  nombre String
+  origen String
+  virtud String
+  habilidad String
+  alias String
+
+  princesa_princeso princesa_princeso[]
+}
+
+model usuario_princesa{
+  @@unique([id_usuario, id_princesa])
+  usuario Usuario @relation(fields: [id_usuario], references: [id])
+  id_usuario Int
+  princesa Princesa @relation(fields: [id_princesa], references: [id])
+  id_princesa Int
+}
+
+model princesa_villano{
+  @@unique([id_princesa, id_villano])
+  villano Villano @relation(fields: [id_princesa], references: [id])
+  id_princesa Int
+  princesa Princesa @relation(fields: [id_villano], references: [id])
+  id_villano Int
+}
+
+model princesa_princeso{
+  @@unique([id_princesa, id_princeso])
+  princesa Princesa @relation(fields: [id_princesa], references: [id])
+  id_princesa Int
+  princeso Princeso @relation(fields: [id_princeso], references: [id])
+  id_princeso Int
+}
