@@ -53,6 +53,39 @@
                 </div>
             </nav>
             <h1>Villanos</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Niv. maldad</th>
+                        <th>¿Tiene magia?</th>
+                        <th>Alias</th>
+                        <th>Debilidad</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>1</th>
+                        <td>
+                        Bruja
+                        </td>
+                        <td>50</td>
+                        <td>Si</td>
+                        <td>No se si tiene</td>
+                        <td>No ser la mas bella del mundo</td>
+                        <td>700</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </body>
+    <script>
+        fetch('localhost:3000/api/v1/villanos')
+        .then(response => response.json())
+        .then(json => {
+            console.log(json)
+        });
+    </script>
 </html>
