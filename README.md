@@ -18,6 +18,8 @@ Agregar una descripcion del proyecto
 ## Progreso
 
 En esta seccion podemos ir agregando screeshots del progreso de la pagina semana a semana
+![23/11/2024](assets/screenshots/23-11-2024.png)
+
 ## Screenshots
 Aqui veriamos como se deberia de ver el proyecto terminado
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
@@ -40,7 +42,7 @@ ejecutar el siguiente comando
 
 ## Como levanatar BE
 
-ejecutar los siguientes comandos: 
+ejecutar los siguientes comandos en la carpeta de backend: 
 ```bash
   docker compose up -d
 ```
