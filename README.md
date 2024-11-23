@@ -18,7 +18,7 @@ Agregar una descripcion del proyecto
 ## Progreso
 
 En esta seccion podemos ir agregando screeshots del progreso de la pagina semana a semana
-<img src="assets/screenshots/23-11-2024.png" alt="23/11/2024" width="300"/>
+<img src="assets/screenshots/23-11-2024.png" alt="23/11/2024" width="700"/>
 
 ## Screenshots
 Aqui veriamos como se deberia de ver el proyecto terminado
