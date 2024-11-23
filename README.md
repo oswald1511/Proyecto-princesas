@@ -40,7 +40,10 @@ ejecutar el siguiente comando
 
 ## Como levanatar BE
 
-ejecutar el siguiente comando 
+ejecutar los siguientes comandos: 
 ```bash
-  TBD
+  docker compose up -d
+```
+```bash
+  npm run dev
 ```
