@@ -26,15 +26,17 @@
                 <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-start">
                     <a class="navbar-item" href="usuarios.html">
-                    Usuarios
+                         Usuarios
                     </a>
-            
                     <a class="navbar-item" href="princesas.html">
-                    Princesas
+                         Princesas
                     </a>
                     </div>
                     <a class="navbar-item" href="villanos.html">
-                    Villanos
+                         Villanos
+                    </a>
+                    <a class="navbar-item" href="principes.html">
+                         Principes
                     </a>
                 </div>
             
@@ -52,7 +54,7 @@
                 </div>
                 </div>
             </nav>
-            <h1>Princesas</h1>
+            <h1>Principes</h1>
             <table class="table">
                 <thead>
                     <tr>
@@ -60,9 +62,8 @@
                         <th>Nombre</th>
                         <th>Origen</th>
                         <th>Virtud</th>
-                        <th>Nemesis</th>
                         <th>Habilidad</th>
-                        <th>Principe</th>
+                        <th>Alias</th>
                         <th>Precio</th>
                     </tr>
                 </thead>
@@ -70,21 +71,20 @@
                     <tr>
                         <th>1</th>
                         <td>
-                        Blancanieves
+                        Steven
                         </td>
-                        <td>Blancanieves y los 7 enanitos</td>
-                        <td>Bondad?</td>
-                        <td>No recuerdo xD</td>
-                        <td>Inmunidad al veneno</td>
-                        <td>Me olvide su nombre :v</td>
-                        <td>500</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>200</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </body>
     <script>
-        fetch('localhost:3000/api/v1/princesas')
+        fetch('localhost:3000/api/v1/principes')
         .then(response => response.json())
         .then(json => {
             console.log(json)
