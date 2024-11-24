@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/usuarios', usuarios);
-
+app.use('/api/v1/princesas', princesas);
 app.listen(puerto, () => {
   console.log(`Princesas escuchando en el puerto ${puerto}`);
 });
