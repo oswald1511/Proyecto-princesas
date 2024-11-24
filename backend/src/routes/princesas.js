@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
 })
     
 router.delete('/:id', async (req, res) => {
-    const usuario = await prisma.usuario.findUnique({
+    const princesa = await prisma.princesa.findUnique({
         where: {
           id : parseInt(req.params.id)
         }
