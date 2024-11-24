@@ -32,7 +32,7 @@ Aqui veriamos como se deberia de ver el proyecto terminado
 
 Para correr este proyecto, vas a necesitar añadir las siguientes variables de entorno a tu archivo .env
 
-`DATABASE_URL='postgres://user:password@localhost:port?db_name'
+`DATABASE_URL='postgresql://usuario:contraseña@localhost:puerto/nombre_bdd'
 `
 
 ## Como levantar el FE
@@ -46,6 +46,9 @@ ejecutar el siguiente comando
 ## Como levanatar BE
 
 ejecutar los siguientes comandos en la carpeta de backend: 
+```bash
+  npx  prisma migrate dev
+```
 ```bash
   docker compose up -d
 ```

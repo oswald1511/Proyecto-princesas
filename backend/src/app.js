@@ -1,10 +1,13 @@
 const { PrismaClient } = require('@prisma/client')
 const express = require('express')
+var cors = require('cors')
 const app = express()
 const puerto = 3000
 const prisma = new PrismaClient()
 
 app.use(express.json())
+app.use(cors())
+
 
 app.get('/', (req, res) => {
   res.send('Princesas app')
