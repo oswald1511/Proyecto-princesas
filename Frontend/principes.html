@@ -1,0 +1,96 @@
+<!Doctype HTML>
+<html>
+    <head>
+        <title>Princesas de disney</title>
+        <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+        >
+    </head>
+    <body>
+        <div class="container is-fluid">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                <a class="navbar-item" href="index.html">
+                    Disney
+                </a>
+            
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+                </div>
+            
+                <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="usuarios.html">
+                    Usuarios
+                    </a>
+                    <a class="navbar-item" href="princesas.html">
+                    Princesas
+                    </a>
+
+                    <a class="navbar-item" href="principes.html">
+                    Principes
+                    </a>
+                    
+                    <a class="navbar-item" href="villanos.html">
+                    Villanos
+                    </a>
+                    
+                    </div>
+                </div>
+            
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href="crear-usuario.html">
+                            <strong>Crear Usuario</strong>
+                        </a>
+                        <a class="button is-light">
+                        Ingresar Princesa/Villano
+                        </a>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </nav>
+            <h1>Principes</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Origen</th>
+                        <th>Virtud</th>
+                        <th>Habilidad</th>
+                        <th>Alias</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>1</th>
+                        <td>
+                        Steven
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>200</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+    <script>
+        fetch('http://localhost:3000/api/v1/principes')
+        .then(response => response.json())
+        .then(json => {
+            console.log(json)
+        });
+    </script>
+</html>

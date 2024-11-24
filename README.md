@@ -12,12 +12,17 @@ Agregar una descripcion del proyecto
 - [@Oswaldo Maldonado](https://www.github.com/oswald1511)
 - [@Rocio Vera](https://www.github.com/Rocio-Elizabeth-Vera)
 - [@Nahuel Blanco](https://www.github.com/nahuelemi)
-- [@Valentina Romero](https://www.github.com/valentinajromero)
+- [@Luz Acuna](https://github.com/Luz21Anto)
 
 
 ## Progreso
 
 En esta seccion podemos ir agregando screeshots del progreso de la pagina semana a semana
+
+23/11/2024
+
+<img src="assets/screenshots/23-11-2024.png" alt="23/11/2024" width="700"/>
+
 ## Screenshots
 Aqui veriamos como se deberia de ver el proyecto terminado
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
@@ -27,7 +32,7 @@ Aqui veriamos como se deberia de ver el proyecto terminado
 
 Para correr este proyecto, vas a necesitar añadir las siguientes variables de entorno a tu archivo .env
 
-`DATABASE_URL='postgres://user:password@localhost:port?db_name'
+`DATABASE_URL='postgresql://usuario:contraseña@localhost:puerto/nombre_bdd'
 `
 
 ## Como levantar el FE
@@ -40,7 +45,13 @@ ejecutar el siguiente comando
 
 ## Como levanatar BE
 
-ejecutar el siguiente comando 
+ejecutar los siguientes comandos en la carpeta de backend: 
 ```bash
-  TBD
+  npx  prisma migrate dev
+```
+```bash
+  docker compose up -d
+```
+```bash
+  npm run dev
 ```
