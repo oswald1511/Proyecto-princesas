@@ -53,7 +53,7 @@
                 </div>
             </nav>
             <h1>Usuarios</h1>
-            <table class="table">
+            <table class="table" id="datos-usuarios">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -85,6 +85,7 @@
             //     <td>Si</td>
             //     <td>2000</td>
             // </tr>
+            let table = document.getElementById('datos-usuarios');
             usuarios.forEach(usuario => {
                 let tr = document.createElement('tr');
                 let id = document.createElement('th');
@@ -92,20 +93,21 @@
                 let nombre = document.createElement('td');
                 nombre.textContent = usuario.nombre;
                 let princessCoins = document.createElement('td');
-                princessCoins.textContent = usuario.princessCoins;
+                princessCoins.textContent = usuario.princesscoin;
                 let edad = document.createElement('td');
                 edad.textContent = usuario.edad;
                 let cantidadPrincesas = document.createElement('td');
-                cantidadPrincesas.textContent = usuario.cantidadPrincesas;
+                cantidadPrincesas.textContent = usuario.cantidad_de_princesas;
                 let princesaFavorita = document.createElement('td');
-                princesaFavorita.textContent = usuario.princesaFavorita;
+                princesaFavorita.textContent = usuario.princesa_fav;
                 tr.appendChild(id);
                 tr.appendChild(nombre);
                 tr.appendChild(princessCoins);
                 tr.appendChild(edad);
                 tr.appendChild(cantidadPrincesas);
                 tr.appendChild(princesaFavorita);
-                
+                table.appendChild(tr);
+
             });
         });
     </script>
