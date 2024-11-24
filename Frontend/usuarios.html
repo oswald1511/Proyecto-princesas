@@ -58,34 +58,55 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Prin. fav</th>
+                        <th>PrincessCoins</th>
                         <th>Edad</th>
-                        <th>Color fav.</th>
-                        <th>¿Tiene mascota?</th>
-                        <th>Mickeymonedas</th>
+                        <th>Cantidad de princesas</th>
+                        <th>Princesa Favorita</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>
-                        Maria
-                        </td>
-                        <td>Blancanieves</td>
-                        <td>23</td>
-                        <td>Azul</td>
-                        <td>Si</td>
-                        <td>2000</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
     </body>
     <script>
-        fetch('http://127.0.0.1:3000/api/v1/usuarios')
+        fetch('http://localhost:3000/api/v1/usuarios')
         .then(response => response.json())
-        .then(json => {
-            console.log(json)
+        .then(usuarios => {
+            console.log(usuarios)
+            // <tr>
+            //     <th>1</th>
+            //     <td>
+            //     Maria
+            //     </td>
+            //     <td>Blancanieves</td>
+            //     <td>23</td>
+            //     <td>Azul</td>
+            //     <td>Si</td>
+            //     <td>2000</td>
+            // </tr>
+            usuarios.forEach(usuario => {
+                let tr = document.createElement('tr');
+                let id = document.createElement('th');
+                id.textContent = usuario.id;
+                let nombre = document.createElement('td');
+                nombre.textContent = usuario.nombre;
+                let princessCoins = document.createElement('td');
+                princessCoins.textContent = usuario.princessCoins;
+                let edad = document.createElement('td');
+                edad.textContent = usuario.edad;
+                let cantidadPrincesas = document.createElement('td');
+                cantidadPrincesas.textContent = usuario.cantidadPrincesas;
+                let princesaFavorita = document.createElement('td');
+                princesaFavorita.textContent = usuario.princesaFavorita;
+                tr.appendChild(id);
+                tr.appendChild(nombre);
+                tr.appendChild(princessCoins);
+                tr.appendChild(edad);
+                tr.appendChild(cantidadPrincesas);
+                tr.appendChild(princesaFavorita);
+                
+            });
         });
     </script>
 </html>
