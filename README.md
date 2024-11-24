@@ -12,7 +12,7 @@ Agregar una descripcion del proyecto
 - [@Oswaldo Maldonado](https://www.github.com/oswald1511)
 - [@Rocio Vera](https://www.github.com/Rocio-Elizabeth-Vera)
 - [@Nahuel Blanco](https://www.github.com/nahuelemi)
-- [@Valentina Romero](https://www.github.com/valentinajromero)
+- [@Luz Acuna](https://github.com/Luz21Anto)
 
 
 ## Progreso
