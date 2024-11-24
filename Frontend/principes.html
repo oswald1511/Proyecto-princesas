@@ -28,6 +28,7 @@
                     <a class="navbar-item" href="usuarios.html">
                     Usuarios
                     </a>
+            
                     <a class="navbar-item" href="princesas.html">
                     Princesas
                     </a>
@@ -39,8 +40,7 @@
                     <a class="navbar-item" href="villanos.html">
                     Villanos
                     </a>
-                    
-                    </div>
+                </div>
                 </div>
             
                 <div class="navbar-end">
@@ -70,18 +70,7 @@
                         <th>Precio</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>
-                        Steven
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>200</td>
-                    </tr>
+                <tbody id="datos-principes">
                 </tbody>
             </table>
         </div>
@@ -89,8 +78,35 @@
     <script>
         fetch('http://localhost:3000/api/v1/principes')
         .then(response => response.json())
-        .then(json => {
-            console.log(json)
+        .then(principes => {
+            console.log(principes)
+            
+            let table = document.getElementById('datos-principes');
+            principes.forEach(principes => {
+                let tr = document.createElement('tr');
+                let id = document.createElement('th');
+                id.textContent = principes.id;
+                let nombre = document.createElement('td');
+                nombre.textContent = principes.nombre;
+                let origen = document.createElement('td');
+                origen.textContent = principes.origen;
+                let virtud = document.createElement('td');
+                virtud.textContent = principes.virtud;
+                let habilidad = document.createElement('td');
+                habilidad.textContent = principes.habilidad;
+                let alias = document.createElement('td');
+                alias.textContent = principes.alias;
+                let precio = document.createElement('td');
+                precio.textContent = principes.precio;
+                tr.appendChild(id);
+                tr.appendChild(nombre);
+                tr.appendChild(origen);
+                tr.appendChild(virtud);
+                tr.appendChild(habilidad);
+                tr.appendChild(alias);
+                tr.appendChild(precio);
+                table.appendChild(tr);
+            });
         });
     </script>
 </html>
