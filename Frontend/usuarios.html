@@ -64,8 +64,6 @@
                         <th>Princesa Favorita</th>
                     </tr>
                 </thead>
-                <tbody>
-                </tbody>
             </table>
         </div>
     </body>
@@ -74,17 +72,7 @@
         .then(response => response.json())
         .then(usuarios => {
             console.log(usuarios)
-            // <tr>
-            //     <th>1</th>
-            //     <td>
-            //     Maria
-            //     </td>
-            //     <td>Blancanieves</td>
-            //     <td>23</td>
-            //     <td>Azul</td>
-            //     <td>Si</td>
-            //     <td>2000</td>
-            // </tr>
+
             let table = document.getElementById('datos-usuarios');
             usuarios.forEach(usuario => {
                 let tr = document.createElement('tr');
