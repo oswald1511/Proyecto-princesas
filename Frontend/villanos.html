@@ -8,6 +8,7 @@
         >
     </head>
     <body>
+    
         <div class="container is-fluid">
             <nav class="navbar" role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
@@ -87,6 +88,19 @@
     </div>
     </body>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        });
         fetch('http://localhost:3000/api/v1/villanos')
         .then(response => response.json())
         .then(json => {
