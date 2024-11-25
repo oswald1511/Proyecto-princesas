@@ -29,7 +29,7 @@ model Princesa {
 
   usuarios_princesas usuario_princesa[]
   princesa_villano princesa_villano[]
-  princesa_princeso princesa_princeso[]
+  princesa_princeso princesa_principe[]
 }
 
 model Villano {
@@ -44,7 +44,7 @@ model Villano {
 
 }
 
-model Princeso {
+model Principe {
   id Int @id @default(autoincrement())
   nombre String
   origen String
@@ -52,7 +52,7 @@ model Princeso {
   habilidad String
   alias String
 
-  princesa_princeso princesa_princeso[]
+  princesa_princeso princesa_principe[]
 }
 
 model usuario_princesa{
@@ -71,10 +71,10 @@ model princesa_villano{
   id_villano Int
 }
 
-model princesa_princeso{
-  @@unique([id_princesa, id_princeso])
+model princesa_principe{
+  @@unique([id_princesa, id_principe])
   princesa Princesa @relation(fields: [id_princesa], references: [id])
   id_princesa Int
-  princeso Princeso @relation(fields: [id_princeso], references: [id])
-  id_princeso Int
+  princeso Principe @relation(fields: [id_principe], references: [id])
+  id_principe Int
 }
