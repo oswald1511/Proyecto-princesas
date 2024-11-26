@@ -119,7 +119,10 @@ $navbarBurgers.forEach( el => {
                     let tr = document.createElement('tr');
                     tr.id = 'usuario-' + usuario.id;
                     let id = document.createElement('th');
-                    id.textContent = usuario.id;
+                    const link = document.createElement('a');
+                    link.href = "#";
+                    link.textContent = usuario.id;
+                    id.appendChild(link);
                     let nombre = document.createElement('td');
                     nombre.textContent = usuario.nombre;
                     let princessCoins = document.createElement('td');
