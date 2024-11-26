@@ -47,6 +47,9 @@ ejecutar el siguiente comando
 
 ejecutar los siguientes comandos en la carpeta de backend: 
 ```bash
+  npm install
+```
+```bash
   npx  prisma migrate dev
 ```
 ```bash
