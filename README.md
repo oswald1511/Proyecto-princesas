@@ -21,7 +21,11 @@ En esta seccion podemos ir agregando screeshots del progreso de la pagina semana
 
 23/11/2024
 
-<img src="assets/screenshots/23-11-2024.png" alt="23/11/2024" width="700"/>
+<img src="./frontend/assets/screenshots/23-11-2024.png" alt="23/11/2024" width="700"/>
+
+26/11/2024
+
+<img src="./frontend/assets/screenshots/26-11-2024.png" alt="26/11/2024" width="700"/>
 
 ## Screenshots
 Aqui veriamos como se deberia de ver el proyecto terminado
@@ -39,7 +43,8 @@ Para correr este proyecto, vas a necesitar añadir las siguientes variables de e
 
 ejecutar el siguiente comando 
 ```bash
-  TBD
+  npm install
+  npm run start
 ```
 
 
@@ -47,11 +52,8 @@ ejecutar el siguiente comando
 
 ejecutar los siguientes comandos en la carpeta de backend: 
 ```bash
+  npm install
   npx  prisma migrate dev
-```
-```bash
   docker compose up -d
-```
-```bash
   npm run dev
 ```

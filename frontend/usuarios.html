@@ -6,6 +6,7 @@
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
         >
+        <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
     </head>
     <body>
         <div class="container is-fluid">
@@ -55,7 +56,6 @@
                     </div>
                     </div>
                 </div>
-                </div>
             </nav>
             <h1>Usuarios</h1>
             <table class="table">
@@ -74,8 +74,22 @@
                 </tbody>
             </table>
         </div>
+    </div>
     </body>
     <script>
+                document.addEventListener('DOMContentLoaded', () => {
+
+const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+$navbarBurgers.forEach( el => {
+    el.addEventListener('click', () => {
+
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+    });
+});
+});
 
         window.onload = function() {
             cargarUsuarios();
@@ -105,7 +119,10 @@
                     let tr = document.createElement('tr');
                     tr.id = 'usuario-' + usuario.id;
                     let id = document.createElement('th');
-                    id.textContent = usuario.id;
+                    const link = document.createElement('a');
+                    link.href = "#";
+                    link.textContent = usuario.id;
+                    id.appendChild(link);
                     let nombre = document.createElement('td');
                     nombre.textContent = usuario.nombre;
                     let princessCoins = document.createElement('td');

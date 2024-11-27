@@ -6,6 +6,7 @@
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
         >
+        <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
     </head>
     <body>
         <div class="container is-fluid">
@@ -28,6 +29,7 @@
                     <a class="navbar-item" href="usuarios.html">
                     Usuarios
                     </a>
+            
                     <a class="navbar-item" href="princesas.html">
                     Princesas
                     </a>
@@ -39,8 +41,7 @@
                     <a class="navbar-item" href="villanos.html">
                     Villanos
                     </a>
-                    
-                    </div>
+                </div>
                 </div>
             
                 <div class="navbar-end">
@@ -54,7 +55,6 @@
                         </a>
                     </div>
                     </div>
-                </div>
                 </div>
             </nav>
             <h1>Principes</h1>
@@ -70,27 +70,57 @@
                         <th>Precio</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>
-                        Steven
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>200</td>
-                    </tr>
+                <tbody id="datos-principes">
                 </tbody>
             </table>
         </div>
+    </div>
     </body>
     <script>
+                document.addEventListener('DOMContentLoaded', () => {
+
+const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+$navbarBurgers.forEach( el => {
+    el.addEventListener('click', () => {
+
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+    });
+});
+});
         fetch('http://localhost:3000/api/v1/principes')
         .then(response => response.json())
-        .then(json => {
-            console.log(json)
+        .then(principes => {
+            console.log(principes)
+            
+            let table = document.getElementById('datos-principes');
+            principes.forEach(principes => {
+                let tr = document.createElement('tr');
+                let id = document.createElement('th');
+                id.textContent = principes.id;
+                let nombre = document.createElement('td');
+                nombre.textContent = principes.nombre;
+                let origen = document.createElement('td');
+                origen.textContent = principes.origen;
+                let virtud = document.createElement('td');
+                virtud.textContent = principes.virtud;
+                let habilidad = document.createElement('td');
+                habilidad.textContent = principes.habilidad;
+                let alias = document.createElement('td');
+                alias.textContent = principes.alias;
+                let precio = document.createElement('td');
+                precio.textContent = principes.precio;
+                tr.appendChild(id);
+                tr.appendChild(nombre);
+                tr.appendChild(origen);
+                tr.appendChild(virtud);
+                tr.appendChild(habilidad);
+                tr.appendChild(alias);
+                tr.appendChild(precio);
+                table.appendChild(tr);
+            });
         });
     </script>
 </html>

@@ -6,12 +6,14 @@
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
         >
+        <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
     </head>
     <body>
+    
         <div class="container is-fluid">
             <nav class="navbar" role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
-                <a class="navbar-item" href="index.html">
+                <a class="navbar-item" href="index.html" >
                     Disney
                 </a>
             
@@ -36,7 +38,7 @@
                     <a class="navbar-item" href="principes.html">
                     Principes
                     </a>
-                    
+
                     <a class="navbar-item" href="villanos.html">
                     Villanos
                     </a>
@@ -55,62 +57,55 @@
                     </div>
                     </div>
                 </div>
-                </div>
             </nav>
-            <h1>Princesas</h1>
+            <h1>Villanos</h1>
             <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Origen</th>
-                        <th>Virtud</th>
-                        <th>Nemesis</th>
-                        <th>Habilidad</th>
-                        <th>Principe</th>
+                        <th>Niv. maldad</th>
+                        <th>¿Tiene magia?</th>
+                        <th>Alias</th>
+                        <th>Debilidad</th>
                         <th>Precio</th>
                     </tr>
                 </thead>
-                <tbody id="datos-princesas">
+                <tbody>
+                    <tr>
+                        <th>1</th>
+                        <td>
+                            Bruja
+                        </td>
+                        <td>50</td>
+                        <td>Si</td>
+                        <td>No se si tiene</td>
+                        <td>No ser la mas bella del mundo</td>
+                        <td>700</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
+    </div>
     </body>
     <script>
-        fetch('http://localhost:3000/api/v1/princesas')
-        .then(response => response.json())
-        .then(princesas => {
-            console.log(princesas)
-            
-            let table = document.getElementById('datos-princesas');
-            princesas.forEach(princesas => {
-                let tr = document.createElement('tr');
-                let id = document.createElement('th');
-                id.textContent = princesas.id;
-                let nombre = document.createElement('td');
-                nombre.textContent = princesas.nombre;
-                let origen = document.createElement('td');
-                origen.textContent = princesas.origen;
-                let virtud = document.createElement('td');
-                virtud.textContent = princesas.virtud;
-                let nemesis = document.createElement('td');
-                nemesis.textContent = princesas.nemesis;
-                let habilidad = document.createElement('td');
-                habilidad.textContent = princesas.habilidad;
-                let principe = document.createElement('td');
-                principe.textContent = princesas.principe;
-                // let precio = document.createElement('td');
-                // precio.textContent = princesas.precio;
-                tr.appendChild(id);
-                tr.appendChild(nombre);
-                tr.appendChild(origen);
-                tr.appendChild(virtud);
-                tr.appendChild(nemesis);
-                tr.appendChild(habilidad);
-                tr.appendChild(principe);
-                tr.appendChild(precio);
-                table.appendChild(tr);
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
             });
+        });
+        fetch('http://localhost:3000/api/v1/villanos')
+        .then(response => response.json())
+        .then(json => {
+            console.log(json)
         });
     </script>
 </html>

@@ -5,83 +5,83 @@ const prisma = new PrismaClient();
 module.exports = router;
 
 router.get('/', async (req, res) => {
-    const villanos = await prisma.villano.findMany();
-    res.json(villanos);
+    const principes = await prisma.principe.findMany();
+    res.json(principes);
 });
   
 router.get('/:id', async (req, res) => {
-    const villano = await prisma.villano.findUnique({ 
+    const principe = await prisma.principe.findUnique({ 
         where: {
           id : parseInt(req.params.id)
         }
       })
     
-    if (villano === null) {
+    if (principe === null) {
         res.sendStatus(404)
         return
     }
-    res.json(villanos)
+    res.json(principes)
 })  
     
 router.post('/', async (req, res) => {
-    const villano = await prisma.villano.create({
+    const principe = await prisma.principe.create({
         data:{
           nombre: req.body.nombre,
-          niv_maldad: req.body.niv_maldad,
-          tiene_magia: req.body.tiene_magia,
-          alias: req.body.alias,
-          debilidad: req.body.debilidad,
+          cuento: req.body.cuento,
+          virtud: req.body.virtud,
+          habilidad: req.body.habilidad,
+          principe: req.body.principe,
           precio: req.body.precio,
         }
     })
-    res.status(201).send(villano)
+    res.status(201).send(principe)
 })
     
 router.delete('/:id', async (req, res) => {
-    const villano = await prisma.villano.findUnique({
+    const principe = await prisma.principe.findUnique({
         where: {
           id : parseInt(req.params.id)
         }
     })
     
-    if (villano === null) {
+    if (principe === null) {
         res.sendStatus(404)
         return
     }
-    await prisma.villano.delete({
+    await prisma.principe.delete({
         where: {
           id: parseInt(req.params.id)
         }
     })
       
-    res.send(villano)
+    res.send(principe)
       
 })
     
 router.put('/:id', async(req, res) => {
-    let villano =  await prisma.villano.findUnique({
+    let principe =  await prisma.principe.findUnique({
         where:{
           id: parseInt(req.params.id)
         }
     })
-    if (villano === null) {
+    if (principe === null) {
         res.sendStatus(404)
     }
     
-    villano = await prisma.villano.update({
+    principe = await prisma.principe.update({
         where:{
           id: parseInt(req.params.id)
         },
         data: {
             nombre: req.body.nombre,
-            niv_maldad: req.body.niv_maldad,
-            tiene_magia: req.body.tiene_magia,
-            alias: req.body.alias,
-            debilidad: req.body.debilidad,
+            cuento: req.body.cuento,
+            virtud: req.body.virtud,
+            habilidad: req.body.habilidad,
+            principe: req.body.principe,
             precio: req.body.precio,
         }
     })
     
-    res.send(villano)
+    res.send(principe)
     
 })

@@ -10,74 +10,76 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-    const usuario = await prisma.usuario.findUnique({ 
-      where: {
-        id : parseInt(req.params.id)
-      }
-    })
-  
-    if (usuario === null) {
-      res.sendStatus(404)
-      return
+  const usuario = await prisma.usuario.findUnique({ 
+    where: {
+      id : parseInt(req.params.id)
     }
-    res.json(usuario)
-  })  
+  })
+  
+  if (usuario === null) {
+    res.sendStatus(404)
+    return
+  }
+  res.json(usuario)
+})  
   
 router.post('/', async (req, res) => {
-    const usuario = await prisma.usuario.create({
-      data:{
-        nombre: req.body.nombre,
-        edad: req.body.edad,
-        princesa_fav: req.body.princesa_fav
-      }
-    })
-    res.status(201).send(usuario)
+  const usuario = await prisma.usuario.create({
+    data:{
+      nombre : req.body.nombre,
+      princesscoin: req.body.princesscoin, 
+      edad: req.body.edad,
+      cantidad_de_princesas: req.body.cantidad_de_princesas,
+      princesa_fav: req.body.princesa_fav
+    }
   })
+  res.status(201).send(usuario)
+})
   
 router.delete('/:id', async (req, res) => {
-    const usuario = await prisma.usuario.findUnique({
-      where: {
-        id : parseInt(req.params.id)
-      }
-    })
-  
-    if (usuario === null) {
-      res.sendStatus(404)
-      return
+  const usuario = await prisma.usuario.findUnique({
+    where: {
+      id : parseInt(req.params.id)
     }
-    await prisma.usuario.delete({
-      where: {
-        id: parseInt(req.params.id)
-      }
-    })
-    
-    res.send(usuario)
-    
   })
+  
+  if (usuario === null) {
+    res.sendStatus(404)
+    return
+  }
+  await prisma.usuario.delete({
+    where: {
+      id: parseInt(req.params.id)
+    }
+  })
+    
+  res.send(usuario)
+    
+})
   
 router.put('/:id', async(req, res) => {
-    let usuario =  await prisma.usuario.findUnique({
-      where:{
-        id: parseInt(req.params.id)
-      }
-    })
-    if (usuario === null) {
-      res.sendStatus(404)
+  let usuario =  await prisma.usuario.findUnique({
+    where:{
+      id: parseInt(req.params.id)
     }
-  
-    usuario = await prisma.usuario.update({
-      where:{
-        id: parseInt(req.params.id)
-      },
-      data: {
-        nombre : req.body.nombre,
-        princesscoin: req.body.princesscoin, 
-        edad: req.body.edad,
-        cantidad_de_princesas: req.body.cantidad_de_princesas,
-        princesa_fav: req.body.princesa_fav
-      }
-    })
-  
-    res.send(usuario)
-  
   })
+  if (usuario === null) {
+    res.sendStatus(404)
+  }
+  
+  usuario = await prisma.usuario.update({
+    where:{
+      id: parseInt(req.params.id)
+    },
+    data: {
+      nombre : req.body.nombre,
+      princesscoin: req.body.princesscoin, 
+      edad: req.body.edad,
+      cantidad_de_princesas: req.body.cantidad_de_princesas,
+      princesa_fav: req.body.princesa_fav
+    }
+  })
+  
+  res.send(usuario)
+  
+})
