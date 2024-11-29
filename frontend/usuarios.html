@@ -57,11 +57,10 @@
                     </div>
                 </div>
             </nav>
-            <h1>Usuarios</h1>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Puesto</th>
+                        <th>Clasificacion</th>
                         <th>Nombre</th>
                         <th>PrincessCoins</th>
                         <th>Edad</th>
@@ -119,10 +118,10 @@ $navbarBurgers.forEach( el => {
                 usuarios.forEach(usuario => {
                     let tr = document.createElement('tr');                    
                     let indice = document.createElement('th');
-                    indice.textContent = puesto;
+                    indice.textContent = "#" + puesto;
                     puesto++;
                     const link = document.createElement('a');
-                    link.href = "/usuarios/" + usuario.id;
+                    link.href = `/usuario?id=${usuario.id}`;
                     link.textContent = usuario.nombre;
                     let nombre = document.createElement('td');
                     nombre.appendChild(link);
