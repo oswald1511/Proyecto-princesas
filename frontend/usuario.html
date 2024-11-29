@@ -1,99 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Usuarios</title>
+    <title>Usuario</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
 </head>
 <body>
     <div class="container is-fluid">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="index.html">Disney</a>
-                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-            <div id="navbarBasicExample" class="navbar-menu">
-                <div class="navbar-start">
-                    <a class="navbar-item" href="usuarios.html">Usuarios</a>
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">
-                          Personajes
-                        </a>
-                
-                        <div class="navbar-dropdown">
-                          <a class="navbar-item" href="princesas.html">
-                            Princesas
-                          </a>
-                          <a class="navbar-item" href="principes.html">
-                            Principes
-                          </a>
-                          <a class="navbar-item" href="villanos.html">
-                            Villanos
-                          </a>
-                        </div>
-                      </div>
-                </div>
-                <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a class="button is-primary is-respondive">
-                                <strong>Comprar personaje</strong>
-                            </a>
-                            <a class="button is-primary is-respondive">
-                                <strong>Vender personaje</strong>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-            <div class="container" id="contenido_principal"></div>
+        <div id="navbar-container"></div>
+        <div id="contenido-principal" class="mt-5">
         </div>
     </div>
-    </body>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-
-            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-            $navbarBurgers.forEach( el => {
-                el.addEventListener('click', () => {
-
-                    target = el.dataset.target;
-                    const $target = document.getElementById(target);
-                    el.classList.toggle('is-active');
-                    $target.classList.toggle('is-active');
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                    // Inicializar el navbar-burger
+                    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+                    $navbarBurgers.forEach(el => {
+                        el.addEventListener('click', () => {
+                            const target = el.dataset.target;
+                            const $target = document.getElementById(target);
+                            el.classList.toggle('is-active');
+                            $target.classList.toggle('is-active');
+                        });
+                    });
                 });
-            });
-        });
+            const urlParams = new URLSearchParams(window.location.search);
+            const idUsuario = urlParams.get('id');
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const idUsuario = urlParams.get('id');
-
-        fetch(`http://localhost:3000/api/v1/usuarios/${idUsuario}`)
+            fetch(`http://localhost:3000/api/v1/usuarios/${idUsuario}`)
             .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                const contenido_principal = document.getElementById('contenido_principal');
-                const titulo_usuario = document.createElement('h1');
-                titulo_usuario.textContent = data.nombre;   
-                const edad_usuario = document.createElement('h2');
-                edad_usuario.textContent = data.edad;
-                const princesa_favorita = document.createElement('h2');
-                princesa_favorita.textContent = data.princesa_fav;
-                const princessCoins = document.createElement('h2');
-                princessCoins.textContent = data.princesscoin;
-                const cantidad_princesas = document.createElement('h2');
-                cantidad_princesas.textContent = data.cantidad_de_princesas;
+                .then(data => {
+                    const contenido_principal = document.getElementById('contenido-principal');
+                    const titulo_usuario = document.createElement('h1');
+                    titulo_usuario.textContent = data.nombre;
+                    const edad_usuario = document.createElement('h2');
+                    edad_usuario.textContent = data.edad;
+                    const princesa_favorita = document.createElement('h2');
+                    princesa_favorita.textContent = data.princesa_fav;
+                    const princessCoins = document.createElement('h2');
+                    princessCoins.textContent = data.princesscoin;
+                    const cantidad_princesas = document.createElement('h2');
+                    cantidad_princesas.textContent = data.cantidad_de_princesas;
 
-                contenido_principal.appendChild(princessCoins);
-                contenido_principal.appendChild(cantidad_princesas);
-                contenido_principal.appendChild(princesa_favorita);
-                contenido_principal.appendChild(edad_usuario);
-                contenido_principal.appendChild(titulo_usuario);
-
-            });
+                    contenido_principal.appendChild(titulo_usuario);
+                    contenido_principal.appendChild(edad_usuario);
+                    contenido_principal.appendChild(princesa_favorita);
+                    contenido_principal.appendChild(princessCoins);
+                    contenido_principal.appendChild(cantidad_princesas);
+                });
+        });
     </script>
+</body>
 </html>
