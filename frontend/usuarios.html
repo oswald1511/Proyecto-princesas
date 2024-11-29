@@ -61,7 +61,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Puesto</th>
                         <th>Nombre</th>
                         <th>PrincessCoins</th>
                         <th>Edad</th>
@@ -112,19 +112,20 @@ $navbarBurgers.forEach( el => {
             .then(response => response.json())
             .then(usuarios => {
                 console.log(usuarios)
-        
+                
+                let puesto = 1;
                 let table = document.getElementById('datos-usuarios');
                 table.innerHTML = '';
                 usuarios.forEach(usuario => {
-                    let tr = document.createElement('tr');
-                    tr.id = 'usuario-' + usuario.id;
-                    let id = document.createElement('th');
+                    let tr = document.createElement('tr');                    
+                    let indice = document.createElement('th');
+                    indice.textContent = puesto;
+                    puesto++;
                     const link = document.createElement('a');
-                    link.href = "#";
-                    link.textContent = usuario.id;
-                    id.appendChild(link);
+                    link.href = "/usuarios/" + usuario.id;
+                    link.textContent = usuario.nombre;
                     let nombre = document.createElement('td');
-                    nombre.textContent = usuario.nombre;
+                    nombre.appendChild(link);
                     let princessCoins = document.createElement('td');
                     princessCoins.textContent = usuario.princesscoin;
                     let edad = document.createElement('td');
@@ -139,8 +140,8 @@ $navbarBurgers.forEach( el => {
                     button.className = 'button is-danger is-small';
                     button.onclick = function() { borrarUsuario(usuario.id) };
                             
-        
-                    tr.appendChild(id);
+                    
+                    tr.appendChild(indice);
                     tr.appendChild(nombre);
                     tr.appendChild(princessCoins);
                     tr.appendChild(edad);
