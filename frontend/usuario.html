@@ -57,7 +57,7 @@
                     </div>
                 </div>
             </nav>
-            <div id="contenido_principal"></div>
+            <div class="container" id="contenido_principal"></div>
         </div>
     </div>
     </body>
@@ -82,10 +82,23 @@
         fetch(`http://localhost:3000/api/v1/usuarios/${idUsuario}`)
             .then(response => response.json())
             .then(data => {
-                let contenido_principal = document.getElementById('contenido_principal');
+                console.log(data);
+                const contenido_principal = document.getElementById('contenido_principal');
                 const titulo_usuario = document.createElement('h1');
                 titulo_usuario.textContent = data.nombre;   
+                const edad_usuario = document.createElement('h2');
+                edad_usuario.textContent = data.edad;
+                const princesa_favorita = document.createElement('h2');
+                princesa_favorita.textContent = data.princesa_fav;
+                const princessCoins = document.createElement('h2');
+                princessCoins.textContent = data.princesscoin;
+                const cantidad_princesas = document.createElement('h2');
+                cantidad_princesas.textContent = data.cantidad_de_princesas;
 
+                contenido_principal.appendChild(princessCoins);
+                contenido_principal.appendChild(cantidad_princesas);
+                contenido_principal.appendChild(princesa_favorita);
+                contenido_principal.appendChild(edad_usuario);
                 contenido_principal.appendChild(titulo_usuario);
 
             });
