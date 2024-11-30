@@ -1,6 +1,6 @@
-<div style="text-align: center;">
+<p align="center">
   <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Disney_Princess_logo_2015.png" alt="Logo" width="400"/>
-</div>
+</p>
 
 # 👑 Proyecto princesas
 
