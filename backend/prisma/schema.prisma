@@ -21,11 +21,11 @@ model Usuario {
 model Princesa {
   id Int @id @default(autoincrement())
   nombre String
-  origen String
+  cuento String
   virtud String
-  nemesis String
   habilidad String
   principe String
+  precio Int
 
   usuarios_princesas usuario_princesa[]
   princesa_villano princesa_villano[]

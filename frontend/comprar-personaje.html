@@ -1,42 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Princesas de Disney</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
-
-</head>
-<body>
-    <div class="container is-fluid">
-        <div id="navbar-container"></div>
-        <div class="columns is-multiline">
-            <div class="column is-one-quarter">
-                <div class="card">
-                    <div class="card-image">
-                      <figure class="image is-4by3">
-                        <img
-                          src="https://bulma.io/assets/images/placeholders/1280x960.png"
-                          alt="Placeholder image"
-                        />
-                      </figure>
-                    </div>
-                    <div class="card-content">
-                      <div class="media">
-                        <div class="media-content">
-                          <p class="title is-4">Cenicienta</p>
-                        </div>
-                      </div>
-                      <div class="content">
-                        descricion de la pricnesa, como precio y monedas por click
-                      </div>
-                    </div>
-                  </div>
-                  
-                </div>
-            </div>
+    <head>
+        <title>Princesas de Disney</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+        <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <div class="container is-fluid">
+            <div id="navbar-container"></div>
+            <div id="contenido-principal" class="columns is-multiline"></div>
         </div>
-    </div>
-    <script>
+        <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetch('navbar.html')
                 .then(response => response.text())
@@ -51,6 +25,38 @@
                             el.classList.toggle('is-active');
                             $target.classList.toggle('is-active');
                         });
+                    });
+                });
+
+            fetch('http://localhost:3000/api/v1/princesas')
+                .then(response => response.json())
+                .then(princesas => {
+                    console.log(princesas);
+                    let contenidoPrincipal = document.getElementById('contenido-principal');
+                    princesas.forEach(princesa => {
+                        let carta = document.createElement('div');
+                        carta.className = "column is-one-quarter";
+                        carta.innerHTML = `
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3">
+                                        <img src="https://bulma.io/assets/images/placeholders/1280x960.png" alt="Placeholder image" />
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="title is-4">${princesa.nombre}</p>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                         <b>Precio</b>: ${princesa.precio} 
+                                    </div>
+                                    <button class="button is-light" onclick="Comprar_personaje()">Comprar</button>
+                                </div>
+                            </div>
+                        `;
+                        contenidoPrincipal.appendChild(carta);
                     });
                 });
         });
