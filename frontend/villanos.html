@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Princesas de Disney</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="container is-fluid">
+        <div id="navbar-container"></div>
+        <h1>Villanos</h1>
+        <div class="table-container mt-5">
+            <table class="table is-fullwidth is-bordered is-hoverable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Niv. maldad</th>
+                        <th>¿Tiene magia?</th>
+                        <th>Alias</th>
+                        <th>Debilidad</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-container').innerHTML = data;
+            // Inicializar el navbar-burger
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            $navbarBurgers.forEach(el => {
+                el.addEventListener('click', () => {
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        });
+      fetch('http://localhost:3000/api/v1/villanos')
+        .then(response => response.json())
+        .then(json => {
+            console.log(json)
+        });
+    });
+    </script>
+    </body>
+</html>

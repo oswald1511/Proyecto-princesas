@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Princesas de Disney</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="container is-fluid">
+        <div id="navbar-container"></div>
+            <h1>Princesas</h1>
+            <div class="table-container mt-5">
+                <table class="table is-fullwidth is-bordered is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Cuento</th>
+                            <th>Virtud</th>
+                            <th>Habilidad</th>
+                            <th>Principe</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="datos-princesas">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                    // Inicializar el navbar-burger
+                    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+                    $navbarBurgers.forEach(el => {
+                        el.addEventListener('click', () => {
+                            const target = el.dataset.target;
+                            const $target = document.getElementById(target);
+                            el.classList.toggle('is-active');
+                            $target.classList.toggle('is-active');
+                        });
+                    });
+                });
+        fetch('http://localhost:3000/api/v1/princesas')
+        .then(response => response.json())
+        .then(princesas => {
+            console.log(princesas)
+            
+            let table = document.getElementById('datos-princesas');
+            princesas.forEach(princesas => {
+                let tr = document.createElement('tr');
+                let id = document.createElement('th');
+                id.textContent = princesas.id;
+                let nombre = document.createElement('td');
+                nombre.textContent = princesas.nombre;
+                let cuento = document.createElement('td');
+                cuento.textContent = princesas.cuento;
+                let virtud = document.createElement('td');
+                virtud.textContent = princesas.virtud;
+                let habilidad = document.createElement('td');
+                habilidad.textContent = princesas.habilidad;
+                let principe = document.createElement('td');
+                principe.textContent = princesas.principe;
+                let precio = document.createElement('td');
+                precio.textContent = princesas.precio;
+                tr.appendChild(id);
+                tr.appendChild(nombre);
+                tr.appendChild(cuento);
+                tr.appendChild(virtud);
+                tr.appendChild(habilidad);
+                tr.appendChild(principe);
+                tr.appendChild(precio);
+                table.appendChild(tr);
+            });
+        });
+    });
+    </script>
+    </body>
+</html>

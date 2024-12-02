@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Princesas de Disney</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+    <style>
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container is-fluid">
+        <div id="navbar-container"></div>
+        <div id="contenido-principal" class="columns is-multiline"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                    // Inicializar el navbar-burger
+                    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+                    $navbarBurgers.forEach(el => {
+                        el.addEventListener('click', () => {
+                            const target = el.dataset.target;
+                            const $target = document.getElementById(target);
+                            el.classList.toggle('is-active');
+                            $target.classList.toggle('is-active');
+                        });
+                    });
+                });
+
+            fetch('http://localhost:3000/api/v1/princesas')
+                .then(response => response.json())
+                .then(princesas => {
+                    console.log(princesas);
+                    let contenidoPrincipal = document.getElementById('contenido-principal');
+                    princesas.forEach(princesa => {
+                        let carta = document.createElement('div');
+                        carta.className = "column is-one-fifth mt-5";
+                        carta.innerHTML = `
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3">
+                                        <img src="https://bulma.io/assets/images/placeholders/1280x960.png" alt="Placeholder image" />
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="title is-4">${princesa.nombre}</p>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <b>Precio</b>: ${princesa.precio}<br>
+                                        <b>Habilidad</b>: Te concede +${princesa.habilidad} princesscoins por click
+                                    </div>
+                                    <button class="button is-light" onclick="Comprar_personaje()">Comprar</button>
+                                </div>
+                            </div>
+                        `;
+                        contenidoPrincipal.appendChild(carta);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

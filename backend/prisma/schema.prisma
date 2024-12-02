@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id Int @id @default(autoincrement())
+  nombre String
+  princesscoin Decimal @default(0)
+  edad Int
+  cantidad_de_princesas Int @default(0)
+  princesa_fav String
+
+  usuarios_princesas usuario_princesa[]
+}
+
+model Princesa {
+  id Int @id @default(autoincrement())
+  nombre String
+  cuento String
+  virtud String
+  habilidad String
+  principe String
+  precio Int
+
+  usuarios_princesas usuario_princesa[]
+  princesa_villano princesa_villano[]
+  princesa_princeso princesa_principe[]
+}
+
+model Villano {
+  id Int @id @default(autoincrement())
+  nombre String
+  nivel_de_maldad Int
+  tiene_magia Boolean
+  alias String
+  debilidad String
+
+  princesa_villano princesa_villano[]
+
+}
+
+model Principe {
+  id Int @id @default(autoincrement())
+  nombre String
+  origen String
+  virtud String
+  habilidad String
+  alias String
+
+  princesa_princeso princesa_principe[]
+}
+
+model usuario_princesa{
+  @@unique([id_usuario, id_princesa])
+  usuario Usuario @relation(fields: [id_usuario], references: [id])
+  id_usuario Int
+  princesa Princesa @relation(fields: [id_princesa], references: [id])
+  id_princesa Int
+}
+
+model princesa_villano{
+  @@unique([id_princesa, id_villano])
+  villano Villano @relation(fields: [id_princesa], references: [id])
+  id_princesa Int
+  princesa Princesa @relation(fields: [id_villano], references: [id])
+  id_villano Int
+}
+
+model princesa_principe{
+  @@unique([id_princesa, id_principe])
+  princesa Princesa @relation(fields: [id_princesa], references: [id])
+  id_princesa Int
+  princeso Principe @relation(fields: [id_principe], references: [id])
+  id_principe Int
+}

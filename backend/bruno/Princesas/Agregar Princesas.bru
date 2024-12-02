@@ -1,0 +1,24 @@
+meta {
+  name: Agregar Princesas
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/v1/princesas
+  body: json
+  auth: none
+}
+
+body:json {
+  
+  {
+    "nombre": "Ariel",
+    "cuento": "El Mar",
+    "virtud": "Curiosidad",
+    "habilidad": "Nadar",
+    "principe": "Eric",
+    "precio": 20
+  }
+  
+}
