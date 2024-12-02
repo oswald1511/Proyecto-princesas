@@ -45,8 +45,8 @@ Asegúrate de tener instaladas las siguientes dependencias antes de comenzar:
   - **Linux**: [Docker](https://www.docker.com/)
   - **Windows**: [Docker Desktop](https://www.docker.com/products/docker-desktop) + [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install)
 
-[!TIP]
-Asegúrate de mantener tus dependencias actualizadas para evitar problemas de compatibilidad.
+> [!TIP]
+> Asegúrate de mantener tus dependencias actualizadas para evitar problemas de compatibilidad.
 
 ### 🔧 Variables de Entorno
 
@@ -70,8 +70,8 @@ npm run start
 
 ejecutar los siguientes comandos en el directorio de backend: 
 
-[!WARNING]
-Asegúrate de que Docker esté corriendo antes de ejecutar docker compose up -d. De lo contrario, el contenedor no se iniciará correctamente.
+> [!WARNING]
+> Asegúrate de que Docker esté corriendo antes de ejecutar docker compose up -d. De lo contrario, el contenedor no se iniciará correctamente.
 
 ```bash
 npm install
