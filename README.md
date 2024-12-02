@@ -43,14 +43,14 @@ Asegúrate de tener instaladas las siguientes dependencias antes de comenzar:
 
 Para correr este proyecto, vas a necesitar añadir las siguientes variables de entorno a tu archivo `.env`:
 
-`DATABASE_URL='postgresql://usuario:contraseña@localhost:puerto/nombre_bdd'
+`DATABASE_URL="postgresql://usuario:contraseña@localhost:puerto/nombre_bdd"
 `
 
 ### 🛠️ Comandos a ejecutar
 
 #### Como levantar el FE
 
-Ejecutar el siguiente comando en la carpeta de frontend:
+Ejecutar los siguientes comandos en wl directorio de frontend:
 
 ```bash
 npm install
@@ -59,7 +59,7 @@ npm run start
 
 #### Como levantar BE
 
-ejecutar los siguientes comandos en la carpeta de backend: 
+ejecutar los siguientes comandos en el directorio de backend: 
 
 ```bash
   npm install
