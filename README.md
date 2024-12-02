@@ -30,6 +30,12 @@ Aqui veriamos como se deberia de ver el proyecto terminado
 
 ## 🚀 Levantar el proyecto de forma local
 
+Para levantar el proyecto de forma local primero debes clonar el repositorio:
+
+```sh
+git clone https://github.com/tu-usuario/proyecto-princesas.git
+```
+
 ### 📦 Dependencias
 
 Asegúrate de tener instaladas las siguientes dependencias antes de comenzar:
@@ -38,6 +44,9 @@ Asegúrate de tener instaladas las siguientes dependencias antes de comenzar:
 - Docker:
   - **Linux**: [Docker](https://www.docker.com/)
   - **Windows**: [Docker Desktop](https://www.docker.com/products/docker-desktop) + [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install)
+
+[!TIP]
+Asegúrate de mantener tus dependencias actualizadas para evitar problemas de compatibilidad.
 
 ### 🔧 Variables de Entorno
 
@@ -50,7 +59,7 @@ Para correr este proyecto, vas a necesitar añadir las siguientes variables de e
 
 #### Como levantar el FE
 
-Ejecutar los siguientes comandos en wl directorio de frontend:
+Ejecutar los siguientes comandos en el directorio de frontend:
 
 ```bash
 npm install
@@ -61,9 +70,17 @@ npm run start
 
 ejecutar los siguientes comandos en el directorio de backend: 
 
+[!WARNING]
+Asegúrate de que Docker esté corriendo antes de ejecutar docker compose up -d. De lo contrario, el contenedor no se iniciará correctamente.
+
 ```bash
-  npm install
-  npx  prisma migrate dev
-  docker compose up -d
-  npm run dev
+npm install
+npx  prisma migrate dev
+docker compose up -d
+npm run dev
 ```
+---
+
+> 🌟 _"El trabajo en equipo hace que los sueños se cumplan."_ - Equipo Princesas 👑
+
+---
