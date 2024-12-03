@@ -1,176 +1,75 @@
-<!DOCTYPE HTML>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Princesas de Disney</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
-    <style>
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="container is-fluid">
-        <div id="navbar-container"></div>
-    </div>
-
-    <h1>Elige un usuario para jugar</h1>
-    <div class="user-grid">
-        <div class="user-card">
-            <img src="https://via.placeholder.com/100" alt="Rocio">
-            <div class="user-info">
-                <h2 class="user-name">Rocio</h2>
-                <div class="user-details">
-                    <p>PrincessCoins: 1500</p>
-                    <p>Princesas: 7</p>
-                    <p>Edad: 20</p>
+<!Doctype HTML>
+<html>
+    <head>
+        <title>Princesas de disney</title>
+        <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+        <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+        </head>
+    <body>
+        <div class="container is-fluid">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                <a class="navbar-item" href="index.html">
+                    Disney
+                </a>
+            
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
                 </div>
-            </div>
-            <button class="select-button">Seleccionar</button>
-        </div>
-        <div class="user-card">
-            <img src="https://via.placeholder.com/100" alt="Nahuel">
-            <div class="user-info">
-                <h2 class="user-name">Nahuel</h2>
-                <div class="user-details">
-                    <p>PrincessCoins: 750</p>
-                    <p>Princesas: 5</p>
-                    <p>Edad: 21</p>
-                </div>
-            </div>
-            <button class="select-button">Seleccionar</button>
-        </div>
-        <div class="user-card">
-            <img src="https://via.placeholder.com/100" alt="Oswaldo">
-            <div class="user-info">
-                <h2 class="user-name">Oswaldo</h2>
-                <div class="user-details">
-                    <p>PrincessCoins: 500</p>
-                    <p>Princesas: 3</p>
-                    <p>Edad: 20</p>
-                </div>
-            </div>
-            <button class="select-button">Seleccionar</button>
-        </div>
-        <div class="user-card">
-            <img src="https://via.placeholder.com/100" alt="Admin">
-            <div class="user-info">
-                <h2 class="user-name">Admin</h2>
-                <div class="user-details">
-                    <p>PrincessCoins: 10000</p>
-                    <p>Princesas: 10000</p>
-                    <p>Edad: 35</p>
-                </div>
-            </div>
-            <button class="select-button">Seleccionar</button>
-        </div>
-        <div class="add-user-card" id="addUserCard">
-            <span class="add-user-icon">+</span>
-            <p>Agregar Nuevo Usuario</p>
-        </div>
-    </div>
-
-    <div id="newUserForm" class="hidden">
-        <div class="container is-max-desktop">
-            <div class="field">
-                <label class="label">Nombre</label>
-                <div class="control">
-                    <input id="nombre" class="input" type="text" placeholder="Nombre">
-                </div>
-            </div>
-            <div class="field">
-                <label class="label">Edad</label>
-                <div class="control">
-                    <input id="edad" class="input" type="text" placeholder="Edad">
-                </div>
-            </div>
-            <div class="field">
-                <label class="label">Princesa Favorita</label>
-                <div class="control">
-                    <input id="princesa_fav" class="input" type="text" placeholder="Princesa Favorita">
-                </div>
-            </div>
-            <div class="field is-grouped is-grouped-centered">
-                <p class="control">
-                    <button class="button is-primary" onclick="crearUsuario()">
-                        Guardar
-                    </button>
-                </p>
-                <p class="control">
-                    <a class="button is-light" onclick="vaciarForm()">
-                        Borrar
+            
+                <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="usuarios.html">
+                    Usuarios
                     </a>
-                </p>
-            </div>
+            
+                    <a class="navbar-item" href="princesas.html">
+                    Princesas
+                    </a>
+
+                    <a class="navbar-item" href="principes.html">
+                    Principes
+                    </a>
+
+                    <a class="navbar-item" href="villanos.html">
+                    Villanos
+                    </a>
+                    </div>
+                </div>
+            
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href="crear-usuario.html">
+                            <strong>Crear Usuario</strong>
+                        </a>
+                        <a class="button is-light">
+                        Ingresar Princesa/Villano
+                        </a>
+                    </div>
+                    </div>
+                </div>
+            </nav>
         </div>
     </div>
-
+    </body>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('navbar.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('navbar-container').innerHTML = data;
-                    // Inicializar el navbar-burger
-                    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-                    $navbarBurgers.forEach(el => {
-                        el.addEventListener('click', () => {
-                            const target = el.dataset.target;
-                            const $target = document.getElementById(target);
-                            el.classList.toggle('is-active');
-                            $target.classList.toggle('is-active');
-                        });
-                    });
-                });
 
-            const addUserCard = document.getElementById('addUserCard');
-            const newUserForm = document.getElementById('newUserForm');
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        $navbarBurgers.forEach( el => {
+            el.addEventListener('click', () => {
 
-            addUserCard.addEventListener('click', () => {
-                addUserCard.classList.add('hidden');
-                newUserForm.classList.remove('hidden');
+                const target = el.dataset.target;
+                const $target = document.getElementById(target);
+                el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
             });
         });
-
-        function crearUsuario() {
-            let nombre = document.getElementById('nombre').value;
-            let edad = document.getElementById('edad').value;
-            let princesa_fav = document.getElementById('princesa_fav').value;
-            let usuario = {
-                nombre: nombre,
-                edad: parseInt(edad),
-                princesa_fav: princesa_fav
-            }
-            fetch('http://localhost:3000/api/v1/usuarios', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(usuario)
-            })
-            .then(response => {
-                if(response.status === 201){
-                    alert('Usuario creado con éxito');
-                    vaciarForm();
-                } else {
-                    alert('Error al crear el usuario');
-                }
-            })
-        }
-
-        function vaciarForm() {
-            document.getElementById('nombre').value = '';
-            document.getElementById('edad').value = '';
-            document.getElementById('princesa_fav').value = '';
-            
-            // After clearing the form, hide it and show the add user card again
-            document.getElementById('newUserForm').classList.add('hidden');
-            document.getElementById('addUserCard').classList.remove('hidden');
-        }
+        });
     </script>
-</body>
 </html>
