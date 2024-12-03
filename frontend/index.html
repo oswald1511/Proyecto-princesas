@@ -8,70 +8,71 @@
     </head>
     <body>
         <div class="container is-fluid">
-            <div id="navbar-container"></div>
-            <h1>Elige un usuario para jugar</h1>
-            <div class="user-grid">
-                <div class="user-card">
-                    <img src="https://via.placeholder.com/100" alt="Alice">
-                    <div class="user-info">
-                        <h2 class="user-name">Alice</h2>
-                        <div class="user-details">
-                            <p>PrincessCoins: 500</p>
-                            <p>Princesas: 3</p>
-                            <p>Edad: 25</p>
-                        </div>
-                    </div>
-                    <button class="select-button">Seleccionar</button>
-                </div>
-                <div class="user-card">
-                    <img src="https://via.placeholder.com/100" alt="Bob">
-                    <div class="user-info">
-                        <h2 class="user-name">Bob</h2>
-                        <div class="user-details">
-                            <p>PrincessCoins: 750</p>
-                            <p>Princesas: 5</p>
-                            <p>Edad: 30</p>
-                        </div>
-                    </div>
-                    <button class="select-button">Seleccionar</button>
-                </div>
-                <div class="user-card">
-                    <img src="https://via.placeholder.com/100" alt="Admin">
-                    <div class="user-info">
-                        <h2 class="user-name">Admin</h2>
-                        <div class="user-details">
-                            <p>PrincessCoins: 1000</p>
-                            <p>Princesas: 10</p>
-                            <p>Edad: 35</p>
-                        </div>
-                    </div>
-                    <button class="select-button">Seleccionar</button>
-                </div>
-                <div class="add-user-card">
-                    <span class="add-user-icon">+</span>
-                    <p>Agregar Nuevo Usuario</p>
-                </div>
-            </div>
+        <div id="navbar-container"></div>
         </div>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                fetch('navbar.html')
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById('navbar-container').innerHTML = data;
-                        // Inicializar el navbar-burger
-                        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-                        $navbarBurgers.forEach(el => {
-                            el.addEventListener('click', () => {
-                                const target = el.dataset.target;
-                                const $target = document.getElementById(target);
-                                el.classList.toggle('is-active');
-                                $target.classList.toggle('is-active');
-                            });
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                    // Inicializar el navbar-burger
+                    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+                    $navbarBurgers.forEach(el => {
+                        el.addEventListener('click', () => {
+                            const target = el.dataset.target;
+                            const $target = document.getElementById(target);
+                            el.classList.toggle('is-active');
+                            $target.classList.toggle('is-active');
                         });
                     });
-            });
-        </script>
-    </body>
+                });
+        });
+    </script>
+    <h1>Elige un usuario para jugar</h1>
+    <div class="user-grid">
+        <div class="user-card">
+            <img src="https://via.placeholder.com/100" alt="Alice">
+            <div class="user-info">
+                <h2 class="user-name">Alice</h2>
+                <div class="user-details">
+                    <p>PrincessCoins: 500</p>
+                    <p>Princesas: 3</p>
+                    <p>Edad: 25</p>
+                </div>
+            </div>
+            <button class="select-button">Seleccionar</button>
+        </div>
+        <div class="user-card">
+            <img src="https://via.placeholder.com/100" alt="Bob">
+            <div class="user-info">
+                <h2 class="user-name">Bob</h2>
+                <div class="user-details">
+                    <p>PrincessCoins: 750</p>
+                    <p>Princesas: 5</p>
+                    <p>Edad: 30</p>
+                </div>
+            </div>
+            <button class="select-button">Seleccionar</button>
+        </div>
+        <div class="user-card">
+            <img src="https://via.placeholder.com/100" alt="Admin">
+            <div class="user-info">
+                <h2 class="user-name">Admin</h2>
+                <div class="user-details">
+                    <p>PrincessCoins: 1000</p>
+                    <p>Princesas: 10</p>
+                    <p>Edad: 35</p>
+                </div>
+            </div>
+            <button class="select-button">Seleccionar</button>
+        </div>
+        <div class="add-user-card">
+            <span class="add-user-icon">+</span>
+            <p>Agregar Nuevo Usuario</p>
+        </div>
+    </div>
+</div>
+</body>
 </html>
