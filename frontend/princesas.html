@@ -3,28 +3,29 @@
 <head>
     <title>Princesas de Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container is-fluid">
         <div id="navbar-container"></div>
-            <h1>Princesas</h1>
+        </div>
+    </div>
+    <h1>Principes</h1>
             <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Cuento</th>
+                        <th>Origen</th>
                         <th>Virtud</th>
                         <th>Habilidad</th>
-                        <th>Principe</th>
+                        <th>Alias</th>
                         <th>Precio</th>
                     </tr>
                 </thead>
-                <tbody id="datos-princesas">
+                <tbody id="datos-principes">
                 </tbody>
             </table>
-        </div>
-    </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetch('navbar.html')
@@ -46,7 +47,15 @@
         .then(response => response.json())
         .then(princesas => {
             console.log(princesas)
-            
+            document.getElementById('filtro-obtenido').addEventListener('click', function(){
+                filtro-pj('obtenido');
+            });
+            document.getElementById('filtro-no-obtenido').addEventListener('click', function(){
+                filtro-pj('no-obtenido');
+            });
+            function filtro-pj(filtro){
+                const per
+            }
             let table = document.getElementById('datos-princesas');
             princesas.forEach(princesas => {
                 let tr = document.createElement('tr');
