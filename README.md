@@ -4,7 +4,9 @@
 
 # 👑 Proyecto princesas
 
-Agregar una descripcion del proyecto
+Un proyecto que interactúa con el usuario en forma de juego, sencillo e intuitivo, que sirve para pasar el rato, dedicado para el público fanático de la fantasía de Disney.
+
+P.D: Con aparición sorpresa del emperador mickey😶
 
 ## 👥 Autores
 
@@ -23,6 +25,10 @@ En esta seccion podemos ir agregando screeshots del progreso de la pagina
 ### 📅 26/11/2024
 
 <img src="./frontend/assets/screenshots/26-11-2024.png" alt="26/11/2024" width="700"/>
+
+### 📅 26/11/2024
+
+<img src="./frontend/assets/screenshots/03-12-2024.png" alt="03/12/2024" width="700"/>
 
 ## 📸 Screenshots
 Aqui veriamos como se deberia de ver el proyecto terminado
@@ -57,14 +63,6 @@ Para correr este proyecto, vas a necesitar añadir las siguientes variables de e
 
 ### 🛠️ Comandos a ejecutar
 
-#### Como levantar el FE
-
-Ejecutar los siguientes comandos en el directorio de frontend:
-
-```bash
-npm install
-npm run start
-```
 
 #### Como levantar BE
 
@@ -78,6 +76,14 @@ npm install
 npx  prisma migrate dev
 docker compose up -d
 npm run dev
+```
+#### Como levantar el FE
+
+Ejecutar los siguientes comandos en el directorio de frontend:
+
+```bash
+npm install
+npm run start
 ```
 ---
 
