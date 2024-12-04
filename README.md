@@ -60,7 +60,7 @@ Asegúrate de tener instaladas las siguientes dependencias antes de comenzar:
 
 ### 🔧 Variables de Entorno
 
-Para correr este proyecto, vas a necesitar añadir las siguientes variables de entorno a tu archivo `.env`:
+Para correr este proyecto, vas a necesitar añadir las siguientes variables de entorno a tu archivo `.env` dentro del directorio de backend:
 
 `DATABASE_URL="postgresql://usuario:contraseña@localhost:puerto/nombre_bdd"
 `
