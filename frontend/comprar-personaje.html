@@ -57,19 +57,19 @@
         <div class="checkboxes mt-5 ml-4">
             <label class="cyberpunk-checkbox-label">
                 <input type="checkbox" class="cyberpunk-checkbox">
-            Princesas</label>
-            <label class="cyberpunk-checkbox-label">
-                <input type="checkbox" class="cyberpunk-checkbox">
-            Principes</label>
-            <label class="cyberpunk-checkbox-label">
-                <input type="checkbox" class="cyberpunk-checkbox">
-            Villanos</label>
-        </div>
-        <div id="contenido-principal" class="columns is-multiline"></div>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('navbar.html')
+                Princesas</label>
+                <label class="cyberpunk-checkbox-label">
+                    <input type="checkbox" class="cyberpunk-checkbox">
+                    Principes</label>
+                    <label class="cyberpunk-checkbox-label">
+                        <input type="checkbox" class="cyberpunk-checkbox">
+                        Villanos</label>
+                    </div>
+                    <div id="contenido-principal" class="columns is-multiline"></div>
+                </div>
+                <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                fetch('navbar.html')
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('navbar-container').innerHTML = data;
@@ -84,7 +84,8 @@
                         });
                     });
                 });
-
+                
+            });
             fetch('http://localhost:3000/api/v1/princesas')
                 .then(response => response.json())
                 .then(princesas => {
@@ -106,14 +107,97 @@
                                         <b>Precio</b>: ${princesa.precio}<br>
                                         <b>Habilidad</b>: Te concede +${princesa.habilidad} princesscoins por click
                                     </div>
-                                    <button class="button is-light" onclick="Comprar_personaje()">Comprar</button>
+                                    <button class="button is-light" data-tipo="princesa" onclick="Comprar_personaje(this)" data-id="${princesa.id}">Comprar</button>
                                 </div>
                             </div>
                         `;
                         contenidoPrincipal.appendChild(carta);
                     });
                 });
-        });
+            fetch('http://localhost:3000/api/v1/principes')
+                .then(response => response.json())
+                .then(principes => {
+                    console.log(principes);
+                    let contenidoPrincipal = document.getElementById('contenido-principal');
+                    principes.forEach(principe => {
+                        let carta = document.createElement('div');
+                        carta.className = "column is-one-fifth mt-5";
+                        carta.innerHTML = `
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3" style="background-color: white; border-radius: 6px; overflow: hidden;">
+                                        <img src="${principe.imagen}" alt="${principe.nombre}" style="object-fit: contain;"/>
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="content">
+                                        <p class="title is-5 mt-1 mb-2">${principe.nombre}</p>
+                                        <b>Precio</b>: ${principe.precio}<br>
+                                        <b>Habilidad</b>: Te concede +${principe.habilidad} princesscoins por click
+                                    </div>
+                                    <button class="button is-light" data-tipo="principe" onclick="Comprar_personaje(this)" data-id="${principe.id}">Comprar</button>
+                                </div>
+                            </div>
+                        `;
+                        contenidoPrincipal.appendChild(carta);
+                    });
+                });
+            fetch('http://localhost:3000/api/v1/villanos')
+                .then(response => response.json())
+                .then(villanos => {
+                    console.log(villanos);
+                    let contenidoPrincipal = document.getElementById('contenido-principal');
+                    villanos.forEach(villano => {
+                        let carta = document.createElement('div');
+                        carta.className = "column is-one-fifth mt-5";
+                        carta.innerHTML = `
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3" style="background-color: white; border-radius: 6px; overflow: hidden;">
+                                        <img src="${villano.imagen}" alt="${villano.nombre}" style="object-fit: contain;"/>
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="content">
+                                        <p class="title is-5 mt-1 mb-2">${villano.nombre}</p>
+                                        <b>Precio</b>: ${villano.precio}<br>
+                                        <b>Habilidad</b>: Le quita ${villano.nivel_de_maldad} princesscoins al usuario que elijas
+                                    </div>
+                                    <button class="button is-light" data-tipo="villano" onclick="Comprar_personaje(this)" data-id="${villano.id}">Comprar</button>
+                                </div>
+                            </div>
+                        `;
+                        contenidoPrincipal.appendChild(carta);
+                    });
+                });
+
+                function Comprar_personaje(button) {
+                    const tipo = button.getAttribute('data-tipo');
+                    const id = button.getAttribute('data-id');
+                    console.log(`Comprando ${tipo} con ID ${id}`);
+                    borrar_card(button);
+                    //falta saber que usuario esta logeado
+                    // fetch(`http://localhost:3000/api/v1/usuarios/:id/${tipo}/${id}`, {
+                    //     method: 'POST',
+                    //     headers: {
+                    //         'Content-Type': 'application/json'
+                    //     },
+                    //     body: JSON.stringify({
+                    //         usuario_id: id,//falta saber que usuario esta logeado
+                    //         princesa_id: id
+                    //     })
+                    //     .then(response => {
+                    //         if(response.status === 201){
+                    //     }
+                    //     })
+                    // })
+                }
+                function borrar_card(button) {
+                    const card = button.closest('.column');
+                    if (card) {
+                        card.remove();
+                    }
+                }
     </script>
 </body>
 </html>
