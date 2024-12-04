@@ -35,11 +35,11 @@
             </table>    
     </div>
     <label class="checkbox">
-        <input type="checkbox" id="filtro-obtenido" />
+        <input type="checkbox" class="filtro-obtenido" />
              Princesas obtenidas
     </label>
     <label class="checkbox">
-        <input type="checkbox" id="filtro-no-obtenido"/>
+        <input type="checkbox" class="filtro-no-obtenido"/>
              Princesas no obtenidas
     </label>
     <script>
@@ -62,16 +62,16 @@
         //Aca se guarda el ID de las princesas que tiene el usuario
         let princesas_obtenidas = []; 
         // Eventos para los checkboxes
-        document.getElementById('filtro-obtenido').addEventListener('change', function(){
+        document.querySelector('.filtro-obtenido').addEventListener('change', function(){
             filtro_pj();
         });
-        document.getElementById('filtro-no-obtenido').addEventListener('change', function(){
+        document.querySelector('.filtro-no-obtenido').addEventListener('change', function(){
             filtro_pj();
         });
         //Funcion para filtrar princesas
         function filtro_pj(filtro){
-            const obtenido=document.getElementById('filtro-obtenido').checked;
-            const noObtenido=document.getElementById('filtro-no-obtenido').checked;
+            const obtenido=document.querySelector('.filtro-obtenido').checked;
+            const noObtenido=document.querySelector('.filtro-no-obtenido').checked;
             const princesas=document.querySelectorAll('#datos-princesas tr');
             princesas.forEach(princesa => {
                 const id = parseInt(princesa.querySelector('th').innerText);   //Obtengo el id de la princesa
