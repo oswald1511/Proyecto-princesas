@@ -14,8 +14,12 @@ model Usuario {
   edad Int
   cantidad_de_princesas Int @default(0)
   princesa_fav String
+  dinero_por_click Int @default(0)
+  imagen String
 
-  usuarios_princesas usuario_princesa[]
+  princesas usuarios_princesas[]
+  principes usuarios_principes[]
+  villanos usuarios_villanos[]
 }
 
 model Princesa {
@@ -23,13 +27,14 @@ model Princesa {
   nombre String
   cuento String
   virtud String
-  habilidad String
+  habilidad Int
   principe String
   precio Int
+  imagen String
 
-  usuarios_princesas usuario_princesa[]
-  princesa_villano princesa_villano[]
-  princesa_princeso princesa_principe[]
+  usuarios usuarios_princesas[]
+  villanos princesas_villanos[]
+  principes princesas_principes[]
 }
 
 model Villano {
@@ -39,42 +44,68 @@ model Villano {
   tiene_magia Boolean
   alias String
   debilidad String
+  precio Int
+  imagen String
 
-  princesa_villano princesa_villano[]
-
+  princesas princesas_villanos[]
+  usuarios usuarios_villanos[]
 }
 
 model Principe {
   id Int @id @default(autoincrement())
   nombre String
-  origen String
+  cuento String
   virtud String
   habilidad String
   alias String
+  precio Int
+  imagen String
 
-  princesa_princeso princesa_principe[]
+  princesas princesas_principes[]
+  usuarios usuarios_principes[]
 }
 
-model usuario_princesa{
-  @@unique([id_usuario, id_princesa])
-  usuario Usuario @relation(fields: [id_usuario], references: [id])
-  id_usuario Int
-  princesa Princesa @relation(fields: [id_princesa], references: [id])
-  id_princesa Int
+model usuarios_princesas{
+  id Int @id @default(autoincrement())
+  usuario_id Int
+  princesa_id Int
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+  princesa Princesa @relation(fields: [princesa_id], references: [id], onDelete: Cascade)
 }
 
-model princesa_villano{
-  @@unique([id_princesa, id_villano])
-  villano Villano @relation(fields: [id_princesa], references: [id])
-  id_princesa Int
-  princesa Princesa @relation(fields: [id_villano], references: [id])
-  id_villano Int
+model usuarios_principes{
+  id Int @id @default(autoincrement())
+  usuario_id Int
+  principe_id Int
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+  principe Principe @relation(fields: [principe_id], references: [id], onDelete: Cascade)
 }
 
-model princesa_principe{
-  @@unique([id_princesa, id_principe])
-  princesa Princesa @relation(fields: [id_princesa], references: [id])
-  id_princesa Int
-  princeso Principe @relation(fields: [id_principe], references: [id])
-  id_principe Int
+model usuarios_villanos{
+  id Int @id @default(autoincrement())
+  usuario_id Int
+  villano_id Int
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+  villano Villano @relation(fields: [villano_id], references: [id], onDelete: Cascade)
+}
+
+model princesas_villanos{
+  id Int @id @default(autoincrement())
+  princesa_id Int
+  villano_id Int
+  
+  villano Villano @relation(fields: [princesa_id], references: [id], onDelete: Cascade)
+  princesa Princesa @relation(fields: [villano_id], references: [id], onDelete: Cascade)
+}
+
+model princesas_principes{
+  id Int @id @default(autoincrement())
+  princesa_id Int
+  principe_id Int
+  
+  princesa Princesa @relation(fields: [princesa_id], references: [id], onDelete: Cascade)
+  princeso Principe @relation(fields: [principe_id], references: [id], onDelete: Cascade)
 }
