@@ -29,9 +29,9 @@ router.get('/:id/personajes', async (req, res) => {
       id : parseInt(req.params.id)
     },
     include: {
-      usuarios_princesas: true,
-      usuarios_principes: true,
-      usuarios_villanos: true
+      princesas: true,
+      principes: true,
+      villanos: true
   },
   })
   
@@ -55,7 +55,7 @@ router.post('/', async (req, res) => {
   res.status(201).send(usuario)
 })
 
-router.post('/:id/princesas/:princesa_id', async (req, res) => {
+router.post('/:id_usuario/princesas/:princesa_id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
       id: parseInt(req.params.id)
@@ -78,12 +78,41 @@ router.post('/:id/princesas/:princesa_id', async (req, res) => {
     data: {
       usuario_id: parseInt(req.params.id),
       princesa_id: parseInt(req.params.princesa_id)
-    }
+    } 
   });
   res.status(201).send(usuarioPrincesa);
   console.log(usuarioPrincesa);
 });
   
+router.post('/:id/principes/:principe_id', async (req, res) => {
+  const usuario = await prisma.usuario.findUnique({
+    where: {
+      id: parseInt(req.params.id)
+    }
+  });
+  if (usuario === null) {
+    res.sendStatus(404);
+    return;
+  }
+  const principe = await prisma.principe.findUnique({
+    where: {
+      id: parseInt(req.params.principe_id)
+    }
+  });
+  if (principe === null) {
+    res.sendStatus(404);
+    return;
+  }
+  const usuarioPrincipe = await prisma.usuarios_principes.create({
+    data: {
+      usuario_id: parseInt(req.params.id),
+      principe_id: parseInt(req.params.principe_id)
+    } 
+  });
+  res.status(201).send(usuarioPrincipe);
+  console.log(usuarioPrincipe);
+});
+
 router.delete('/:id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {

@@ -28,6 +28,7 @@ model Princesa {
   habilidad Int
   principe String
   precio Int
+  imagen String
 
   usuarios usuarios_princesas[]
   villanos princesas_villanos[]

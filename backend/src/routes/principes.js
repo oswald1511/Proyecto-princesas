@@ -27,14 +27,13 @@ router.post('/', async (req, res) => {
     const principe = await prisma.principe.create({
         data:{
           nombre: req.body.nombre,
-          cuento: req.body.cuento,
+          origen: req.body.origen,
           virtud: req.body.virtud,
           habilidad: req.body.habilidad,
-          principe: req.body.principe,
-          precio: req.body.precio,
+          alias: req.body.alias,
         }
     })
-    res.status(201).send(principe)
+    res.status(201).send(principe) 
 })
     
 router.delete('/:id', async (req, res) => {
