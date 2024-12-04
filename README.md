@@ -26,7 +26,7 @@ En esta seccion podemos ir agregando screeshots del progreso de la pagina
 
 <img src="./frontend/assets/screenshots/26-11-2024.png" alt="26/11/2024" width="700"/>
 
-### 📅 26/11/2024
+### 📅 03/12/2024
 
 <img src="./frontend/assets/screenshots/03-12-2024.png" alt="03/12/2024" width="700"/>
 
