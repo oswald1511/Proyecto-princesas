@@ -11,11 +11,16 @@
         .hidden {
             display: none;
         }
+        .error-message {
+            color: red;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <h1>Elige un usuario para jugar</h1>
-    <div class="user-grid">
+    <div id="user-grid" class="user-grid">
         <div class="user-card">
             <img src="https://via.placeholder.com/100" alt="Rocio">
             <div class="user-info">
@@ -81,8 +86,9 @@
             <div class="field">
                 <label class="label">Edad</label>
                 <div class="control">
-                    <input id="edad" class="input" type="text" placeholder="Edad">
+                    <input id="edad" class="input" type="number" placeholder="Edad" min="1">
                 </div>
+                <p id="edadError" class="error-message hidden">La edad debe ser un número positivo mayor que 0.</p>
             </div>
             <div class="field">
                 <label class="label">Princesa Favorita</label>
@@ -136,10 +142,21 @@
             let nombre = document.getElementById('nombre').value;
             let edad = document.getElementById('edad').value;
             let princesa_fav = document.getElementById('princesa_fav').value;
+
+            // Validar la edad
+            if (parseInt(edad) <= 0) {
+                document.getElementById('edadError').classList.remove('hidden');
+                return;
+            } else {
+                document.getElementById('edadError').classList.add('hidden');
+            }
+
             let usuario = {
                 nombre: nombre,
                 edad: parseInt(edad),
-                princesa_fav: princesa_fav
+                princesa_fav: princesa_fav,
+                princessCoins: 0,
+                princessAttachments: 1
             }
             fetch('http://localhost:3000/api/v1/usuarios', {
                 method: 'POST',
@@ -152,6 +169,7 @@
                 if(response.status === 201){
                     alert('Usuario creado con éxito');
                     vaciarForm();
+                    location.reload(); // Recargar la página
                 } else {
                     alert('Error al crear el usuario');
                 }
@@ -162,6 +180,7 @@
             document.getElementById('nombre').value = '';
             document.getElementById('edad').value = '';
             document.getElementById('princesa_fav').value = '';
+            document.getElementById('edadError').classList.add('hidden');
             
             // After clearing the form, hide it and show the add user card again
             document.getElementById('newUserForm').classList.add('hidden');
@@ -174,4 +193,3 @@
     </script>
 </body>
 </html>
-
