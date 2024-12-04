@@ -3,6 +3,7 @@
 <head>
     <title>Princesas de Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container is-fluid">
@@ -34,8 +35,14 @@
                     </tr>
                 </tbody>
             </table>
-            <button id="filtro-obtenido">Villanos obtenidos</button>
-            <button id="filtro-no-obtenido">Villanos no obtenidos</button>
+            <label class="checkbox">
+                <input type="checkbox" id="filtro-obtenido" />
+                Villanos obtenidos
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" id="filtro-no-obtenido"/>
+                Villanos no obtenidos
+              </label>
         </div>
     </div>
     <script>
