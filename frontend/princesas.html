@@ -3,6 +3,7 @@
 <head>
     <title>Princesas de Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container is-fluid">
@@ -13,18 +14,34 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Cuento</th>
+                        <th>Origen</th>
                         <th>Virtud</th>
                         <th>Habilidad</th>
-                        <th>Principe</th>
+                        <th>Alias</th>
                         <th>Precio</th>
                     </tr>
                 </thead>
                 <tbody id="datos-princesas">
+                    <tr>
+                        <th>1</th>
+                        <td>Rapunzel</td>
+                        <td>Reino</td>
+                        <td>Belleza</td>
+                        <td>Escalar</td>
+                        <td>o.o</td>
+                        <td>900</td>
+                    </tr>
                 </tbody>
-            </table>
-        </div>
+            </table>    
     </div>
+    <label class="checkbox">
+        <input type="checkbox" class="filtro-obtenido" />
+             Princesas obtenidas
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" class="filtro-no-obtenido"/>
+             Princesas no obtenidas
+    </label>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetch('navbar.html')
@@ -42,11 +59,37 @@
                         });
                     });
                 });
+        //Aca se guarda el ID de las princesas que tiene el usuario
+        let princesas_obtenidas = []; 
+        // Eventos para los checkboxes
+        document.querySelector('.filtro-obtenido').addEventListener('change', function(){
+            filtro_pj();
+        });
+        document.querySelector('.filtro-no-obtenido').addEventListener('change', function(){
+            filtro_pj();
+        });
+        //Funcion para filtrar princesas
+        function filtro_pj(filtro){
+            const obtenido=document.querySelector('.filtro-obtenido').checked;
+            const noObtenido=document.querySelector('.filtro-no-obtenido').checked;
+            const princesas=document.querySelectorAll('#datos-princesas tr');
+            princesas.forEach(princesa => {
+                const id = parseInt(princesa.querySelector('th').innerText);   //Obtengo el id de la princesa
+                const esta_obtenido = princesas_obtenidas.includes(id);    //Verifica que el usuario tenga la princesa
+                //Muestra la fila segun el filtro
+                if((obtenido && esta_obtenido) || (noObtenido && !esta_obtenido)){
+                    princesa.style.display = '';
+                }else if (!obtenido && !noObtenido){
+                    princesa.style.display = '';
+                }else{
+                    princesa.style.display = 'none';
+                }
+            });
+        }
         fetch('http://localhost:3000/api/v1/princesas')
         .then(response => response.json())
         .then(princesas => {
             console.log(princesas)
-            
             let table = document.getElementById('datos-princesas');
             princesas.forEach(princesas => {
                 let tr = document.createElement('tr');
