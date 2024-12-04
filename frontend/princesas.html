@@ -26,8 +26,14 @@
                 <tbody id="datos-principes">
                 </tbody>
             </table>
-            <button id="filtro-obtenido">Princesa obtenida</button>
-            <button id="filtro-no-obtenido">Princesa no obtenida</button>
+            <label class="checkbox">
+                <input type="checkbox" id="filtro-obtenido" />
+                Princesas obtenidas
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" id="filtro-no-obtenido"/>
+                Princesas no obtenidas
+              </label>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetch('navbar.html')
