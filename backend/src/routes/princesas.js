@@ -32,6 +32,7 @@ router.post('/', async (req, res) => {
           habilidad: req.body.habilidad,
           principe: req.body.principe,
           precio: req.body.precio,
+          imagen: req.body.imagen,
         }
     })
     res.status(201).send(princesa)
@@ -79,7 +80,7 @@ router.put('/:id', async(req, res) => {
             virtud: req.body.virtud,
             habilidad: req.body.habilidad,
             principe: req.body.principe,
-            precio: req.body.precio,
+            imagen: req.body.imagen,
         }
     })
     

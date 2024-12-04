@@ -27,11 +27,12 @@ router.post('/', async (req, res) => {
     const villano = await prisma.villano.create({
         data:{
           nombre: req.body.nombre,
-          niv_maldad: req.body.niv_maldad,
+          nivel_maldad: req.body.niv_maldad,
           tiene_magia: req.body.tiene_magia,
           alias: req.body.alias,
           debilidad: req.body.debilidad,
           precio: req.body.precio,
+          imagen: req.body.imagen,
         }
     })
     res.status(201).send(villano)
@@ -74,11 +75,12 @@ router.put('/:id', async(req, res) => {
         },
         data: {
             nombre: req.body.nombre,
-            niv_maldad: req.body.niv_maldad,
+            nivel_maldad: req.body.niv_maldad,
             tiene_magia: req.body.tiene_magia,
             alias: req.body.alias,
             debilidad: req.body.debilidad,
-            precio: req.body.precio,
+            // no agrego el precio porque no deberias poder editar ese campo
+            imagen: req.body.imagen,
         }
     })
     

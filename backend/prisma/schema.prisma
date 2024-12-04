@@ -14,6 +14,8 @@ model Usuario {
   edad Int
   cantidad_de_princesas Int @default(0)
   princesa_fav String
+  dinero_por_click Int @default(0)
+  imagen String
 
   princesas usuarios_princesas[]
   principes usuarios_principes[]
@@ -42,6 +44,8 @@ model Villano {
   tiene_magia Boolean
   alias String
   debilidad String
+  precio Int
+  imagen String
 
   princesas princesas_villanos[]
   usuarios usuarios_villanos[]
@@ -50,10 +54,12 @@ model Villano {
 model Principe {
   id Int @id @default(autoincrement())
   nombre String
-  origen String
+  cuento String
   virtud String
   habilidad String
   alias String
+  precio Int
+  imagen String
 
   princesas princesas_principes[]
   usuarios usuarios_principes[]
@@ -64,8 +70,8 @@ model usuarios_princesas{
   usuario_id Int
   princesa_id Int
 
-  usuario Usuario @relation(fields: [usuario_id], references: [id])
-  princesa Princesa @relation(fields: [princesa_id], references: [id])
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+  princesa Princesa @relation(fields: [princesa_id], references: [id], onDelete: Cascade)
 }
 
 model usuarios_principes{
@@ -73,8 +79,8 @@ model usuarios_principes{
   usuario_id Int
   principe_id Int
 
-  usuario Usuario @relation(fields: [usuario_id], references: [id])
-  principe Principe @relation(fields: [principe_id], references: [id])
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+  principe Principe @relation(fields: [principe_id], references: [id], onDelete: Cascade)
 }
 
 model usuarios_villanos{
@@ -82,8 +88,8 @@ model usuarios_villanos{
   usuario_id Int
   villano_id Int
 
-  usuario Usuario @relation(fields: [usuario_id], references: [id])
-  villano Villano @relation(fields: [villano_id], references: [id])
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+  villano Villano @relation(fields: [villano_id], references: [id], onDelete: Cascade)
 }
 
 model princesas_villanos{
@@ -91,8 +97,8 @@ model princesas_villanos{
   princesa_id Int
   villano_id Int
   
-  villano Villano @relation(fields: [princesa_id], references: [id])
-  princesa Princesa @relation(fields: [villano_id], references: [id])
+  villano Villano @relation(fields: [princesa_id], references: [id], onDelete: Cascade)
+  princesa Princesa @relation(fields: [villano_id], references: [id], onDelete: Cascade)
 }
 
 model princesas_principes{
@@ -100,6 +106,6 @@ model princesas_principes{
   princesa_id Int
   principe_id Int
   
-  princesa Princesa @relation(fields: [princesa_id], references: [id])
-  princeso Principe @relation(fields: [principe_id], references: [id])
+  princesa Princesa @relation(fields: [princesa_id], references: [id], onDelete: Cascade)
+  princeso Principe @relation(fields: [principe_id], references: [id], onDelete: Cascade)
 }

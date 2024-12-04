@@ -49,13 +49,14 @@ router.post('/', async (req, res) => {
       princesscoin: req.body.princesscoin, 
       edad: req.body.edad,
       cantidad_de_princesas: req.body.cantidad_de_princesas,
-      princesa_fav: req.body.princesa_fav
+      princesa_fav: req.body.princesa_fav,
+      dinero_por_click: req.body.dinero_por_click,
     }
   })
   res.status(201).send(usuario)
 })
 
-router.post('/:id_usuario/princesas/:princesa_id', async (req, res) => {
+router.post('/:id/princesas/:princesa_id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
       id: parseInt(req.params.id)
@@ -113,6 +114,35 @@ router.post('/:id/principes/:principe_id', async (req, res) => {
   console.log(usuarioPrincipe);
 });
 
+router.post('/:id/villanos/:villano_id', async (req, res) => {
+  const usuario = await prisma.usuario.findUnique({
+    where: {
+      id: parseInt(req.params.id)
+    }
+  });
+  if (usuario === null) {
+    res.sendStatus(404);
+    return;
+  }
+  const villano = await prisma.villano.findUnique({
+    where: {
+      id: parseInt(req.params.villano_id)
+    }
+  });
+  if (villano === null) {
+    res.sendStatus(404);
+    return;
+  }
+  const usuarioVillano = await prisma.usuarios_villanos.create({
+    data: {
+      usuario_id: parseInt(req.params.id),
+      villano_id: parseInt(req.params.villano_id)
+    } 
+  });
+  res.status(201).send(usuarioVillano);
+  console.log(usuarioVillano);
+});
+
 router.delete('/:id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
@@ -150,13 +180,16 @@ router.put('/:id', async(req, res) => {
     },
     data: {
       nombre : req.body.nombre,
-      princesscoin: req.body.princesscoin, 
       edad: req.body.edad,
-      cantidad_de_princesas: req.body.cantidad_de_princesas,
-      princesa_fav: req.body.princesa_fav
+      princesa_fav: req.body.princesa_fav,
     }
   })
   
   res.send(usuario)
   
 })
+
+router.delete('/', async (req, res) => {
+  await prisma.usuario.deleteMany();
+  res.send("Todos los usuarios fueron borrados");
+});
