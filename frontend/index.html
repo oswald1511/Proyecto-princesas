@@ -17,60 +17,11 @@
             margin-top: 5px;
         }
     </style>
-    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
-
 </head>
 <body>
     <h1>Elige un usuario para jugar</h1>
     <div id="user-grid" class="user-grid">
-        <div class="user-card">
-            <img src="./img/perfiluser.png" alt="Rocio">
-            <div class="user-info">
-                <h2 class="user-name">Rocio</h2>
-                <div class="user-details">
-                    <p>PrincessCoins: 1500</p>
-                    <p>Princesas: 7</p>
-                    <p>Edad: 20</p>
-                </div>
-            </div>
-            <button class="select-button" onclick="selectUser(this)">Seleccionar</button>
-        </div>
-        <div class="user-card">
-            <img src="./img/perfiluser.png" alt="Nahuel">
-            <div class="user-info">
-                <h2 class="user-name">Nahuel</h2>
-                <div class="user-details">
-                    <p>PrincessCoins: 750</p>
-                    <p>Princesas: 5</p>
-                    <p>Edad: 21</p>
-                </div>
-            </div>
-            <button class="select-button" onclick="selectUser(this)">Seleccionar</button>
-        </div>
-        <div class="user-card">
-            <img src="./img/perfiluser.png" alt="Oswaldo">
-            <div class="user-info">
-                <h2 class="user-name">Oswaldo</h2>
-                <div class="user-details">
-                    <p>PrincessCoins: 500</p>
-                    <p>Princesas: 3</p>
-                    <p>Edad: 20</p>
-                </div>
-            </div>
-            <button class="select-button" onclick="selectUser(this)">Seleccionar</button>
-        </div>
-        <div class="user-card">
-            <img src="./img/perfiladmin.png" alt="Admin" onerror="this.src='https://via.placeholder.com/100'" >
-            <div class="user-info">
-                <h2 class="user-name">Admin</h2>
-                <div class="user-details">
-                    <p>PrincessCoins: 10000</p>
-                    <p>Princesas: 10000</p>
-                    <p>Edad: 35</p>
-                </div>
-            </div>
-            <button class="select-button" onclick="selectUser(this)">Seleccionar</button>
-        </div>
+        <!-- User cards will be dynamically inserted here -->
         <div class="add-user-card" id="addUserCard">
             <span class="add-user-icon">+</span>
             <p>Agregar Nuevo Usuario</p>
@@ -114,23 +65,56 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('navbar.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('navbar-container').innerHTML = data;
-                    // Inicializar el navbar-burger
-                    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-                    $navbarBurgers.forEach(el => {
-                        el.addEventListener('click', () => {
-                            const target = el.dataset.target;
-                            const $target = document.getElementById(target);
-                            el.classList.toggle('is-active');
-                            $target.classList.toggle('is-active');
-                        });
-                    });
+        
+        function cargarUsuarios(){
+            fetch('http://localhost:3000/api/v1/usuarios')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(usuarios => {
+                console.log('Usuarios cargados:', usuarios);
+                let userGrid = document.getElementById('user-grid');
+                let addUserCard = document.getElementById('addUserCard');
+                
+                // Eliminar todas las tarjetas de usuario existentes, excepto addUserCard
+                while (userGrid.firstChild) {
+                    if (userGrid.firstChild !== addUserCard) {
+                        userGrid.removeChild(userGrid.firstChild);
+                    } else {
+                        break;
+                    }
+                }
+                
+                usuarios.forEach(usuario => {
+                    let userCard = document.createElement('div');
+                    userCard.className = 'user-card';
+                    userCard.innerHTML = `
+                        <img src="${usuario.nombre === 'Admin' ? './img/perfiladmin.png' : './img/perfiluser.png'}" alt="${usuario.nombre}">
+                        <div class="user-info">
+                            <h2 class="user-name">${usuario.nombre}</h2>
+                            <div class="user-details">
+                                <p>PrincessCoins: ${usuario.princesscoin}</p>
+                                <p>Princesas: ${usuario.cantidad_de_princesas}</p>
+                                <p>Edad: ${usuario.edad}</p>
+                            </div>
+                        </div>
+                        <button class="select-button" onclick="selectUser(this)">Seleccionar</button>
+                    `;
+                    userGrid.insertBefore(userCard, addUserCard);
                 });
+            })
+            .catch(error => {
+                console.error('Error al cargar usuarios:', error);
+                // No eliminar los usuarios existentes si hay un error de carga
+            });
+        }
 
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarUsuarios();
+            
             const addUserCard = document.getElementById('addUserCard');
             const newUserForm = document.getElementById('newUserForm');
 
@@ -169,16 +153,16 @@
             })
             .then(response => {
                 if(response.status === 201){
-                    alert('Usuario creado con éxito');
                     vaciarForm();
-                    // location.reload(); // Recargar la página?
-                    window.location.href = 'pag_principal.html'; // Redirigir a la página principal
-                    localStorage.setItem('nombreUsuario', nombre);
-
+                    cargarUsuarios(); // Recargar usuarios después de crear uno nuevo
                 } else {
-                    alert('Error al crear el usuario');
+                    throw new Error('Error al crear el usuario');
                 }
             })
+            .catch(error => {
+                console.error('Error al crear usuario:', error);
+                alert('Hubo un error al crear el usuario. Por favor, intenta de nuevo.');
+            });
         }
 
         function vaciarForm() {
