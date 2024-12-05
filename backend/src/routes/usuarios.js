@@ -66,7 +66,7 @@ router.post('/', async (req, res) => {
   res.status(201).send(usuario)
 })
  
-router.post('/:id/princesas/:princesa_id', async (req, res) => {
+router.post('/:id/princesa/:princesa_id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
       id: parseInt(req.params.id)
@@ -95,7 +95,7 @@ router.post('/:id/princesas/:princesa_id', async (req, res) => {
   console.log(usuarioPrincesa);
 });
   
-router.post('/:id/principes/:principe_id', async (req, res) => {
+router.post('/:id/principe/:principe_id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
       id: parseInt(req.params.id)
@@ -124,7 +124,7 @@ router.post('/:id/principes/:principe_id', async (req, res) => {
   console.log(usuarioPrincipe);
 });
 
-router.post('/:id/villanos/:villano_id', async (req, res) => {
+router.post('/:id/villano/:villano_id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
       id: parseInt(req.params.id)

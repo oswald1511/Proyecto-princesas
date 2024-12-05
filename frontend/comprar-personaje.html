@@ -182,7 +182,7 @@
             const tipo = button.getAttribute('data-tipo');
             const personaje_id = button.getAttribute('data-id');
             const nombre_usuario = localStorage.getItem('nombreUsuario');
-            console.log(`Comprando ${tipo} con ID ${id}`);
+            console.log(`Comprando ${tipo} con ID ${personaje_id}`);
             borrar_card(button);
             fetch(`http://localhost:3000/api/v1/usuarios/${nombre_usuario}`)
                 .then(response => response.json())
