@@ -59,8 +59,15 @@
                             $target.classList.toggle('is-active');
                         });
                     });
-                });
 
+                    // Actualizar el nombre del usuario
+                    const nombreUsuario = localStorage.getItem('nombreUsuario');
+                    if (nombreUsuario) {
+                        document.getElementById('nombre-usuario').textContent = nombreUsuario;
+                    }
+                });
+        });   
+                
             const urlParams = new URLSearchParams(window.location.search);
             const idUsuario = urlParams.get('id');
             const currentUserId = localStorage.getItem('userId');
@@ -100,7 +107,6 @@
                 // Implementar lógica para ver compras
                 console.log('Ver compras');
             });
-        });
     </script>
 </body>
 </html>

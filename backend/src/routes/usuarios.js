@@ -46,12 +46,9 @@ router.post('/', async (req, res) => {
   const usuario = await prisma.usuario.create({
     data:{
       nombre : req.body.nombre,
-      princesscoin: req.body.princesscoin, 
       edad: req.body.edad,
-      cantidad_de_princesas: req.body.cantidad_de_princesas,
       princesa_fav: req.body.princesa_fav,
-      dinero_por_click: req.body.dinero_por_click,
-    }
+    } 
   })
   res.status(201).send(usuario)
 })
