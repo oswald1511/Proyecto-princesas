@@ -3,6 +3,7 @@
 <head>
     <title>Princesas de Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container is-fluid">
@@ -20,7 +21,7 @@
                         <th>Precio</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="datos-villanos">
                     <tr>
                         <th>1</th>
                         <td>
@@ -36,6 +37,14 @@
             </table>
         </div>
     </div>
+    <label class="checkbox">
+        <input type="checkbox" class="filtro-obtenido" />
+        Principes obtenidos
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" class="filtro-no-obtenido"/>
+        Principes no obtenidos
+      </label>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetch('navbar.html')
@@ -53,10 +62,65 @@
                 });
             });
         });
+    //Aca se guarda el ID de los villanos que tiene el usuario
+    let villanos_obtenidos = []; 
+    // Eventos para los checkboxes
+        document.querySelector('.filtro-obtenido').addEventListener('change', function(){
+            filtro_pj();
+        });
+        document.querySelector('.filtro-no-obtenido').addEventListener('change', function(){
+            filtro_pj();
+        });
+    //Funcion para filtrar villanos
+        function filtro_pj(filtro){
+            const obtenido=document.querySelector('.filtro-obtenido').checked;
+            const noObtenido=document.querySelector('.filtro-no-obtenido').checked;
+            const villanos=document.querySelectorAll('#datos-villanos tr');
+            villanos.forEach(villanos => {
+                const id = parseInt(villanos.querySelector('th').innerText);   //Obtengo el id del villano
+                const esta_obtenido = villanos_obtenidos.includes(id);    //Verifica que el usuario tenga el villano
+            //Muestra la fila segun el filtro
+                if((obtenido && esta_obtenido) || (noObtenido && !esta_obtenido)){
+                    villanos.style.display = '';
+                }else if (!obtenido && !noObtenido){
+                    villanos.style.display = '';
+                }else{
+                    villanos.style.display = 'none';
+                }
+            });
+        }
       fetch('http://localhost:3000/api/v1/villanos')
         .then(response => response.json())
         .then(json => {
-            console.log(json)
+            console.log(villanos);
+            let table = document.getElementById('datos-villanos');
+            villanos.forEach(villanos => {
+                let tr = document.createElement('tr');
+                let id = document.createElement('th');
+                id.textContent = villanos.id;
+                let nombre = document.createElement('td');
+                nombre.textContent = villanos.nombre;
+                let nivel_maldad = document.createElement('td');
+                nivel_maldad.textContent = villanos.nivel_maldad;
+                let magia = document.createElement('td');
+                magia.textContent = villanos.magia;
+                let alias = document.createElement('td');
+                alias.textContent = villanos.alias;
+                let debilidad = document.createElement('td');
+                debilidad.textContent = villanos.debilidad;
+                let precio = document.createElement('td');
+                precio.textContent = villanos.precio;
+
+                tr.appendChild(id);
+                tr.appendChild(nombre);
+                tr.appendChild(nivel_maldad);
+                tr.appendChild(magia);
+                tr.appendChild(alias);
+                tr.appendChild(debilidad);
+                tr.appendChild(precio);
+
+                table.appendChild(tr);
+            });
         });
     });
     </script>
