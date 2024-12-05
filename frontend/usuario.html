@@ -75,7 +75,7 @@
             fetch(`http://localhost:3000/api/v1/usuarios/${idUsuario}`)
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('user-image').src = data.nombre === 'Admin' ? './img/perfiladmin.png' : './img/perfiluser.png';
+                    document.getElementById('user-image').src = data.imagen;//arreglarlo para que agarre la imagen del usuario de la bdd
                     document.getElementById('user-name').textContent = data.nombre;
                     document.getElementById('user-age').textContent = `Edad: ${data.edad}`;
                     document.getElementById('user-princess').textContent = `Princesa Favorita: ${data.princesa_fav}`;

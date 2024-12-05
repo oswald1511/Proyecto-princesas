@@ -9,19 +9,32 @@ router.get('/', async (req, res) => {
   res.json(usuarios);
 });
 
-router.get('/:id', async (req, res) => {
-  const usuario = await prisma.usuario.findUnique({ 
-    where: {
-      id : parseInt(req.params.id)
-    }
-  })
-  
-  if (usuario === null) {
-    res.sendStatus(404)
-    return
+router.get('/:identificador', async (req, res) => {
+  const identificador = req.params.identificador;
+  let usuario;
+
+  if (!isNaN(identificador)) {
+    // Si el identificador es un número, buscar por ID
+    usuario = await prisma.usuario.findUnique({
+      where: {
+        id: parseInt(identificador)
+      }
+    });
+  } else {
+    // Si el identificador no es un número, buscar por nombre
+    usuario = await prisma.usuario.findUnique({
+      where: {
+        nombre: identificador
+      }
+    });
   }
-  res.json(usuario)
-})  
+
+  if (usuario === null) {
+    res.sendStatus(404);
+    return;
+  }
+  res.json(usuario);
+});
   
 router.get('/:id/personajes', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({ 

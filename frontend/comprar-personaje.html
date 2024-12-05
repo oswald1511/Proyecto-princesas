@@ -180,25 +180,31 @@
 
         function Comprar_personaje(button) {
             const tipo = button.getAttribute('data-tipo');
-            const id = button.getAttribute('data-id');
+            const personaje_id = button.getAttribute('data-id');
+            const nombre_usuario = localStorage.getItem('nombreUsuario');
             console.log(`Comprando ${tipo} con ID ${id}`);
             borrar_card(button);
-            //falta saber que usuario esta logeado
-            // fetch(`http://localhost:3000/api/v1/usuarios/:id/${tipo}/${id}`, {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify({
-            //         usuario_id: id,//falta saber que usuario esta logeado
-            //         princesa_id: id
-            //     })
-            //     .then(response => {
-            //         if(response.status === 201){
-            //     }
-            //     })
-            // })
-        }
+            fetch(`http://localhost:3000/api/v1/usuarios/${nombre_usuario}`)
+                .then(response => response.json())
+                .then(usuario => {
+                    const usuario_id = usuario.id;
+                    fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}/${tipo}/${personaje_id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            usuario_id: usuario_id,
+                            [`${tipo}_id`]: personaje_id
+                        })
+                    })
+                    .then(response => {
+                        if(response.status === 201){
+                            console.log('Personaje comprado exitosamente');
+                        }
+                    })
+                })
+            };
         function borrar_card(button) {
             const card = button.closest('.column');
             if (card) {
