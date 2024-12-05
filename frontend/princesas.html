@@ -3,36 +3,32 @@
 <head>
     <title>Princesas de Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
     <div class="container is-fluid">
         <div id="navbar-container"></div>
             <h1>Princesas</h1>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Origen</th>
-                        <th>Virtud</th>
-                        <th>Habilidad</th>
-                        <th>Alias</th>
-                        <th>Precio</th>
-                    </tr>
-                </thead>
-                <tbody id="datos-princesas">
-                    <tr>
-                        <th>1</th>
-                        <td>Rapunzel</td>
-                        <td>Reino</td>
-                        <td>Belleza</td>
-                        <td>Escalar</td>
-                        <td>o.o</td>
-                        <td>900</td>
-                    </tr>
-                </tbody>
-            </table>    
+            <div class="table-container mt-5">
+                <table class="table is-fullwidth is-bordered is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Cuento</th>
+                            <th>Virtud</th>
+                            <th>Habilidad</th>
+                            <th>Principe</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="datos-princesas">
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <label class="checkbox">
         <input type="checkbox" class="filtro-obtenido" />

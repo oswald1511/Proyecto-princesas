@@ -3,13 +3,16 @@
 <head>
     <title>Princesas de Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
     <div class="container is-fluid">
         <div id="navbar-container"></div>
-            <h1>Villanos</h1>
-            <table class="table">
+        <h1>Villanos</h1>
+        <div class="table-container mt-5">
+            <table class="table is-fullwidth is-bordered is-hoverable">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -21,29 +24,16 @@
                         <th>Precio</th>
                     </tr>
                 </thead>
-                <tbody id="datos-villanos">
-                    <tr>
-                        <th>1</th>
-                        <td>
-                            Bruja
-                        </td>
-                        <td>50</td>
-                        <td>Si</td>
-                        <td>No se si tiene</td>
-                        <td>No ser la mas bella del mundo</td>
-                        <td>700</td>
-                    </tr>
-                </tbody>
             </table>
         </div>
     </div>
     <label class="checkbox">
         <input type="checkbox" class="filtro-obtenido" />
-        Principes obtenidos
+        Villanos obtenidos
       </label>
       <label class="checkbox">
         <input type="checkbox" class="filtro-no-obtenido"/>
-        Principes no obtenidos
+        Villanos no obtenidos
       </label>
     <script>
         document.addEventListener('DOMContentLoaded', () => {

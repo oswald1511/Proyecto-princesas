@@ -1,32 +1,248 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html lang="es">
 <head>
-    <title>Princesas de Disney</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reino Mágico de Princesas Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    <style>
+        .hidden {
+            display: none;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        .welcome-screen {
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+        .welcome-title {
+            font-size: 2.5rem;
+            color: #4a148c;
+            margin-bottom: 1rem;
+        }
+        .welcome-text {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+        .start-button {
+            font-size: 1.2rem;
+            padding: 0.75rem 2rem;
+            background-color: #7b1fa2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .start-button:hover {
+            background-color: #4a148c;
+        }
+    </style>
 </head>
 <body>
-    <div class="container is-fluid">
-        <div id="navbar-container"></div>
+    <div id="welcome-screen" class="welcome-screen">
+        <h1 class="welcome-title">Bienvenido al Reino Mágico de Princesas Disney</h1>
+        <p class="welcome-text">
+            Prepárate para sumergirte en un mundo de magia y encanto. En este fascinante juego, te convertirás en el guardián de las princesas Disney. Tu misión es ayudarlas a prosperar y brillar en su reino mágico.
+        </p>
+        <p class="welcome-text">
+            Así es como se juega:
+            <br>1. Primero, selecciona tu cuenta existente o crea una nueva.
+            <br>2. Una vez dentro, se te asignará una princesa para comenzar tu aventura.
+            <br>3. Haz clic para ganar PrincessCoins, la moneda mágica del reino.
+            <br>4. Usa tus PrincessCoins para desbloquear nuevas princesas y personajes.
+            <br>5. Cada nuevo personaje aumentará tu ganancia de PrincessCoins por clic.
+            <br>6. ¡Colecciona todas las princesas y conviértete en el guardián más poderoso del reino!
+        </p>
+        <p class="welcome-text">
+            ¿Estás listo para comenzar tu mágica historia?
+        </p>
+        <button id="start-button" class="start-button">Empezar la Aventura</button>
+    </div>
+
+    <div id="game-content" class="hidden">
+        <h1>Elige un usuario para jugar</h1>
+        <div id="user-grid" class="user-grid">
+            <!-- User cards will be dynamically inserted here -->
+            <div class="add-user-card" id="addUserCard">
+                <span class="add-user-icon">+</span>
+                <p>Agregar Nuevo Usuario</p>
+            </div>
+        </div>
+
+        <div id="newUserForm" class="hidden">
+            <div class="container is-max-desktop">
+                <div class="field">
+                    <label class="label">Nombre</label>
+                    <div class="control">
+                        <input id="nombre" class="input" type="text" placeholder="Nombre">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Edad</label>
+                    <div class="control">
+                        <input id="edad" class="input" type="number" placeholder="Edad" min="1">
+                    </div>
+                    <p id="edadError" class="error-message hidden">La edad debe ser un número positivo mayor que 0.</p>
+                </div>
+                <div class="field">
+                    <label class="label">Princesa Favorita</label>
+                    <div class="control">
+                        <input id="princesa_fav" class="input" type="text" placeholder="Princesa Favorita">
+                    </div>
+                </div>
+                <div class="field is-grouped is-grouped-centered">
+                    <p class="control">
+                        <button class="button is-primary" onclick="crearUsuario()">
+                            Guardar
+                        </button>
+                    </p>
+                    <p class="control">
+                        <a class="button is-light" onclick="vaciarForm()">
+                            Borrar
+                        </a>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('navbar.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('navbar-container').innerHTML = data;
-                    // Inicializar el navbar-burger
-                    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-                    $navbarBurgers.forEach(el => {
-                        el.addEventListener('click', () => {
-                            const target = el.dataset.target;
-                            const $target = document.getElementById(target);
-                            el.classList.toggle('is-active');
-                            $target.classList.toggle('is-active');
-                        });
-                    });
-                });
+            const startButton = document.getElementById('start-button');
+            const welcomeScreen = document.getElementById('welcome-screen');
+            const gameContent = document.getElementById('game-content');
+
+            startButton.addEventListener('click', () => {
+                welcomeScreen.classList.add('hidden');
+                gameContent.classList.remove('hidden');
+                cargarUsuarios();
+            });
+
+            const addUserCard = document.getElementById('addUserCard');
+            const newUserForm = document.getElementById('newUserForm');
+
+            addUserCard.addEventListener('click', () => {
+                addUserCard.classList.add('hidden');
+                newUserForm.classList.remove('hidden');
+            });
         });
+
+        function cargarUsuarios(){
+            fetch('http://localhost:3000/api/v1/usuarios')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(usuarios => {
+                console.log('Usuarios cargados:', usuarios);
+                let userGrid = document.getElementById('user-grid');
+                let addUserCard = document.getElementById('addUserCard');
+                
+                // Eliminar todas las tarjetas de usuario existentes, excepto addUserCard
+                while (userGrid.firstChild) {
+                    if (userGrid.firstChild !== addUserCard) {
+                        userGrid.removeChild(userGrid.firstChild);
+                    } else {
+                        break;
+                    }
+                }
+                
+                usuarios.forEach(usuario => {
+                    let userCard = document.createElement('div');
+                    userCard.className = 'user-card';
+                    userCard.innerHTML = `
+                        <img src="${usuario.nombre === 'Admin' ? './img/perfiladmin.png' : './img/perfiluser.png'}" alt="${usuario.nombre}">
+                        <div class="user-info">
+                            <h2 class="user-name">${usuario.nombre}</h2>
+                            <div class="user-details">
+                                <p>PrincessCoins: ${usuario.princesscoin}</p>
+                                <p>Princesas: ${usuario.cantidad_de_princesas}</p>
+                                <p>Edad: ${usuario.edad}</p>
+                            </div>
+                        </div>
+                        <button class="select-button" onclick="selectUser(this)">Seleccionar</button>
+                    `;
+                    userGrid.insertBefore(userCard, addUserCard);
+                });
+            })
+            .catch(error => {
+                console.error('Error al cargar usuarios:', error);
+                // No eliminar los usuarios existentes si hay un error de carga
+            });
+        }
+
+        function crearUsuario() {
+            let nombre = document.getElementById('nombre').value;
+            let edad = document.getElementById('edad').value;
+            let princesa_fav = document.getElementById('princesa_fav').value;
+
+            // Validar la edad
+            if (parseInt(edad) <= 0) {
+                document.getElementById('edadError').classList.remove('hidden');
+                return;
+            } else {
+                document.getElementById('edadError').classList.add('hidden');
+            }
+
+            let usuario = {
+                nombre: nombre,
+                edad: parseInt(edad),
+                princesa_fav: princesa_fav,
+                princessCoins: 0,
+                princessAttachments: 1
+            }
+            fetch('http://localhost:3000/api/v1/usuarios', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(usuario)
+            })
+            .then(response => {
+                if(response.status === 201){
+                    vaciarForm();
+                    cargarUsuarios(); // Recargar usuarios después de crear uno nuevo
+                } else {
+                    throw new Error('Error al crear el usuario');
+                }
+            })
+            .catch(error => {
+                console.error('Error al crear usuario:', error);
+                alert('Hubo un error al crear el usuario. Por favor, intenta de nuevo.');
+            });
+        }
+
+        function vaciarForm() {
+            document.getElementById('nombre').value = '';
+            document.getElementById('edad').value = '';
+            document.getElementById('princesa_fav').value = '';
+            document.getElementById('edadError').classList.add('hidden');
+            
+            // After clearing the form, hide it and show the add user card again
+            document.getElementById('newUserForm').classList.add('hidden');
+            document.getElementById('addUserCard').classList.remove('hidden');
+        }
+
+        function selectUser(button) {
+            const tarjetaUsuario = button.closest('.user-card');
+            const nombreUsuario = tarjetaUsuario.querySelector('.user-name').textContent;
+            localStorage.setItem('nombreUsuario', nombreUsuario);
+            window.location.href = 'pag_principal.html'; // Redirigir a la página principal
+        }
     </script>
 </body>
 </html>
+
