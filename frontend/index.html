@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Princesas de Disney</title>
+    <title>Reino Mágico de Princesas Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
@@ -16,56 +16,128 @@
             font-size: 0.8em;
             margin-top: 5px;
         }
+        .welcome-screen {
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+        .welcome-title {
+            font-size: 2.5rem;
+            color: #4a148c;
+            margin-bottom: 1rem;
+        }
+        .welcome-text {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+        .start-button {
+            font-size: 1.2rem;
+            padding: 0.75rem 2rem;
+            background-color: #7b1fa2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .start-button:hover {
+            background-color: #4a148c;
+        }
     </style>
 </head>
 <body>
-    <h1>Elige un usuario para jugar</h1>
-    <div id="user-grid" class="user-grid">
-        <!-- User cards will be dynamically inserted here -->
-        <div class="add-user-card" id="addUserCard">
-            <span class="add-user-icon">+</span>
-            <p>Agregar Nuevo Usuario</p>
-        </div>
+    <div id="welcome-screen" class="welcome-screen">
+        <h1 class="welcome-title">Bienvenido al Reino Mágico de Princesas Disney</h1>
+        <p class="welcome-text">
+            Prepárate para sumergirte en un mundo de magia y encanto. En este fascinante juego, te convertirás en el guardián de las princesas Disney. Tu misión es ayudarlas a prosperar y brillar en su reino mágico.
+        </p>
+        <p class="welcome-text">
+            Así es como se juega:
+            <br>1. Primero, selecciona tu cuenta existente o crea una nueva.
+            <br>2. Una vez dentro, se te asignará una princesa para comenzar tu aventura.
+            <br>3. Haz clic para ganar PrincessCoins, la moneda mágica del reino.
+            <br>4. Usa tus PrincessCoins para desbloquear nuevas princesas y personajes.
+            <br>5. Cada nuevo personaje aumentará tu ganancia de PrincessCoins por clic.
+            <br>6. ¡Colecciona todas las princesas y conviértete en el guardián más poderoso del reino!
+        </p>
+        <p class="welcome-text">
+            ¿Estás listo para comenzar tu mágica historia?
+        </p>
+        <button id="start-button" class="start-button">Empezar la Aventura</button>
     </div>
 
-    <div id="newUserForm" class="hidden">
-        <div class="container is-max-desktop">
-            <div class="field">
-                <label class="label">Nombre</label>
-                <div class="control">
-                    <input id="nombre" class="input" type="text" placeholder="Nombre">
-                </div>
+    <div id="game-content" class="hidden">
+        <h1>Elige un usuario para jugar</h1>
+        <div id="user-grid" class="user-grid">
+            <!-- User cards will be dynamically inserted here -->
+            <div class="add-user-card" id="addUserCard">
+                <span class="add-user-icon">+</span>
+                <p>Agregar Nuevo Usuario</p>
             </div>
-            <div class="field">
-                <label class="label">Edad</label>
-                <div class="control">
-                    <input id="edad" class="input" type="number" placeholder="Edad" min="1">
+        </div>
+
+        <div id="newUserForm" class="hidden">
+            <div class="container is-max-desktop">
+                <div class="field">
+                    <label class="label">Nombre</label>
+                    <div class="control">
+                        <input id="nombre" class="input" type="text" placeholder="Nombre">
+                    </div>
                 </div>
-                <p id="edadError" class="error-message hidden">La edad debe ser un número positivo mayor que 0.</p>
-            </div>
-            <div class="field">
-                <label class="label">Princesa Favorita</label>
-                <div class="control">
-                    <input id="princesa_fav" class="input" type="text" placeholder="Princesa Favorita">
+                <div class="field">
+                    <label class="label">Edad</label>
+                    <div class="control">
+                        <input id="edad" class="input" type="number" placeholder="Edad" min="1">
+                    </div>
+                    <p id="edadError" class="error-message hidden">La edad debe ser un número positivo mayor que 0.</p>
                 </div>
-            </div>
-            <div class="field is-grouped is-grouped-centered">
-                <p class="control">
-                    <button class="button is-primary" onclick="crearUsuario()">
-                        Guardar
-                    </button>
-                </p>
-                <p class="control">
-                    <a class="button is-light" onclick="vaciarForm()">
-                        Borrar
-                    </a>
-                </p>
+                <div class="field">
+                    <label class="label">Princesa Favorita</label>
+                    <div class="control">
+                        <input id="princesa_fav" class="input" type="text" placeholder="Princesa Favorita">
+                    </div>
+                </div>
+                <div class="field is-grouped is-grouped-centered">
+                    <p class="control">
+                        <button class="button is-primary" onclick="crearUsuario()">
+                            Guardar
+                        </button>
+                    </p>
+                    <p class="control">
+                        <a class="button is-light" onclick="vaciarForm()">
+                            Borrar
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        
+        document.addEventListener('DOMContentLoaded', () => {
+            const startButton = document.getElementById('start-button');
+            const welcomeScreen = document.getElementById('welcome-screen');
+            const gameContent = document.getElementById('game-content');
+
+            startButton.addEventListener('click', () => {
+                welcomeScreen.classList.add('hidden');
+                gameContent.classList.remove('hidden');
+                cargarUsuarios();
+            });
+
+            const addUserCard = document.getElementById('addUserCard');
+            const newUserForm = document.getElementById('newUserForm');
+
+            addUserCard.addEventListener('click', () => {
+                addUserCard.classList.add('hidden');
+                newUserForm.classList.remove('hidden');
+            });
+        });
+
         function cargarUsuarios(){
             fetch('http://localhost:3000/api/v1/usuarios')
             .then(response => {
@@ -111,18 +183,6 @@
                 // No eliminar los usuarios existentes si hay un error de carga
             });
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            cargarUsuarios();
-            
-            const addUserCard = document.getElementById('addUserCard');
-            const newUserForm = document.getElementById('newUserForm');
-
-            addUserCard.addEventListener('click', () => {
-                addUserCard.classList.add('hidden');
-                newUserForm.classList.remove('hidden');
-            });
-        });
 
         function crearUsuario() {
             let nombre = document.getElementById('nombre').value;
@@ -185,3 +245,4 @@
     </script>
 </body>
 </html>
+
