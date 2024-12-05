@@ -1,16 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Usuario</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div class="container is-fluid">
         <div id="navbar-container"></div>
-        <div id="contenido-principal" class="mt-5">
+        <div id="user-profile" class="mt-5">
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-128x128">
+                                <img id="user-image" src="" alt="Imagen de perfil">
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <p id="user-name" class="title is-4"></p>
+                            <p id="user-age" class="subtitle is-6"></p>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <p id="user-princess"></p>
+                        <p id="user-coins"></p>
+                        <p id="user-princesses"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="user-actions" class="mt-4 is-hidden">
+                <button id="edit-profile" class="button is-primary">Editar Perfil</button>
+                <button id="logout" class="button is-light">Cerrar Sesión</button>
+                <button id="delete-user" class="button is-danger">Borrar Usuario</button>
+                <button id="view-purchases" class="button is-info">Ver Compras</button>
+            </div>
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetch('navbar.html')
@@ -28,31 +60,48 @@
                         });
                     });
                 });
+
             const urlParams = new URLSearchParams(window.location.search);
             const idUsuario = urlParams.get('id');
+            const currentUserId = localStorage.getItem('userId');
 
             fetch(`http://localhost:3000/api/v1/usuarios/${idUsuario}`)
-            .then(response => response.json())
+                .then(response => response.json())
                 .then(data => {
-                    const contenido_principal = document.getElementById('contenido-principal');
-                    const titulo_usuario = document.createElement('h1');
-                    titulo_usuario.textContent = data.nombre;
-                    const edad_usuario = document.createElement('h2');
-                    edad_usuario.textContent = data.edad;
-                    const princesa_favorita = document.createElement('h2');
-                    princesa_favorita.textContent = data.princesa_fav;
-                    const princessCoins = document.createElement('h2');
-                    princessCoins.textContent = data.princesscoin;
-                    const cantidad_princesas = document.createElement('h2');
-                    cantidad_princesas.textContent = data.cantidad_de_princesas;
+                    document.getElementById('user-image').src = data.nombre === 'Admin' ? './img/perfiladmin.png' : './img/perfiluser.png';
+                    document.getElementById('user-name').textContent = data.nombre;
+                    document.getElementById('user-age').textContent = `Edad: ${data.edad}`;
+                    document.getElementById('user-princess').textContent = `Princesa Favorita: ${data.princesa_fav}`;
+                    document.getElementById('user-coins').textContent = `PrincessCoins: ${data.princesscoin}`;
+                    document.getElementById('user-princesses').textContent = `Cantidad de Princesas: ${data.cantidad_de_princesas}`;
 
-                    contenido_principal.appendChild(titulo_usuario);
-                    contenido_principal.appendChild(edad_usuario);
-                    contenido_principal.appendChild(princesa_favorita);
-                    contenido_principal.appendChild(princessCoins);
-                    contenido_principal.appendChild(cantidad_princesas);
+                    if (idUsuario === currentUserId) {
+                        document.getElementById('user-actions').classList.remove('is-hidden');
+                    }
                 });
+
+            // Event listeners for user actions
+            document.getElementById('edit-profile').addEventListener('click', () => {
+                // Implementar lógica para editar perfil
+                console.log('Editar perfil');
+            });
+
+            document.getElementById('logout').addEventListener('click', () => {
+                // Implementar lógica para cerrar sesión
+                console.log('Cerrar sesión');
+            });
+
+            document.getElementById('delete-user').addEventListener('click', () => {
+                // Implementar lógica para borrar usuario
+                console.log('Borrar usuario');
+            });
+
+            document.getElementById('view-purchases').addEventListener('click', () => {
+                // Implementar lógica para ver compras
+                console.log('Ver compras');
+            });
         });
     </script>
 </body>
 </html>
+

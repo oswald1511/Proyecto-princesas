@@ -12,10 +12,10 @@ model Usuario {
   nombre String
   princesscoin Decimal @default(0)
   edad Int
-  cantidad_de_princesas Int @default(0)
+  cantidad_de_princesas Int @default(1)
   princesa_fav String
   dinero_por_click Int @default(0)
-  imagen String
+  imagen String @default("https://postimg.cc/Lh6hY7sr")
 
   princesas usuarios_princesas[]
   principes usuarios_principes[]
