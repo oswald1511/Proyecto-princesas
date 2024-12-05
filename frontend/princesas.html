@@ -3,26 +3,29 @@
 <head>
     <title>Princesas de Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div class="container is-fluid">
         <div id="navbar-container"></div>
             <h1>Princesas</h1>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Cuento</th>
-                        <th>Virtud</th>
-                        <th>Habilidad</th>
-                        <th>Principe</th>
-                        <th>Precio</th>
-                    </tr>
-                </thead>
-                <tbody id="datos-princesas">
-                </tbody>
-            </table>
+            <div class="table-container mt-5">
+                <table class="table is-fullwidth is-bordered is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Cuento</th>
+                            <th>Virtud</th>
+                            <th>Habilidad</th>
+                            <th>Principe</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="datos-princesas">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <script>

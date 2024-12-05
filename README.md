@@ -1,56 +1,67 @@
+<p align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Disney_Princess_logo_2015.png" alt="Logo" width="400"/>
+</p>
 
-![Logo](https://e7.pngegg.com/pngimages/367/435/png-clipart-rapunzel-minnie-mouse-disney-princess-the-walt-disney-company-minnie-mouse-child-text.png)
-
-
-# Proyecto princesas
+# 👑 Proyecto princesas
 
 Agregar una descripcion del proyecto
 
-
-## Autores
+## 👥 Autores
 
 - [@Oswaldo Maldonado](https://www.github.com/oswald1511)
 - [@Rocio Vera](https://www.github.com/Rocio-Elizabeth-Vera)
 - [@Nahuel Blanco](https://www.github.com/nahuelemi)
 - [@Luz Acuna](https://github.com/Luz21Anto)
 
+## 📈 Progreso
 
-## Progreso
+En esta seccion podemos ir agregando screeshots del progreso de la pagina 
 
-En esta seccion podemos ir agregando screeshots del progreso de la pagina semana a semana
-
-23/11/2024
+### 📅 23/11/2024
 
 <img src="./frontend/assets/screenshots/23-11-2024.png" alt="23/11/2024" width="700"/>
 
-26/11/2024
+### 📅 26/11/2024
 
 <img src="./frontend/assets/screenshots/26-11-2024.png" alt="26/11/2024" width="700"/>
 
-## Screenshots
+## 📸 Screenshots
 Aqui veriamos como se deberia de ver el proyecto terminado
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
+## 🚀 Levantar el proyecto de forma local
 
-## Variables de Entorno
+### 📦 Dependencias
 
-Para correr este proyecto, vas a necesitar añadir las siguientes variables de entorno a tu archivo .env
+Asegúrate de tener instaladas las siguientes dependencias antes de comenzar:
+
+- [Node.js](https://nodejs.org/)
+- Docker:
+  - **Linux**: [Docker](https://www.docker.com/)
+  - **Windows**: [Docker Desktop](https://www.docker.com/products/docker-desktop) + [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install)
+
+### 🔧 Variables de Entorno
+
+Para correr este proyecto, vas a necesitar añadir las siguientes variables de entorno a tu archivo `.env`:
 
 `DATABASE_URL='postgresql://usuario:contraseña@localhost:puerto/nombre_bdd'
 `
 
-## Como levantar el FE
+### 🛠️ Comandos a ejecutar
 
-ejecutar el siguiente comando 
+#### Como levantar el FE
+
+Ejecutar el siguiente comando en la carpeta de frontend:
+
 ```bash
-  npm install
-  npm run start
+npm install
+npm run start
 ```
 
-
-## Como levanatar BE
+#### Como levantar BE
 
 ejecutar los siguientes comandos en la carpeta de backend: 
+
 ```bash
   npm install
   npx  prisma migrate dev
