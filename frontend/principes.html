@@ -4,7 +4,7 @@
     <title>Princesas de Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
-
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container is-fluid">
@@ -27,6 +27,14 @@
             </div>
         </div>
     </div>
+    <label class="checkbox">
+        <input type="checkbox" class="filtro-obtenido" />
+        Principes obtenidos
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" class="filtro-no-obtenido"/>
+        Principes no obtenidos
+      </label>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetch('navbar.html')
@@ -44,7 +52,34 @@
                         });
                     });
                 });
-                fetch('http://localhost:3000/api/v1/principes')
+    //Aca se guarda el ID de los principes que tiene el usuario
+        let principes_obtenidos = []; 
+    // Eventos para los checkboxes
+        document.querySelector('.filtro-obtenido').addEventListener('change', function(){
+            filtro_pj();
+        });
+        document.querySelector('.filtro-no-obtenido').addEventListener('change', function(){
+            filtro_pj();
+        });
+    //Funcion para filtrar principes
+        function filtro_pj(filtro){
+            const obtenido=document.querySelector('.filtro-obtenido').checked;
+            const noObtenido=document.querySelector('.filtro-no-obtenido').checked;
+            const principes=document.querySelectorAll('#datos-principes tr');
+            principes.forEach(principes => {
+                const id = parseInt(principes.querySelector('th').innerText);   //Obtengo el id del principe
+                const esta_obtenido = principes_obtenidos.includes(id);    //Verifica que el usuario tenga el principe
+            //Muestra la fila segun el filtro
+                if((obtenido && esta_obtenido) || (noObtenido && !esta_obtenido)){
+                    principes.style.display = '';
+                }else if (!obtenido && !noObtenido){
+                    principes.style.display = '';
+                }else{
+                    principes.style.display = 'none';
+                }
+            });
+        }
+         fetch('http://localhost:3000/api/v1/principes')
         .then(response => response.json())
         .then(principes => {
             console.log(principes)
