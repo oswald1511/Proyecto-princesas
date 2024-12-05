@@ -31,7 +31,7 @@
                     <p>Edad: 20</p>
                 </div>
             </div>
-            <button class="select-button" onclick="selectUser()">Seleccionar</button>
+            <button class="select-button" onclick="selectUser(this)">Seleccionar</button>
         </div>
         <div class="user-card">
             <img src="./img/perfiluser.png" alt="Nahuel">
@@ -43,7 +43,7 @@
                     <p>Edad: 21</p>
                 </div>
             </div>
-            <button class="select-button" onclick="selectUser()">Seleccionar</button>
+            <button class="select-button" onclick="selectUser(this)">Seleccionar</button>
         </div>
         <div class="user-card">
             <img src="./img/perfiluser.png" alt="Oswaldo">
@@ -55,10 +55,10 @@
                     <p>Edad: 20</p>
                 </div>
             </div>
-            <button class="select-button" onclick="selectUser()">Seleccionar</button>
+            <button class="select-button" onclick="selectUser(this)">Seleccionar</button>
         </div>
         <div class="user-card">
-            <img src="./img/perfiladmin.png" alt="Admin" onerror="this.src='https://via.placeholder.com/100'">
+            <img src="./img/perfiladmin.png" alt="Admin" onerror="this.src='https://via.placeholder.com/100'" >//que es eso de onerror????
             <div class="user-info">
                 <h2 class="user-name">Admin</h2>
                 <div class="user-details">
@@ -67,7 +67,7 @@
                     <p>Edad: 35</p>
                 </div>
             </div>
-            <button class="select-button" onclick="selectUser()">Seleccionar</button>
+            <button class="select-button" onclick="selectUser(this)">Seleccionar</button>
         </div>
         <div class="add-user-card" id="addUserCard">
             <span class="add-user-icon">+</span>
@@ -169,7 +169,10 @@
                 if(response.status === 201){
                     alert('Usuario creado con éxito');
                     vaciarForm();
-                    location.reload(); // Recargar la página
+                    // location.reload(); // Recargar la página?
+                    window.location.href = 'pag_principal.html'; // Redirigir a la página principal
+                    localStorage.setItem('nombreUsuario', nombre);
+
                 } else {
                     alert('Error al crear el usuario');
                 }
@@ -187,8 +190,11 @@
             document.getElementById('addUserCard').classList.remove('hidden');
         }
 
-        function selectUser() {
-            window.location.href = 'pag_principal.html';
+        function selectUser(button) {
+            const tarjetaUsuario = button.closest('.user-card');
+            const nombreUsuario = tarjetaUsuario.querySelector('.user-name').textContent;
+            localStorage.setItem('nombreUsuario', nombreUsuario);
+            window.location.href = 'pag_principal.html'; // Redirigir a la página principal
         }
     </script>
 </body>
