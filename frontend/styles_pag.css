@@ -5,4 +5,14 @@ body {
     /*background-size: cover;*/
     background-attachment: fixed;
    /* min-height: 100vh;*/
+
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 10px;
+}
+
+.checkbox{
+    margin: 20px;
+    padding: 10px;
 }
