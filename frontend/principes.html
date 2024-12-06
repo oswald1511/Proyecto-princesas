@@ -30,8 +30,8 @@
     <label class="checkbox">
         <input type="checkbox" class="filtro-obtenido" />
         Principes obtenidos
-      </label>
-      <label class="checkbox">
+    </label>
+    <label class="checkbox">
         <input type="checkbox" class="filtro-no-obtenido"/>
         Principes no obtenidos
       </label>
@@ -51,7 +51,14 @@
                             $target.classList.toggle('is-active');
                         });
                     });
+
+                    // Actualizar el nombre del usuario
+                    const nombreUsuario = localStorage.getItem('nombreUsuario');
+                    if (nombreUsuario) {
+                        document.getElementById('nombre-usuario').textContent = nombreUsuario;
+                    }
                 });
+        });   
     //Aca se guarda el ID de los principes que tiene el usuario
         let principes_obtenidos = []; 
     // Eventos para los checkboxes
@@ -111,7 +118,6 @@
                 table.appendChild(tr);
             });
         });
-    });
     </script>
     </body>
 </html>

@@ -164,7 +164,7 @@
                     let userCard = document.createElement('div');
                     userCard.className = 'user-card';
                     userCard.innerHTML = `
-                        <img src="${usuario.nombre === 'Admin' ? './img/perfiladmin.png' : './img/perfiluser.png'}" alt="${usuario.nombre}">
+                        <img src="${usuario.imagen}" alt="${usuario.nombre}">
                         <div class="user-info">
                             <h2 class="user-name">${usuario.nombre}</h2>
                             <div class="user-details">
@@ -201,8 +201,6 @@
                 nombre: nombre,
                 edad: parseInt(edad),
                 princesa_fav: princesa_fav,
-                princessCoins: 0,
-                princessAttachments: 1
             }
             fetch('http://localhost:3000/api/v1/usuarios', {
                 method: 'POST',

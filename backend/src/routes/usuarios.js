@@ -9,19 +9,32 @@ router.get('/', async (req, res) => {
   res.json(usuarios);
 });
 
-router.get('/:id', async (req, res) => {
-  const usuario = await prisma.usuario.findUnique({ 
-    where: {
-      id : parseInt(req.params.id)
-    }
-  })
-  
-  if (usuario === null) {
-    res.sendStatus(404)
-    return
+router.get('/:identificador', async (req, res) => {
+  const identificador = req.params.identificador;
+  let usuario;
+
+  if (!isNaN(identificador)) {
+    // Si el identificador es un número, buscar por ID
+    usuario = await prisma.usuario.findUnique({
+      where: {
+        id: parseInt(identificador)
+      }
+    });
+  } else {
+    // Si el identificador no es un número, buscar por nombre
+    usuario = await prisma.usuario.findUnique({
+      where: {
+        nombre: identificador
+      }
+    });
   }
-  res.json(usuario)
-})  
+
+  if (usuario === null) {
+    res.sendStatus(404);
+    return;
+  }
+  res.json(usuario);
+});
   
 router.get('/:id/personajes', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({ 
@@ -46,17 +59,14 @@ router.post('/', async (req, res) => {
   const usuario = await prisma.usuario.create({
     data:{
       nombre : req.body.nombre,
-      princesscoin: req.body.princesscoin, 
       edad: req.body.edad,
-      cantidad_de_princesas: req.body.cantidad_de_princesas,
       princesa_fav: req.body.princesa_fav,
-      dinero_por_click: req.body.dinero_por_click,
-    }
+    } 
   })
   res.status(201).send(usuario)
 })
-
-router.post('/:id/princesas/:princesa_id', async (req, res) => {
+ 
+router.post('/:id/princesa/:princesa_id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
       id: parseInt(req.params.id)
@@ -85,7 +95,7 @@ router.post('/:id/princesas/:princesa_id', async (req, res) => {
   console.log(usuarioPrincesa);
 });
   
-router.post('/:id/principes/:principe_id', async (req, res) => {
+router.post('/:id/principe/:principe_id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
       id: parseInt(req.params.id)
@@ -114,7 +124,7 @@ router.post('/:id/principes/:principe_id', async (req, res) => {
   console.log(usuarioPrincipe);
 });
 
-router.post('/:id/villanos/:villano_id', async (req, res) => {
+router.post('/:id/villano/:villano_id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
       id: parseInt(req.params.id)
