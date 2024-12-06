@@ -2,9 +2,8 @@ body {
     background-image: url("./img/fondocastillo.png");
     background-repeat: no-repeat;
     background-position: center center;
-    /*background-size: cover;*/
+    background-size: cover;
     background-attachment: fixed;
-   /* min-height: 100vh;*/
 
     font-family: Arial, sans-serif;
     min-height: 100vh;
