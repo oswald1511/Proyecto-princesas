@@ -13,7 +13,7 @@ router.get('/:id', async (req, res) => {
     const princesa = await prisma.princesa.findUnique({ 
         where: {
           id : parseInt(req.params.id)
-        }
+        } 
       })
     
     if (princesa === null) {
@@ -32,9 +32,11 @@ router.post('/', async (req, res) => {
           habilidad: req.body.habilidad,
           principe: req.body.principe,
           precio: req.body.precio,
+          imagen: req.body.imagen,
         }
     })
     res.status(201).send(princesa)
+    console.log(princesa)
 })
     
 router.delete('/:id', async (req, res) => {
@@ -78,7 +80,7 @@ router.put('/:id', async(req, res) => {
             virtud: req.body.virtud,
             habilidad: req.body.habilidad,
             principe: req.body.principe,
-            precio: req.body.precio,
+            imagen: req.body.imagen,
         }
     })
     

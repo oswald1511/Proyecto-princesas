@@ -3,6 +3,8 @@
 <head>
     <title>Princesas de Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+
 </head>
 <body>
     <div class="container is-fluid">
@@ -116,7 +118,7 @@ $navbarBurgers.forEach( el => {
                 body: JSON.stringify(usuario)
             })
             .then(response => {
-              if(response.status === 201){
+              if(response.status === 200){
                 alert('Usuario creado con éxito');
                 vaciarForm();
               } else {

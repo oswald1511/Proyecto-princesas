@@ -1,0 +1,16 @@
+meta {
+  name: Asignar princesa a usuario
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:3000/api/v1/usuarios/:id/princesas/:princesa_id
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 2
+  princesa_id: 8
+}
