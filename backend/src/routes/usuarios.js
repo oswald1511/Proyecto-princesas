@@ -203,3 +203,17 @@ router.delete('/', async (req, res) => {
   await prisma.usuario.deleteMany();
   res.send("Todos los usuarios fueron borrados");
 });
+
+router.get('/:id_usuario/:id_princesa', async (req, res) => {
+  const usuarioPrincesa = await prisma.usuarios_princesas.findUnique({
+    where: {
+      usuario_id: parseInt(req.params.id_usuario),
+      princesa_id: parseInt(req.params.id_princesa)
+    }
+  });
+  if (usuarioPrincesa === null) {
+    res.sendStatus(404);
+    return;
+  }
+  res.json(usuarioPrincesa);
+});
