@@ -10,7 +10,8 @@
         <div id="navbar-container"></div>
         </div>
     </div>
-    <button id="Juego">Jugar</button>
+    <button id="Juego" > Jugar </button>
+    <p id="dinero">Dinero:0</p>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetch('navbar.html')
@@ -29,6 +30,15 @@
                     });
                 });
         });
+        let mi_dinero=0;
+        //La funcion jugar aumenta el dinero en 1
+        function jugar(){
+            const dinero_ganado=1;
+                mi_dinero += dinero_ganado;
+                document.getElementById('dinero').innerText= 'Dinero:'+ mi_dinero;
+        }
+        //Añado el evento click al boton "Jugar"
+        document.getElementById('Juego').addEventListener('click',jugar);
     </script>
 </body>
 </html>
