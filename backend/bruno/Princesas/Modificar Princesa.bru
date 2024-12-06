@@ -5,11 +5,21 @@ meta {
 }
 
 put {
-  url: http://localhost:3000/api/v1/princesas/:id
-  body: none
+  url: http://localhost:3000/api/v1/princesas/:id?imagen="https://i.postimg.cc/SxHST9J2/Ariel.jpg"
+  body: json
   auth: none
 }
 
+params:query {
+  imagen: "https://i.postimg.cc/SxHST9J2/Ariel.jpg"
+}
+
 params:path {
-  id: 
+  id: 1
+}
+
+body:json {
+  {
+    "imagen":"https://i.postimg.cc/SxHST9J2/Ariel.jpg"
+  }
 }
