@@ -94,18 +94,26 @@
                 });
 
             // Llamar a la función para cargar los personajes
-            cargarPersonajes('princesas');
-            cargarPersonajes('principes');
-            cargarPersonajes('villanos');
+            cargarPersonajes("princesa");
+            cargarPersonajes("principe");
+            cargarPersonajes("villano");
         });
 
         function cargarPersonajes(tipo) {
-            fetch(`http://localhost:3000/api/v1/${tipo}`)
-                .then(response => response.json())
-                .then(personajes => {
-                    console.log(personajes);
-                    let contenidoPrincipal = document.getElementById('contenido-principal');
-                    personajes.forEach(personaje => {
+            const usuario_id = localStorage.getItem('usuarioID');
+            fetch(`http://localhost:3000/api/v1/${tipo}s`)
+            .then(response => response.json())
+            .then(personajes => {
+                console.log(personajes);
+                personajes.forEach(personaje => {
+                    const personaje_id = personaje.id;
+                    fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}/${tipo}/${personaje_id}`)  
+                    .then(response => {
+                        if(response.status === 200){
+                            return;
+                        }
+                        else{
+                            let contenidoPrincipal = document.getElementById('contenido-principal');
                         let carta = document.createElement('div');
                         carta.className = "column is-one-fifth mt-5";
                         carta.innerHTML = `
@@ -126,8 +134,10 @@
                             </div>
                         `;
                         contenidoPrincipal.appendChild(carta);
-                    });
+                    }
+                })
                 });
+            });
         }
 
         function Comprar_personaje(button) {
@@ -136,30 +146,26 @@
             const nombre_usuario = localStorage.getItem('nombreUsuario');
             console.log(`Comprando ${tipo} con ID ${personaje_id}`);
             borrar_card(button);
-            fetch(`http://localhost:3000/api/v1/usuarios/${nombre_usuario}`)
-                .then(response => response.json())
-                .then(usuario => {
-                    const usuario_id = usuario.id;
-                    fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}/${tipo}/${personaje_id}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            usuario_id: usuario_id,
-                            [`${tipo}_id`]: personaje_id
-                        })
+                const usuario_id = localStorage.getItem('usuarioID');
+                fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}/${tipo}/${personaje_id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        usuario_id: usuario_id,
+                        [`${tipo}_id`]: personaje_id
                     })
-                    .then(response => {
-                        if(response.status === 201){
-                            console.log('Compra realizada con éxito');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error en la compra:', error);
-                    });
+                })
+                .then(response => {
+                    if(response.status === 201){
+                        console.log('Compra realizada con éxito');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la compra:', error);
                 });
-        }
+                };
 
         function borrar_card(button) {
             const card = button.closest('.column');

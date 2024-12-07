@@ -204,16 +204,50 @@ router.delete('/', async (req, res) => {
   res.send("Todos los usuarios fueron borrados");
 });
 
-router.get('/:id_usuario/:id_princesa', async (req, res) => {
+router.get('/:id_usuario/princesa/:id_princesa', async (req, res) => {
   const usuarioPrincesa = await prisma.usuarios_princesas.findUnique({
     where: {
-      usuario_id: parseInt(req.params.id_usuario),
-      princesa_id: parseInt(req.params.id_princesa)
+      usuario_id_princesa_id: {
+        usuario_id: parseInt(req.params.id_usuario),
+        princesa_id: parseInt(req.params.id_princesa)
+      }
     }
   });
   if (usuarioPrincesa === null) {
     res.sendStatus(404);
     return;
   }
-  res.json(usuarioPrincesa);
+  res.status(200).json(usuarioPrincesa);
+});
+
+router.get('/:id_usuario/principe/:id_principe', async (req, res) => {
+  const usuarioPrincipe = await prisma.usuarios_principes.findUnique({
+    where: {
+      usuario_id_principe_id: {
+        usuario_id: parseInt(req.params.id_usuario),
+        principe_id: parseInt(req.params.id_principe)
+      }
+    }
+  });
+  if (usuarioPrincipe === null) {
+    res.sendStatus(404);
+    return;
+  }
+  res.status(200).json(usuarioPrincipe);
+});
+
+router.get('/:id_usuario/villano/:id_villano', async (req, res) => {
+  const usuarioVillano = await prisma.usuarios_villanos.findUnique({
+    where: {
+      usuario_id_villano_id: {
+        usuario_id: parseInt(req.params.id_usuario),
+        villano_id: parseInt(req.params.id_villano)
+      }
+    }
+  });
+  if (usuarioVillano === null) {
+    res.sendStatus(404);
+    return;
+  }
+  res.status(200).json(usuarioVillano);
 });
