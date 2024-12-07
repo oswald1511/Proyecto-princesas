@@ -214,7 +214,7 @@ router.get('/:id_usuario/princesa/:id_princesa', async (req, res) => {
     }
   });
   if (usuarioPrincesa === null) {
-    res.sendStatus(404);
+    res.status(404);
     return;
   }
   res.status(200).json(usuarioPrincesa);
@@ -230,7 +230,7 @@ router.get('/:id_usuario/principe/:id_principe', async (req, res) => {
     }
   });
   if (usuarioPrincipe === null) {
-    res.sendStatus(404);
+    res.status(404);
     return;
   }
   res.status(200).json(usuarioPrincipe);
@@ -246,7 +246,7 @@ router.get('/:id_usuario/villano/:id_villano', async (req, res) => {
     }
   });
   if (usuarioVillano === null) {
-    res.sendStatus(404);
+    res.status(404);
     return;
   }
   res.status(200).json(usuarioVillano);
