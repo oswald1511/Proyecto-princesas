@@ -15,3 +15,8 @@ body {
     margin: 20px;
     padding: 10px;
 }
+
+.navbar {
+    background-color: rgb(255, 255, 255, 0.5); /*50% de transparencia */
+    border-radius: 15px; /* Bordes redondeados radio 15px */
+}
