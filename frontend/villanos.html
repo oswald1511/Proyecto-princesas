@@ -52,7 +52,14 @@
                             $target.classList.toggle('is-active');
                         });
                     });
+                    // Actualizar el nombre del usuario
+                    const nombreUsuario = localStorage.getItem('nombreUsuario');
+                    if (nombreUsuario) {
+                        document.getElementById('nombre-usuario').textContent = nombreUsuario;
+                    }
                 });
+        });   
+
     //Aca se guarda el ID de los villanos que tiene el usuario
         let villanos_obtenidos = []; 
     // Eventos para los checkboxes
@@ -113,7 +120,6 @@
                 table.appendChild(tr);
             });
         });
-    });
     </script>
     </body>
 </html>

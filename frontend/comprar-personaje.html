@@ -6,6 +6,45 @@
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles_pag.css">
     <style>
+        .cyberpunk-checkbox {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #0dd693;
+        border-radius: 5px;
+        background-color: transparent;
+        display: inline-block;
+        position: relative;
+        margin-right: 10px;
+        cursor: pointer;
+        }
+
+        .cyberpunk-checkbox:before {
+        content: "";
+        background-color: #0dd693;
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        transition: all 0.3s ease-in-out;
+        }
+
+        .cyberpunk-checkbox:checked:before {
+        transform: translate(-50%, -50%) scale(1);
+        }
+
+        .cyberpunk-checkbox-label {
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        }
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -16,7 +55,20 @@
 <body>
     <div class="container is-fluid">
         <div id="navbar-container"></div>
-        <div id="contenido-principal" class="columns is-multiline"></div>
+        <div class="checkboxes mt-5 ml-4">
+            <label class="cyberpunk-checkbox-label">
+                <input type="checkbox" class="cyberpunk-checkbox">
+            Princesas
+            </label>
+            <label class="cyberpunk-checkbox-label">
+                <input type="checkbox" class="cyberpunk-checkbox">
+            Principes
+            </label>
+            <label class="cyberpunk-checkbox-label">
+                <input type="checkbox" class="cyberpunk-checkbox">
+            Villanos</label>
+        </div>
+    <div id="contenido-principal" class="columns is-multiline"></div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -34,41 +86,94 @@
                             $target.classList.toggle('is-active');
                         });
                     });
+
+                    // Actualizar el nombre del usuario
+                    const nombreUsuario = localStorage.getItem('nombreUsuario');
+                    if (nombreUsuario) {
+                        document.getElementById('nombre-usuario').textContent = nombreUsuario;
+                    }
                 });
 
-            fetch('http://localhost:3000/api/v1/princesas')
-                .then(response => response.json())
-                .then(princesas => {
-                    console.log(princesas);
-                    let contenidoPrincipal = document.getElementById('contenido-principal');
-                    princesas.forEach(princesa => {
+            // Llamar a la función para cargar los personajes
+            cargarPersonajes("princesa");
+            cargarPersonajes("principe");
+            cargarPersonajes("villano");
+        });
+
+        function cargarPersonajes(tipo) {
+            const usuario_id = localStorage.getItem('usuarioID');
+            fetch(`http://localhost:3000/api/v1/${tipo}s`)
+            .then(response => response.json())
+            .then(personajes => {
+                console.log(personajes);
+                personajes.forEach(personaje => {
+                    const personaje_id = personaje.id;
+                    fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}/${tipo}/${personaje_id}`)  
+                    .then(response => {
+                        if(response.status === 200){
+                            return;
+                        }
+                        else{
+                            let contenidoPrincipal = document.getElementById('contenido-principal');
                         let carta = document.createElement('div');
                         carta.className = "column is-one-fifth mt-5";
                         carta.innerHTML = `
                             <div class="card">
                                 <div class="card-image">
                                     <figure class="image is-4by3" style="background-color: white; border-radius: 6px; overflow: hidden;">
-                                        <img src="${princesa.imagen}" alt="${princesa.nombre}" style="object-fit: contain;"/>
+                                        <img src="${personaje.imagen}" alt="${personaje.nombre}" style="object-fit: contain;"/>
                                     </figure>
                                 </div>
                                 <div class="card-content">
-                                    <div class="media">
-                                        <div class="media-content">
-                                            <p class="title is-4">${princesa.nombre}</p>
-                                        </div>
-                                    </div>
                                     <div class="content">
-                                        <b>Precio</b>: ${princesa.precio}<br>
-                                        <b>Habilidad</b>: Te concede +${princesa.habilidad} princesscoins por click
+                                        <p class="title is-5 mt-1 mb-2">${personaje.nombre}</p>
+                                        <b>Precio</b>: ${personaje.precio}<br>
+                                        <b>Habilidad</b>: ${personaje.habilidad}
                                     </div>
-                                    <button class="button is-light" onclick="Comprar_personaje()">Comprar</button>
+                                    <button class="button is-light" data-tipo="${tipo}" onclick="Comprar_personaje(this)" data-id="${personaje.id}">Comprar</button>
                                 </div>
                             </div>
                         `;
                         contenidoPrincipal.appendChild(carta);
-                    });
+                    }
+                })
                 });
-        });
+            });
+        }
+
+        function Comprar_personaje(button) {
+            const tipo = button.getAttribute('data-tipo');
+            const personaje_id = button.getAttribute('data-id');
+            const nombre_usuario = localStorage.getItem('nombreUsuario');
+            console.log(`Comprando ${tipo} con ID ${personaje_id}`);
+            borrar_card(button);
+                const usuario_id = localStorage.getItem('usuarioID');
+                fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}/${tipo}/${personaje_id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        usuario_id: usuario_id,
+                        [`${tipo}_id`]: personaje_id
+                    })
+                })
+                .then(response => {
+                    if(response.status === 201){
+                        console.log('Compra realizada con éxito');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la compra:', error);
+                });
+                };
+
+        function borrar_card(button) {
+            const card = button.closest('.column');
+            if (card) {
+                card.remove();
+            }
+        }
     </script>
 </body>
 </html>
