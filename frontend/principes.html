@@ -20,21 +20,23 @@
                             <th>Virtud</th>
                             <th>Habilidad</th>
                             <th>Alias</th>
-                            <th>Precio</th>
+                           
                         </tr>
                     </thead>
+                    <tbody id="datos-principes">
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
     <label class="checkbox">
         <input type="checkbox" class="filtro-obtenido" />
-        Principes obtenidos
-      </label>
-      <label class="checkbox">
+            Principes obtenidos
+    </label>
+    <label class="checkbox">
         <input type="checkbox" class="filtro-no-obtenido"/>
-        Principes no obtenidos
-      </label>
+            Principes no obtenidos
+    </label>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetch('navbar.html')
@@ -79,11 +81,10 @@
                 }
             });
         }
-         fetch('http://localhost:3000/api/v1/principes')
+        fetch('http://localhost:3000/api/v1/principes')
         .then(response => response.json())
         .then(principes => {
             console.log(principes)
-            
             let table = document.getElementById('datos-principes');
             principes.forEach(principes => {
                 let tr = document.createElement('tr');
@@ -99,15 +100,15 @@
                 habilidad.textContent = principes.habilidad;
                 let alias = document.createElement('td');
                 alias.textContent = principes.alias;
-                let precio = document.createElement('td');
-                precio.textContent = principes.precio;
+                //let precio = document.createElement('td');
+                //precio.textContent = principes.precio;
                 tr.appendChild(id);
                 tr.appendChild(nombre);
                 tr.appendChild(cuento);
                 tr.appendChild(virtud);
                 tr.appendChild(habilidad);
                 tr.appendChild(alias);
-                tr.appendChild(precio);
+                //tr.appendChild(precio);
                 table.appendChild(tr);
             });
         });
