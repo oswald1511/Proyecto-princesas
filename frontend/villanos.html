@@ -21,39 +21,40 @@
                         <th>¿Tiene magia?</th>
                         <th>Alias</th>
                         <th>Debilidad</th>
-                        <th>Precio</th>
                     </tr>
                 </thead>
+                <tbody id="datos-villanos">
+                </tbody>
             </table>
         </div>
     </div>
     <label class="checkbox">
         <input type="checkbox" class="filtro-obtenido" />
-        Villanos obtenidos
-      </label>
-      <label class="checkbox">
+            Villanos obtenidos
+    </label>
+    <label class="checkbox">
         <input type="checkbox" class="filtro-no-obtenido"/>
-        Villanos no obtenidos
-      </label>
+            Villanos no obtenidos
+    </label>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetch('navbar.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('navbar-container').innerHTML = data;
-            // Inicializar el navbar-burger
-            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-            $navbarBurgers.forEach(el => {
-                el.addEventListener('click', () => {
-                    const target = el.dataset.target;
-                    const $target = document.getElementById(target);
-                    el.classList.toggle('is-active');
-                    $target.classList.toggle('is-active');
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                    // Inicializar el navbar-burger
+                    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+                    $navbarBurgers.forEach(el => {
+                        el.addEventListener('click', () => {
+                            const target = el.dataset.target;
+                            const $target = document.getElementById(target);
+                            el.classList.toggle('is-active');
+                            $target.classList.toggle('is-active');
+                        });
+                    });
                 });
-            });
-        });
     //Aca se guarda el ID de los villanos que tiene el usuario
-    let villanos_obtenidos = []; 
+        let villanos_obtenidos = []; 
     // Eventos para los checkboxes
         document.querySelector('.filtro-obtenido').addEventListener('change', function(){
             filtro_pj();
@@ -98,8 +99,8 @@
                 alias.textContent = villanos.alias;
                 let debilidad = document.createElement('td');
                 debilidad.textContent = villanos.debilidad;
-                let precio = document.createElement('td');
-                precio.textContent = villanos.precio;
+                //let precio = document.createElement('td');
+                //precio.textContent = villanos.precio;
 
                 tr.appendChild(id);
                 tr.appendChild(nombre);
@@ -107,7 +108,7 @@
                 tr.appendChild(magia);
                 tr.appendChild(alias);
                 tr.appendChild(debilidad);
-                tr.appendChild(precio);
+                //tr.appendChild(precio);
 
                 table.appendChild(tr);
             });
