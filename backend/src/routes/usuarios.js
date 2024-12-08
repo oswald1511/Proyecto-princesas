@@ -61,6 +61,7 @@ router.post('/', async (req, res) => {
       nombre : req.body.nombre,
       edad: req.body.edad,
       princesa_fav: req.body.princesa_fav,
+      imagen: "./frontend/img/fotoperfil.png"
     } 
   })
   res.status(201).send(usuario)

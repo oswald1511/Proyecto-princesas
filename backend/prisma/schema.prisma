@@ -15,7 +15,7 @@ model Usuario {
   cantidad_de_princesas Int @default(1)
   princesa_fav String
   dinero_por_click Int @default(0)
-  imagen String @default url("./img/fotoperfil.png")
+  imagen String @default("frontend/img/fotoperfil.png")
 
   princesas usuarios_princesas[]
   principes usuarios_principes[]
