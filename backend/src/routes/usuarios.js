@@ -182,6 +182,7 @@ router.put('/:id', async(req, res) => {
       nombre : req.body.nombre,
       edad: req.body.edad,
       princesa_fav: req.body.princesa_fav,
+      princesscoin: req.body.princesscoin,
     }
   })
   
