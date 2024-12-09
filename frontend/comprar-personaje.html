@@ -94,52 +94,49 @@
                 });
 
             // Llamar a la función para cargar los personajes
-            cargarPersonajes("princesa");
-            cargarPersonajes("principe");
             cargarPersonajes("villano");
+            cargarPersonajes("principe");
+            cargarPersonajes("princesa");
         });
 
         function cargarPersonajes(tipo) {
             const usuario_id = localStorage.getItem('usuarioID');
-            fetch(`http://localhost:3000/api/v1/${tipo}s`)
-            .then(response => response.json())
-            .then(personajes => {
-                console.log(personajes);
-                personajes.forEach(personaje => {
-                    const personaje_id = personaje.id;
-                    fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}/${tipo}/${personaje_id}`)  
-                    .then(response => {
-                        if(response.status === 200){
-                            return;
-                        }
-                        else{
+            fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}`)
+                .then(response => response.json())
+                .then(usuario => {
+                    const personajesComprados = usuario[`${tipo}s`] ? usuario[`${tipo}s`].map(p => p.id) : [];
+                    fetch(`http://localhost:3000/api/v1/${tipo}s`)
+                        .then(response => response.json())
+                        .then(personajes => {
+                            console.log(personajes);
                             let contenidoPrincipal = document.getElementById('contenido-principal');
-                        let carta = document.createElement('div');
-                        carta.className = "column is-one-fifth mt-5";
-                        carta.innerHTML = `
-                            <div class="card">
-                                <div class="card-image">
-                                    <figure class="image is-4by3" style="background-color: white; border-radius: 6px; overflow: hidden;">
-                                        <img src="${personaje.imagen}" alt="${personaje.nombre}" style="object-fit: contain;"/>
-                                    </figure>
-                                </div>
-                                <div class="card-content">
-                                    <div class="content">
-                                        <p class="title is-5 mt-1 mb-2">${personaje.nombre}</p>
-                                        <b>Precio</b>: ${personaje.precio}<br>
-                                        <b>Habilidad</b>: ${personaje.habilidad}
-                                    </div>
-                                    <button class="button is-light" data-tipo="${tipo}" onclick="Comprar_personaje(this)" data-id="${personaje.id}">Comprar</button>
-                                </div>
-                            </div>
-                        `;
-                        contenidoPrincipal.appendChild(carta);
-                    }
-                })
+                            personajes.forEach(personaje => {
+                                if (!personajesComprados.includes(personaje.id)) {
+                                    let carta = document.createElement('div');
+                                    carta.className = "column is-one-fifth mt-5";
+                                    carta.innerHTML = `
+                                        <div class="card">
+                                            <div class="card-image">
+                                                <figure class="image";>
+                                                    <img src="${personaje.imagen}" alt="${personaje.nombre}" style="object-fit: contain;"/>
+                                                </figure>
+                                            </div>
+                                            <div class="card-content">
+                                                <div class="content">
+                                                    <p class="title is-5 mt-1 mb-2">${personaje.nombre}</p>
+                                                    <b>Precio</b>: ${personaje.precio}<br>
+                                                    <b>Habilidad</b>: ${personaje.habilidad}
+                                                </div>
+                                                <button class="button is-light" data-tipo="${tipo}" onclick="Comprar_personaje(this)" data-id="${personaje.id}">Comprar</button>
+                                            </div>
+                                        </div>
+                                    `;
+                                    contenidoPrincipal.appendChild(carta);
+                                }
+                            });
+                        });
                 });
-            });
         }
-
         function Comprar_personaje(button) {
             const tipo = button.getAttribute('data-tipo');
             const personaje_id = button.getAttribute('data-id');
@@ -160,6 +157,7 @@
                 .then(response => {
                     if(response.status === 201){
                         console.log('Compra realizada con éxito');
+                        alert('Compra realizada con éxito');
                     }
                 })
                 .catch(error => {
