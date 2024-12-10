@@ -59,7 +59,7 @@ model Principe {
   habilidad String
   alias String
   precio Int
-  imagen String
+  imagen String 
 
   princesas princesas_principes[]
   usuarios usuarios_principes[]

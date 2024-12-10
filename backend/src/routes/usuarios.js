@@ -154,34 +154,59 @@ router.post('/:id/villano/:villano_id', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
+  const userId = parseInt(req.params.id);
+
+  // Verificar si el usuario existe
   const usuario = await prisma.usuario.findUnique({
     where: {
-      id : parseInt(req.params.id)
+      id: userId
     }
-  })
-  
+  });
+
   if (usuario === null) {
-    res.sendStatus(404)
-    return
+    res.sendStatus(404);
+    return;
   }
+
+  // Eliminar registros dependientes en usuarios_princesas
+  await prisma.usuarios_princesas.deleteMany({
+    where: {
+      usuario_id: userId
+    }
+  });
+
+  // Eliminar registros dependientes en usuarios_principes
+  await prisma.usuarios_principes.deleteMany({
+    where: {
+      usuario_id: userId
+    }
+  });
+
+  // Eliminar registros dependientes en usuarios_villanos
+  await prisma.usuarios_villanos.deleteMany({
+    where: {
+      usuario_id: userId
+    }
+  });
+
+  // Ahora eliminar el usuario
   await prisma.usuario.delete({
     where: {
-      id: parseInt(req.params.id)
+      id: userId
     }
-  })
-    
-  res.send(usuario)
-    
-})
+  });
+
+  res.send(usuario);
+});
   
 router.put('/:id', async(req, res) => {
   let usuario =  await prisma.usuario.findUnique({
     where:{
       id: parseInt(req.params.id)
-    }
+    } 
   })
   if (usuario === null) {
-    res.sendStatus(404)
+    res.sendStatus(404).send("Usuario no encontrado")
   }
   
   usuario = await prisma.usuario.update({
