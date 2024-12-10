@@ -229,7 +229,6 @@
             document.getElementById('princesa_fav').value = '';
             document.getElementById('edadError').classList.add('hidden');
             
-            // After clearing the form, hide it and show the add user card again
             document.getElementById('newUserForm').classList.add('hidden');
             document.getElementById('addUserCard').classList.remove('hidden');
         }
@@ -238,6 +237,13 @@
             const tarjetaUsuario = button.closest('.user-card');
             const nombreUsuario = tarjetaUsuario.querySelector('.user-name').textContent;
             localStorage.setItem('nombreUsuario', nombreUsuario);
+
+            fetch(`http://localhost:3000/api/v1/usuarios/${nombreUsuario}`)// Obtener el ID del usuario seleccionado
+            .then(response => response.json())
+            .then(usuario => {
+                localStorage.setItem('usuarioID', usuario.id);
+            })
+        
             window.location.href = 'pag_principal.html'; // Redirigir a la página principal
         }
     </script>

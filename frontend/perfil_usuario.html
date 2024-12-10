@@ -72,24 +72,10 @@
                 });
             
             // Obtener el ID del usuario
-            const urlParams = new URLSearchParams(window.location.search);
-            let idUsuario = urlParams.get('id');
-            /*const ID_usuario = localStorage.setItem('ID_usuario');*/
-            const currentUserId = localStorage.getItem('userId'); 
+            const ID_usuario = localStorage.getItem('usuarioID'); 
 
-            /*if (!idUsuario) {
-                document.getElementById('user-profile').innerHTML = '<p class="has-text-centered is-size-4">Por favor, inicia sesión para ver tu perfil.</p>';
-                return;
-            }*/
-            
             // Cargar los datos del usuario
             fetch(`http://localhost:3000/api/v1/usuarios/${ID_usuario}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('No se pudo cargar la información del usuario');
-                    }
-                    return response.json();
-                })
                 .then(data => {
                     document.getElementById('user-image').src = data.imagen || './assets/default-profile.png';
                     document.getElementById('user-name').textContent = data.nombre;
@@ -97,10 +83,6 @@
                     document.getElementById('user-princess').textContent = `Princesa Favorita: ${data.princesa_fav}`;
                     document.getElementById('user-coins').textContent = `PrincessCoins: ${data.princesscoin}`;
                     document.getElementById('user-princesses').textContent = `Cantidad de Princesas: ${data.cantidad_de_princesas}`;
-
-                    if (idUsuario === ID_usuario) {
-                        document.getElementById('user-actions').classList.remove('is-hidden');
-                    }
                 })
 
                 .catch(error => {
