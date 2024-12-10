@@ -5,6 +5,45 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
     <style>
+        .cyberpunk-checkbox {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #0dd693;
+        border-radius: 5px;
+        background-color: transparent;
+        display: inline-block;
+        position: relative;
+        margin-right: 10px;
+        cursor: pointer;
+        }
+
+        .cyberpunk-checkbox:before {
+        content: "";
+        background-color: #0dd693;
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        transition: all 0.3s ease-in-out;
+        }
+
+        .cyberpunk-checkbox:checked:before {
+        transform: translate(-50%, -50%) scale(1);
+        }
+
+        .cyberpunk-checkbox-label {
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        }
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -15,6 +54,17 @@
 <body>
     <div class="container is-fluid">
         <div id="navbar-container"></div>
+        <div class="checkboxes mt-5 ml-4">
+            <label class="cyberpunk-checkbox-label">
+                <input type="checkbox" class="cyberpunk-checkbox">
+            Princesas</label>
+            <label class="cyberpunk-checkbox-label">
+                <input type="checkbox" class="cyberpunk-checkbox">
+            Principes</label>
+            <label class="cyberpunk-checkbox-label">
+                <input type="checkbox" class="cyberpunk-checkbox">
+            Villanos</label>
+        </div>
         <div id="contenido-principal" class="columns is-multiline"></div>
     </div>
     <script>
@@ -51,12 +101,8 @@
                                     </figure>
                                 </div>
                                 <div class="card-content">
-                                    <div class="media">
-                                        <div class="media-content">
-                                            <p class="title is-4">${princesa.nombre}</p>
-                                        </div>
-                                    </div>
                                     <div class="content">
+                                        <p class="title is-5 mt-1 mb-2">${princesa.nombre}</p>
                                         <b>Precio</b>: ${princesa.precio}<br>
                                         <b>Habilidad</b>: Te concede +${princesa.habilidad} princesscoins por click
                                     </div>

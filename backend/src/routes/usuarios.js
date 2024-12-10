@@ -143,6 +143,7 @@ router.post('/:id/villanos/:villano_id', async (req, res) => {
   console.log(usuarioVillano);
 });
 
+   
 router.delete('/:id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
