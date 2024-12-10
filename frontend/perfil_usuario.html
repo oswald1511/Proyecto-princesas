@@ -76,6 +76,7 @@
 
             // Cargar los datos del usuario
             fetch(`http://localhost:3000/api/v1/usuarios/${ID_usuario}`)
+                .then(response => response.json())
                 .then(data => {
                     document.getElementById('user-image').src = data.imagen || './assets/default-profile.png';
                     document.getElementById('user-name').textContent = data.nombre;
