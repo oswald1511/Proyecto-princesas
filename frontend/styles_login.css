@@ -120,3 +120,9 @@ h1 {
     color: #7b1fa2;
     margin-bottom: 0.5rem;
 }
+
+.button.is-info{
+    background-color: #d3c0f9 !important; /* Nuevo color de fondo */
+    border-color: #d3c0f9 !important;    /* Nuevo color de borde */
+    color: #000000 !important;              /* Color del texto */
+}
