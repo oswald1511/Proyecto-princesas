@@ -36,14 +36,35 @@
                         document.getElementById('nombre-usuario').textContent = nombreUsuario;
                     }
                 });
+            const id_usuario= localStorage.getItem('id_usuario');
+            if(!id_usuario){
+                console.error('No hay usuario logueado');
+                return;
+        }
         });  
-        let mi_dinero=0;
+        //Si el usuario no tiene dinero, empieza en 0, sino, empieza con el que tenia
+        let mi_dinero= localStorage.getItem('mi_dinero') ? parseInt(localStorage.getItem('mi_dinero')) : 0;
+        document.getElementById('dinero').innerText= 'Dinero:'+ mi_dinero;
         //La funcion jugar aumenta el dinero en 1
         function jugar(){
-            const dinero_ganado=1;
+            let dinero_ganado=1;
                 mi_dinero += dinero_ganado;
                 document.getElementById('dinero').innerText= 'Dinero:'+ mi_dinero;
-        }
+                localStorage.setItem('mi_dinero',mi_dinero);
+                fetch(`http://localhost:3000/usuarios/${id_usuario}`,{
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        princesscoin: mi_dinero
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Dinero agregado:', data);
+                })
+            }
         //Añado el evento click al boton "Jugar"
         document.getElementById('Juego').addEventListener('click',jugar); 
     </script>
