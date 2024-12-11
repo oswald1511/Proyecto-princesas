@@ -45,6 +45,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Cargar el navbar
             fetch('navbar.html')
                 .then(response => response.text())
                 .then(data => {
@@ -60,53 +61,74 @@
                         });
                     });
 
-                    // Actualizar el nombre del usuario
+                    // Actualizar el nombre del usuario en el navbar
                     const nombreUsuario = localStorage.getItem('nombreUsuario');
                     if (nombreUsuario) {
-                        document.getElementById('nombre-usuario').textContent = nombreUsuario;
+                        const userButton = document.getElementById('nombre-usuario');
+                        if (userButton) {
+                            userButton.textContent = nombreUsuario;
+                        }
                     }
                 });
-        });   
-                
-            const urlParams = new URLSearchParams(window.location.search);
-            const idUsuario = urlParams.get('id');
-            const currentUserId = localStorage.getItem('userId');
+            
+            // Obtener el ID del usuario
+            const ID_usuario = localStorage.getItem('usuarioID'); 
 
-            fetch(`http://localhost:3000/api/v1/usuarios/${idUsuario}`)
+            // Cargar los datos del usuario
+            fetch(`http://localhost:3000/api/v1/usuarios/${ID_usuario}`)
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('user-image').src = data.imagen;//arreglarlo para que agarre la imagen del usuario de la bdd
+                    document.getElementById('user-image').src = data.imagen || './assets/default-profile.png';
                     document.getElementById('user-name').textContent = data.nombre;
                     document.getElementById('user-age').textContent = `Edad: ${data.edad}`;
                     document.getElementById('user-princess').textContent = `Princesa Favorita: ${data.princesa_fav}`;
                     document.getElementById('user-coins').textContent = `PrincessCoins: ${data.princesscoin}`;
                     document.getElementById('user-princesses').textContent = `Cantidad de Princesas: ${data.cantidad_de_princesas}`;
+                })
 
-                    if (idUsuario === currentUserId) {
-                        document.getElementById('user-actions').classList.remove('is-hidden');
-                    }
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('user-profile').innerHTML = '<p class="has-text-centered is-size-4">Hubo un error al cargar la información del usuario.</p>';
                 });
 
+            
             document.getElementById('edit-profile').addEventListener('click', () => {
                 // Implementar lógica para editar perfil
                 console.log('Editar perfil');
             });
 
             document.getElementById('logout').addEventListener('click', () => {
-                // Implementar lógica para cerrar sesión
-                console.log('Cerrar sesión');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('nombreUsuario');
+                window.location.href = 'index.html'; // Redirigir a la página principal
             });
 
             document.getElementById('delete-user').addEventListener('click', () => {
-                // Implementar lógica para borrar usuario
-                console.log('Borrar usuario');
+                if (confirm('¿Estás seguro de que quieres borrar tu cuenta? Esta acción no se puede deshacer.')) {
+                    fetch(`http://localhost:3000/api/v1/usuarios/${ID_usuario}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            localStorage.removeItem('userId');
+                            localStorage.removeItem('nombreUsuario');
+                            window.location.href = 'index.html'; // Redirigir a la página principal
+                        } else {
+                            throw new Error('No se pudo borrar el usuario');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Hubo un error al intentar borrar el usuario');
+                    });
+                }
             });
 
             document.getElementById('view-purchases').addEventListener('click', () => {
                 // Implementar lógica para ver compras
                 console.log('Ver compras');
             });
+        });
     </script>
 </body>
 </html>
-
