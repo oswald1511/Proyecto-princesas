@@ -1,72 +1,50 @@
 <!Doctype HTML>
 <html>
-
-<head>
-    <title>Princesas de disney</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
-    <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-    <div class="container is-fluid">
-        <div id="navbar-container"></div>
-    </div>
-    <button id="Juego"> Jugar </button>
-    <p id="dinero">Dinero:0</p>
-</body>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        fetch('navbar.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('navbar-container').innerHTML = data;
-                // Inicializar el navbar-burger
-                const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-                $navbarBurgers.forEach(el => {
-                    el.addEventListener('click', () => {
-                        const target = el.dataset.target;
-                        const $target = document.getElementById(target);
-                        el.classList.toggle('is-active');
-                        $target.classList.toggle('is-active');
+    <head>
+        <title>Princesas de disney</title>
+        <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+        <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+        <link rel="stylesheet" href="styles.css">
+        </head>
+    <body>
+        <div class="container is-fluid">
+            <div id="navbar-container"></div>
+        </div>
+        <button id="Juego" > Jugar </button>
+        <p id="dinero">Dinero:0</p>
+    </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                    // Inicializar el navbar-burger
+                    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+                    $navbarBurgers.forEach(el => {
+                        el.addEventListener('click', () => {
+                            const target = el.dataset.target;
+                            const $target = document.getElementById(target);
+                            el.classList.toggle('is-active');
+                            $target.classList.toggle('is-active');
+                        });
                     });
-                });
-            });
-        // Actualizar el nombre del usuario
-        const nombreUsuario = localStorage.getItem('nombreUsuario');
-        if (nombreUsuario) {
-            document.getElementById('nombre-usuario').textContent = nombreUsuario;
-        }
-    });
-    //DInero del usuario, si no tenia empieza en 0, sino empieza con el que tiene
-    let mi_dinero = localStorage.getItem('mi_dinero') ? parseInt(localStorage.getItem('mi_dinero')) : 0;
-    document.getElementById('dinero').innerText = 'Dinero:' + mi_dinero;
-    let Dinero_usuario = localStorage.getItem('Dinero_usuario'); 
-    //La funcion jugar aumenta el dinero en 1
-    function jugar() {
-        let dinero_ganado = 1;
-        mi_dinero += dinero_ganado;
-        document.getElementById('dinero').innerText = 'Dinero:' + mi_dinero;
-        localStorage.setItem('Dinero_usuario', mi_dinero); //Guarda el dinero ganado del usuario
-        //Actualiza el dinero ganado del usuario
-        fetch(`http://localhost:3000/api/v1/usuarios/${nombreUsuario}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ princesscoin: mi_dinero })
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-            })
-            .then(data => {
-                console.log(data);
-            });
-        }
-    //Añado el evento click al boton "Jugar"
-    document.getElementById('Juego').addEventListener('click', jugar); 
-</script>
 
+                    // Actualizar el nombre del usuario
+                    const nombreUsuario = localStorage.getItem('nombreUsuario');
+                    if (nombreUsuario) {
+                        document.getElementById('nombre-usuario').textContent = nombreUsuario;
+                    }
+                });
+        });  
+        let mi_dinero=0;
+        //La funcion jugar aumenta el dinero en 1
+        function jugar(){
+            const dinero_ganado=1;
+                mi_dinero += dinero_ganado;
+                document.getElementById('dinero').innerText= 'Dinero:'+ mi_dinero;
+        }
+        //Añado el evento click al boton "Jugar"
+        document.getElementById('Juego').addEventListener('click',jugar); 
+    </script>
 </html>
