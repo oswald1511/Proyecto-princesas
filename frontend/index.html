@@ -73,7 +73,6 @@
     <div id="game-content" class="hidden">
         <h1>Elige un usuario para jugar</h1>
         <div id="user-grid" class="user-grid">
-            <!-- User cards will be dynamically inserted here -->
             <div class="add-user-card" id="addUserCard">
                 <span class="add-user-icon">+</span>
                 <p>Agregar Nuevo Usuario</p>
@@ -91,9 +90,9 @@
                 <div class="field">
                     <label class="label">Edad</label>
                     <div class="control">
-                        <input id="edad" class="input" type="number" placeholder="Edad" min="1">
+                        <input id="edad" class="input" type="number" placeholder="Edad" min="1" max="100">
                     </div>
-                    <p id="edadError" class="error-message hidden">La edad debe ser un número positivo mayor que 0.</p>
+                    <p id="edadError" class="error-message hidden">La edad debe ser un número valido.</p>
                 </div>
                 <div class="field">
                     <label class="label">Princesa Favorita</label>
@@ -190,7 +189,7 @@
             let princesa_fav = document.getElementById('princesa_fav').value;
 
             // Validar la edad
-            if (parseInt(edad) <= 0) {
+            if (parseInt(edad) <= 0 || parseInt(edad) >= 100) {
                 document.getElementById('edadError').classList.remove('hidden');
                 return;
             } else {
@@ -219,7 +218,7 @@
             })
             .catch(error => {
                 console.error('Error al crear usuario:', error);
-                alert('Hubo un error al crear el usuario. Por favor, intenta de nuevo.');
+                alert('Hubo un error al crear el usuario. Por favor, verifique de poner una edad valida, un usuario que no se repita e intente nuevamente.');
             });
         }
 
