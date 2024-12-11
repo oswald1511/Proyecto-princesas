@@ -215,7 +215,12 @@
                 // Preparar los datos a actualizar, solo se envían los campos modificados
                 const updatedData = {};
                 if (newName) updatedData.nombre = newName;
-                if (newAge) updatedData.edad = newAge;
+                if (newAge) {
+                    const parsedAge = parseInt(newAge, 10);
+                    if (!isNaN(parsedAge) && parsedAge > 0 && parsedAge < 100) {
+                        updatedData.edad = parsedAge;
+                    }
+                }
                 if (newPrincess) updatedData.princesa_fav = newPrincess;
                 if (newImage) updatedData.imagen = newImage;
 
