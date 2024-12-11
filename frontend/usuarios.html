@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Princesas de Disney</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles_pag.css">
+</head>
+<body>
+    <div class="container is-fluid">
+        <div id="navbar-container"></div>
+        <div class="table-container mt-5">
+            <table class="table is-fullwidth is-bordered is-hoverable">
+                <thead>
+                    <tr>
+                        <th>Clasificacion</th>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Cantidad de princesas</th>
+                        <th>Princesa Favorita</th>
+                        <th>PrincessCoins</th>
+                    </tr>
+                </thead>
+                <tbody id="datos-usuarios">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                    // Inicializar el navbar-burger
+                    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+                    $navbarBurgers.forEach(el => {
+                        el.addEventListener('click', () => {
+                            const target = el.dataset.target;
+                            const $target = document.getElementById(target);
+                            el.classList.toggle('is-active');
+                            $target.classList.toggle('is-active');
+                        });
+                    });
+
+                    // Actualizar el nombre del usuario
+                    const nombreUsuario = localStorage.getItem('nombreUsuario');
+                    if (nombreUsuario) {
+                        document.getElementById('nombre-usuario').textContent = nombreUsuario;
+                    }
+                });
+        });   
+
+        window.onload = function() {
+            cargarUsuarios();
+        }
+        
+        function cargarUsuarios(){
+            fetch('http://localhost:3000/api/v1/usuarios')
+            .then(response => response.json())
+            .then(usuarios => {
+                console.log(usuarios)
+                
+                let puesto = 1;
+                let table = document.getElementById('datos-usuarios');
+                table.innerHTML = '';
+                usuarios.forEach(usuario => {
+                    let tr = document.createElement('tr');                    
+                    let indice = document.createElement('th');
+                    indice.textContent = "#" + puesto;
+                    puesto++;
+                    const link = document.createElement('a');
+                    link.href = `/usuario?id=${usuario.id}`;
+                    link.textContent = usuario.nombre;
+                    let nombre = document.createElement('td');
+                    nombre.appendChild(link);
+                    let princessCoins = document.createElement('td');
+                    princessCoins.textContent = usuario.princesscoin;
+                    let edad = document.createElement('td');
+                    edad.textContent = usuario.edad;
+                    let cantidadPrincesas = document.createElement('td');
+                    cantidadPrincesas.textContent = usuario.cantidad_de_princesas;
+                    let princesaFavorita = document.createElement('td');
+                    princesaFavorita.textContent = usuario.princesa_fav;
+                    
+                    
+                    tr.appendChild(indice);
+                    tr.appendChild(nombre);
+                    tr.appendChild(edad);
+                    tr.appendChild(cantidadPrincesas);
+                    tr.appendChild(princesaFavorita);
+                    tr.appendChild(princessCoins);
+                    table.appendChild(tr);
+                    
+                });
+            });
+        }
+        // FUNCION QUE BORRA UN USUARIO Y EL BOTON PARA BORRARLO
+        //     let borrar = document.createElement('td');
+        //     let button = document.createElement('button');
+        //     button.textContent = 'Borrar';
+        //     button.className = 'button is-danger is-small';
+        //     button.onclick = function() { borrarUsuario(usuario.id) };
+        //     borrar.appendChild(button);
+        //     tr.appendChild(borrar);
+        //     function borrarUsuario(id) {
+        //     alert('Borrando usuario ' + id);
+        //     fetch('http://localhost:3000/api/v1/usuarios/' + id, {
+        //         method: 'DELETE'
+        //     })
+        //     .then(response => response.json())
+        //     .then(response => {
+        //         let tr = document.getElementById('usuario-' + response.id);
+        //         tr.remove();
+        //     });
+        //    };
+        
+    </script>
+</body>
+</html>

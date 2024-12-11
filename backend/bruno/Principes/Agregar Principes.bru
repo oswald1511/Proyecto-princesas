@@ -1,0 +1,23 @@
+meta {
+  name: Agregar Principes
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/v1/principes
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nombre": "sportacus",
+    "cuento": "nose",
+    "virtud": "leer",
+    "habilidad": "no es lo mismo que virtud?",
+    "alias": "el macho",
+    "precio": 10,
+    "imagen": "https://i.postimg.cc/jSPmTnMJ/Pincipe-Eric.jpg"
+  }
+}

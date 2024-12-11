@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Princesas de Disney</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+    <div class="container is-fluid">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="index.html">Disney</a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="usuarios.html">Usuarios</a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                          Personajes
+                        </a>
+                
+                        <div class="navbar-dropdown">
+                          <a class="navbar-item" href="princesas.html">
+                            Princesas
+                          </a>
+                          <a class="navbar-item" href="principes.html">
+                            Principes
+                          </a>
+                          <a class="navbar-item" href="villanos.html">
+                            Villanos
+                          </a>
+                        </div>
+                      </div>
+                </div>
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary is-respondive">
+                                <strong>Comprar personaje</strong>
+                            </a>
+                            <a class="button is-primary is-respondive">
+                                <strong>Vender personaje</strong>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+              <h1>CREAR UN NUEVO USUARIO</h1>
+              <div class="container is-max-desktop">
+                <div class="field">
+                  <label class="label">Nombre</label>
+                  <div class="control">
+                    <input id="nombre" class="input" type="text" placeholder="Nombre">
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Edad</label>
+                  <div class="control">
+                    <input id="edad" class="input" type="text" placeholder="Edad">
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Princesa Favorita</label>
+                  <div class="control">
+                    <input id="princesa_fav" class="input" type="text" placeholder="Princesa Favorita">
+                  </div>
+                </div>
+                <div class="field is-grouped is-grouped-centered">
+                  <p class="control">
+                    <button class="button is-primary" onclick="crearUsuario()">
+                      Guardar
+                    </button>
+                  </p>
+                  <p class="control">
+                    <a class="button is-light" onclick="vaciarForm()">
+                      Borrar
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+    </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+$navbarBurgers.forEach( el => {
+    el.addEventListener('click', () => {
+
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+    });
+});
+});
+        function crearUsuario(){
+            let nombre = document.getElementById('nombre').value;
+            let edad = document.getElementById('edad').value;
+            let princesa_fav = document.getElementById('princesa_fav').value;
+            let usuario = {
+                nombre: nombre,
+                edad: parseInt(edad),
+                princesa_fav: princesa_fav
+            }
+            fetch('http://localhost:3000/api/v1/usuarios', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(usuario)
+            })
+            .then(response => {
+              if(response.status === 200){
+                alert('Usuario creado con éxito');
+                vaciarForm();
+              } else {
+                alert('Error al crear el usuario');
+              }
+            })
+
+
+        }
+        function vaciarForm(){
+            document.getElementById('nombre').value = '';
+            document.getElementById('edad').value = '';
+            document.getElementById('princesa_fav').value = '';
+        }
+    </script>
+</html>

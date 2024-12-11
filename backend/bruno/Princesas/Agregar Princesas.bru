@@ -1,0 +1,25 @@
+meta {
+  name: Agregar Princesas
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/v1/princesas
+  body: json
+  auth: none
+}
+
+body:json {
+  
+  {
+      "nombre": "Ariel",
+      "cuento": "La sirenita",
+      "virtud": "Curiosidad",
+      "habilidad": 10,
+      "principe": "Eric",
+      "precio": 20,
+      "imagen": "https://i.postimg.cc/SxHST9J2/Ariel.jpg"
+    }
+  
+}

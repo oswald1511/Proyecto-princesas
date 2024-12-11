@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="styles_pag.css">
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="container is-fluid">
+        <div id="navbar-container"></div>
+        <div id="user-profile" class="mt-5">
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-128x128">
+                                <img id="user-image" src="" alt="Imagen de perfil">
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <p id="user-name" class="title is-4"></p>
+                            <p id="user-age" class="subtitle is-6"></p>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <p id="user-princess"></p>
+                        <p id="user-coins"></p>
+                        <p id="user-princesses"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="user-actions" class="mt-4 is-hidden">
+                <button id="edit-profile" class="button is-primary">Editar Perfil</button>
+                <button id="logout" class="button is-light">Cerrar Sesión</button>
+                <button id="delete-user" class="button is-danger">Borrar Usuario</button>
+                <button id="view-purchases" class="button is-info">Ver Compras</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Cargar el navbar
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                    // Inicializar el navbar-burger
+                    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+                    $navbarBurgers.forEach(el => {
+                        el.addEventListener('click', () => {
+                            const target = el.dataset.target;
+                            const $target = document.getElementById(target);
+                            el.classList.toggle('is-active');
+                            $target.classList.toggle('is-active');
+                        });
+                    });
+
+                    // Actualizar el nombre del usuario en el navbar
+                    const nombreUsuario = localStorage.getItem('nombreUsuario');
+                    if (nombreUsuario) {
+                        const userButton = document.getElementById('nombre-usuario');
+                        if (userButton) {
+                            userButton.textContent = nombreUsuario;
+                        }
+                    }
+                });
+            
+            // Obtener el ID del usuario
+            const ID_usuario = localStorage.getItem('usuarioID'); 
+
+            // Cargar los datos del usuario
+            fetch(`http://localhost:3000/api/v1/usuarios/${ID_usuario}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('user-image').src = data.imagen || './assets/default-profile.png';
+                    document.getElementById('user-name').textContent = data.nombre;
+                    document.getElementById('user-age').textContent = `Edad: ${data.edad}`;
+                    document.getElementById('user-princess').textContent = `Princesa Favorita: ${data.princesa_fav}`;
+                    document.getElementById('user-coins').textContent = `PrincessCoins: ${data.princesscoin}`;
+                    document.getElementById('user-princesses').textContent = `Cantidad de Princesas: ${data.cantidad_de_princesas}`;
+                })
+
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('user-profile').innerHTML = '<p class="has-text-centered is-size-4">Hubo un error al cargar la información del usuario.</p>';
+                });
+
+            
+            document.getElementById('edit-profile').addEventListener('click', () => {
+                // Implementar lógica para editar perfil
+                console.log('Editar perfil');
+            });
+
+            document.getElementById('logout').addEventListener('click', () => {
+                localStorage.removeItem('userId');
+                localStorage.removeItem('nombreUsuario');
+                window.location.href = 'index.html'; // Redirigir a la página principal
+            });
+
+            document.getElementById('delete-user').addEventListener('click', () => {
+                if (confirm('¿Estás seguro de que quieres borrar tu cuenta? Esta acción no se puede deshacer.')) {
+                    fetch(`http://localhost:3000/api/v1/usuarios/${ID_usuario}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            localStorage.removeItem('userId');
+                            localStorage.removeItem('nombreUsuario');
+                            window.location.href = 'index.html'; // Redirigir a la página principal
+                        } else {
+                            throw new Error('No se pudo borrar el usuario');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Hubo un error al intentar borrar el usuario');
+                    });
+                }
+            });
+
+            document.getElementById('view-purchases').addEventListener('click', () => {
+                // Implementar lógica para ver compras
+                console.log('Ver compras');
+            });
+        });
+    </script>
+</body>
+</html>

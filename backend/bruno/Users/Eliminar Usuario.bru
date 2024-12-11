@@ -1,0 +1,22 @@
+meta {
+  name: Eliminar Usuario
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:3000/api/v1/usuarios/:id
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 47
+}
+
+body:json {
+  {
+    id: 1
+  }
+  
+}
