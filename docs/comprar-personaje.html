@@ -24,6 +24,25 @@
             flex-direction: column;
             justify-content: space-between;
         }
+
+        .moneda-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-right: 20px;
+            margin-top: 30px;
+        }
+        .moneda-text {
+            margin-right: 10px;
+            font-size: 18px;
+            color: #fff;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
         
         .cyberpunk-checkbox:before {
         content: "";
@@ -61,18 +80,24 @@
 <body>
     <div class="container is-fluid">
         <div id="navbar-container"></div>
-        <div class="checkboxes mt-5 ml-4">
-            <label class="cyberpunk-checkbox-label">
-                <input type="checkbox" id="filter-princesa" class="cyberpunk-checkbox" checked>
-            Princesas
-            </label>
-            <label class="cyberpunk-checkbox-label">
-                <input type="checkbox" id="filter-principe" class="cyberpunk-checkbox" checked>
-            Principes
-            </label>
-            <label class="cyberpunk-checkbox-label">
-                <input type="checkbox" id="filter-villano" class="cyberpunk-checkbox" checked>
-            Villanos</label>
+        <div class="header-container">
+            <div class="checkboxes mt-5 ml-4">
+                <label class="cyberpunk-checkbox-label">
+                    <input type="checkbox" id="filter-princesa" class="cyberpunk-checkbox" checked>
+                Princesas
+                </label>
+                <label class="cyberpunk-checkbox-label">
+                    <input type="checkbox" id="filter-principe" class="cyberpunk-checkbox" checked>
+                Principes
+                </label>
+                <label class="cyberpunk-checkbox-label">
+                    <input type="checkbox" id="filter-villano" class="cyberpunk-checkbox" checked>
+                Villanos</label>
+            </div>
+            <div class="moneda-container">
+                <img src="./assets/moneda.png" alt="moneda" style="height: 35px;">
+                <span id="moneda-text" class="moneda-text"></span>
+            </div>
         </div>
     <div id="contenido-principal" class="columns is-multiline"></div>
     </div>
@@ -99,6 +124,13 @@
                         document.getElementById('nombre-usuario').textContent = nombreUsuario;
                     }
                 });
+                const usuario_id = localStorage.getItem('usuarioID');
+                    fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}`)
+                        .then(response => response.json())
+                        .then(usuario => {
+                            const monedas = usuario.princesscoin;
+                            document.getElementById('moneda-text').textContent = `${monedas}`;
+                        });
 
             // Añadir event listeners a los checkboxes
             document.getElementById('filter-villano').addEventListener('change', cargarPersonajes);
