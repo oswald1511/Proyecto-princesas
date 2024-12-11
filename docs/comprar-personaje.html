@@ -101,10 +101,12 @@
 
         function cargarPersonajes(tipo) {
             const usuario_id = localStorage.getItem('usuarioID');
-            fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}`)
+            fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}/personajes`)
                 .then(response => response.json())
                 .then(usuario => {
-                    const personajesComprados = usuario[`${tipo}s`] ? usuario[`${tipo}s`].map(p => p.id) : [];
+                    console.log(usuario);
+                    const personajesComprados = usuario[`${tipo}s`] ? usuario[`${tipo}s`].map(p => p[`${tipo}_id`]) : [];
+                    console.log(personajesComprados);
                     fetch(`http://localhost:3000/api/v1/${tipo}s`)
                         .then(response => response.json())
                         .then(personajes => {
@@ -117,8 +119,8 @@
                                     carta.innerHTML = `
                                         <div class="card">
                                             <div class="card-image">
-                                                <figure class="image";>
-                                                    <img src="${personaje.imagen}" alt="${personaje.nombre}" style="object-fit: contain;"/>
+                                                <figure class="image is-4by3">
+                                                    <img src="${personaje.imagen}" alt="${personaje.nombre}" style="object-fit: cover; width: 100%; height: 100%;"/>
                                                 </figure>
                                             </div>
                                             <div class="card-content">
@@ -137,6 +139,7 @@
                         });
                 });
         }
+
         function Comprar_personaje(button) {
             const tipo = button.getAttribute('data-tipo');
             const personaje_id = button.getAttribute('data-id');
