@@ -276,3 +276,51 @@ router.get('/:id_usuario/villano/:id_villano', async (req, res) => {
   }
   res.status(200).json(usuarioVillano);
 });
+
+router.delete('/:usuario_id/princesa/:princesa_id', async (req, res) => {
+  const usuarioPrincesa = await prisma.usuarios_princesas.delete({
+    where: {
+      usuario_id_princesa_id: {
+        usuario_id: parseInt(req.params.usuario_id),
+        princesa_id: parseInt(req.params.princesa_id)
+      }
+    }
+  });
+  if (usuarioPrincesa === null) {
+    res.status(404);
+    return;
+  }
+  res.status(200).json(usuarioPrincesa);
+});
+
+router.delete('/:usuario_id/principe/:principe_id', async (req, res) => {
+  const usuarioPrincipe = await prisma.usuarios_principes.delete({
+    where: {
+      usuario_id_principe_id: {
+        usuario_id: parseInt(req.params.usuario_id),
+        principe_id: parseInt(req.params.principe_id)
+      }
+    }
+  });
+  if (usuarioPrincipe === null) {
+    res.status(404);
+    return;
+  }
+  res.status(200).json(usuarioPrincipe);
+});
+
+router.delete('/:usuario_id/villano/:villano_id', async (req, res) => {
+  const usuarioVillano = await prisma.usuarios_villanos.delete({
+    where: {
+      usuario_id_villano_id: {
+        usuario_id: parseInt(req.params.usuario_id),
+        villano_id: parseInt(req.params.villano_id)
+      }
+    }
+  });
+  if (usuarioVillano === null) {
+    res.status(404);
+    return;
+  }
+  res.status(200).json(usuarioVillano);
+});
