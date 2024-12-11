@@ -154,34 +154,59 @@ router.post('/:id/villano/:villano_id', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
+  const userId = parseInt(req.params.id);
+
+  // Verificar si el usuario existe
   const usuario = await prisma.usuario.findUnique({
     where: {
-      id : parseInt(req.params.id)
+      id: userId
     }
-  })
-  
+  });
+
   if (usuario === null) {
-    res.sendStatus(404)
-    return
+    res.sendStatus(404);
+    return;
   }
+
+  // Eliminar registros dependientes en usuarios_princesas
+  await prisma.usuarios_princesas.deleteMany({
+    where: {
+      usuario_id: userId
+    }
+  });
+
+  // Eliminar registros dependientes en usuarios_principes
+  await prisma.usuarios_principes.deleteMany({
+    where: {
+      usuario_id: userId
+    }
+  });
+
+  // Eliminar registros dependientes en usuarios_villanos
+  await prisma.usuarios_villanos.deleteMany({
+    where: {
+      usuario_id: userId
+    }
+  });
+
+  // Ahora eliminar el usuario
   await prisma.usuario.delete({
     where: {
-      id: parseInt(req.params.id)
+      id: userId
     }
-  })
-    
-  res.send(usuario)
-    
-})
+  });
+
+  res.send(usuario);
+});
   
 router.put('/:id', async(req, res) => {
   let usuario =  await prisma.usuario.findUnique({
     where:{
       id: parseInt(req.params.id)
-    }
+    } 
   })
   if (usuario === null) {
-    res.sendStatus(404)
+    res.sendStatus(404).send("Usuario no encontrado")
   }
   
   usuario = await prisma.usuario.update({
@@ -202,4 +227,100 @@ router.put('/:id', async(req, res) => {
 router.delete('/', async (req, res) => {
   await prisma.usuario.deleteMany();
   res.send("Todos los usuarios fueron borrados");
+});
+
+router.get('/:id_usuario/princesa/:id_princesa', async (req, res) => {
+  const usuarioPrincesa = await prisma.usuarios_princesas.findUnique({
+    where: {
+      usuario_id_princesa_id: {
+        usuario_id: parseInt(req.params.id_usuario),
+        princesa_id: parseInt(req.params.id_princesa)
+      }
+    }
+  });
+  if (usuarioPrincesa === null) {
+    res.status(404);
+    return;
+  }
+  res.status(200).json(usuarioPrincesa);
+});
+
+router.get('/:id_usuario/principe/:id_principe', async (req, res) => {
+  const usuarioPrincipe = await prisma.usuarios_principes.findUnique({
+    where: {
+      usuario_id_principe_id: {
+        usuario_id: parseInt(req.params.id_usuario),
+        principe_id: parseInt(req.params.id_principe)
+      }
+    }
+  });
+  if (usuarioPrincipe === null) {
+    res.status(404);
+    return;
+  }
+  res.status(200).json(usuarioPrincipe);
+});
+
+router.get('/:id_usuario/villano/:id_villano', async (req, res) => {
+  const usuarioVillano = await prisma.usuarios_villanos.findUnique({
+    where: {
+      usuario_id_villano_id: {
+        usuario_id: parseInt(req.params.id_usuario),
+        villano_id: parseInt(req.params.id_villano)
+      }
+    }
+  });
+  if (usuarioVillano === null) {
+    res.status(404);
+    return;
+  }
+  res.status(200).json(usuarioVillano);
+});
+
+router.delete('/:usuario_id/princesa/:princesa_id', async (req, res) => {
+  const usuarioPrincesa = await prisma.usuarios_princesas.delete({
+    where: {
+      usuario_id_princesa_id: {
+        usuario_id: parseInt(req.params.usuario_id),
+        princesa_id: parseInt(req.params.princesa_id)
+      }
+    }
+  });
+  if (usuarioPrincesa === null) {
+    res.status(404);
+    return;
+  }
+  res.status(200).json(usuarioPrincesa);
+});
+
+router.delete('/:usuario_id/principe/:principe_id', async (req, res) => {
+  const usuarioPrincipe = await prisma.usuarios_principes.delete({
+    where: {
+      usuario_id_principe_id: {
+        usuario_id: parseInt(req.params.usuario_id),
+        principe_id: parseInt(req.params.principe_id)
+      }
+    }
+  });
+  if (usuarioPrincipe === null) {
+    res.status(404);
+    return;
+  }
+  res.status(200).json(usuarioPrincipe);
+});
+
+router.delete('/:usuario_id/villano/:villano_id', async (req, res) => {
+  const usuarioVillano = await prisma.usuarios_villanos.delete({
+    where: {
+      usuario_id_villano_id: {
+        usuario_id: parseInt(req.params.usuario_id),
+        villano_id: parseInt(req.params.villano_id)
+      }
+    }
+  });
+  if (usuarioVillano === null) {
+    res.status(404);
+    return;
+  }
+  res.status(200).json(usuarioVillano);
 });

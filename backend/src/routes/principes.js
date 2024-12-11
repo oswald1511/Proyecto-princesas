@@ -20,7 +20,7 @@ router.get('/:id', async (req, res) => {
         res.sendStatus(404)
         return
     }
-    res.json(principes)
+    res.json(principe)
 })  
     
 router.post('/', async (req, res) => {
@@ -49,6 +49,19 @@ router.delete('/:id', async (req, res) => {
         res.sendStatus(404)
         return
     }
+
+    await prisma.princesas_principes.deleteMany({
+        where: {
+            principe_id: parseInt(req.params.id)
+        }
+    })
+
+    await prisma.usuarios_principes.deleteMany({
+        where: {
+            principe_id: parseInt(req.params.id)
+        }
+    })
+     
     await prisma.principe.delete({
         where: {
           id: parseInt(req.params.id)
