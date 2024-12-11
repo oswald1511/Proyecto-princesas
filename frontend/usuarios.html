@@ -4,7 +4,7 @@
     <title>Princesas de Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles_pag.css">
 </head>
 <body>
     <div class="container is-fluid">
@@ -27,7 +27,6 @@
         </div>
     </div>
     <script>
-        // Cargar el contenido de navbar.html en el contenedor
         document.addEventListener('DOMContentLoaded', () => {
             fetch('navbar.html')
                 .then(response => response.text())
@@ -43,8 +42,14 @@
                             $target.classList.toggle('is-active');
                         });
                     });
+
+                    // Actualizar el nombre del usuario
+                    const nombreUsuario = localStorage.getItem('nombreUsuario');
+                    if (nombreUsuario) {
+                        document.getElementById('nombre-usuario').textContent = nombreUsuario;
+                    }
                 });
-        });
+        });   
 
         window.onload = function() {
             cargarUsuarios();

@@ -4,7 +4,7 @@
         <title>Princesas de disney</title>
         <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
         <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="styles_pag.css">
         </head>
     <body>
         <div class="container is-fluid">
@@ -36,7 +36,7 @@
                         document.getElementById('nombre-usuario').textContent = nombreUsuario;
                     }
                 });
-            const id_usuario= localStorage.getItem('id_usuario');
+            const id_usuario= localStorage.getItem('usuarioID');
             if(!id_usuario){
                 console.error('No hay usuario logueado');
                 return;
@@ -51,19 +51,17 @@
                 mi_dinero += dinero_ganado;
                 document.getElementById('dinero').innerText= 'Dinero:'+ mi_dinero;
                 localStorage.setItem('mi_dinero',mi_dinero);
-                fetch(`http://localhost:3000/usuarios/${id_usuario}`,{
+                fetch(`http://localhost:3000/api/v1/usuarios/${usuarioID}`,{
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        princesscoin: mi_dinero
-                    })
+                    body: JSON.stringify({princesscoin: mi_dinero})
                 })
                 .then(response => response.json())
                 .then(data => {
                     console.log('Dinero agregado:', data);
-                })
+                });
             }
         //Añado el evento click al boton "Jugar"
         document.getElementById('Juego').addEventListener('click',jugar); 

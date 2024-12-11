@@ -4,7 +4,7 @@
     <title>Princesas de Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles_pag.css">
 </head>
 <body>
     <div class="container is-fluid">
@@ -23,6 +23,8 @@
                             <th>Precio</th>
                         </tr>
                     </thead>
+                    <tbody id="datos-principes">
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -30,8 +32,8 @@
     <label class="checkbox">
         <input type="checkbox" class="filtro-obtenido" />
         Principes obtenidos
-      </label>
-      <label class="checkbox">
+    </label>
+    <label class="checkbox">
         <input type="checkbox" class="filtro-no-obtenido"/>
         Principes no obtenidos
       </label>
@@ -51,7 +53,14 @@
                             $target.classList.toggle('is-active');
                         });
                     });
+
+                    // Actualizar el nombre del usuario
+                    const nombreUsuario = localStorage.getItem('nombreUsuario');
+                    if (nombreUsuario) {
+                        document.getElementById('nombre-usuario').textContent = nombreUsuario;
+                    }
                 });
+        });   
     //Aca se guarda el ID de los principes que tiene el usuario
         let principes_obtenidos = []; 
     // Eventos para los checkboxes
@@ -111,7 +120,6 @@
                 table.appendChild(tr);
             });
         });
-    });
     </script>
     </body>
 </html>
