@@ -98,6 +98,7 @@
                     <div class="control">
                         <input id="nombre" class="input" type="text" placeholder="Nombre">
                     </div>
+                    <p id="nombreError" class="error-message hidden">Este nombre de usuario ya existe. Por favor, elige otro.</p>
                 </div>
                 <div class="field">
                     <label class="label">Edad</label>
@@ -205,46 +206,67 @@
             });
         }
 
-        // Crea un nuevo usuario
-        function crearUsuario() {
-            let nombre = document.getElementById('nombre').value;
-            let edad = document.getElementById('edad').value;
-            let princesaFav = document.getElementById('princesa_fav').value;
+        function verificarNombreUsuario(nombre) {
+          return fetch(`http://localhost:3000/api/v1/usuarios/${nombre}`)
+            .then(respuesta => {
+              if (respuesta.ok) {
+                return true; // El usuario ya existe
+              } else if (respuesta.status === 404) {
+                return false; // El usuario no existe
+              } else {
+                throw new Error('Error al verificar el nombre de usuario');
+              }
+            });
+        }
 
-            // Valida la edad ingresada
-            if (parseInt(edad) <= 0 || parseInt(edad) >= 100) {
-                document.getElementById('edadError').classList.remove('hidden');
-                return;
+        async function crearUsuario() {
+          let nombre = document.getElementById('nombre').value;
+          let edad = document.getElementById('edad').value;
+          let princesaFav = document.getElementById('princesa_fav').value;
+
+          // Valida la edad ingresada
+          if (parseInt(edad) <= 0 || parseInt(edad) >= 100) {
+            document.getElementById('edadError').classList.remove('hidden');
+            return;
+          } else {
+            document.getElementById('edadError').classList.add('hidden');
+          }
+
+          try {
+            // Verifica si el nombre de usuario ya existe
+            const usuarioExiste = await verificarNombreUsuario(nombre);
+            if (usuarioExiste) {
+              document.getElementById('nombreError').classList.remove('hidden');
+              return;
             } else {
-                document.getElementById('edadError').classList.add('hidden');
+              document.getElementById('nombreError').classList.add('hidden');
             }
 
             let usuario = {
-                nombre: nombre,
-                edad: parseInt(edad),
-                princesa_fav: princesaFav,
+              nombre: nombre,
+              edad: parseInt(edad),
+              princesa_fav: princesaFav,
             }
 
             // Envía la solicitud para crear el nuevo usuario
-            fetch('http://localhost:3000/api/v1/usuarios', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(usuario)
-            })
-            .then(respuesta => {
-                if(respuesta.status === 201){
-                    limpiarFormulario();
-                    cargarUsuarios(); // Recarga la lista de usuarios
-                } else {
-                    throw new Error('Error al crear el usuario');
-                }
-            })
-            .catch(error => {
-                console.error('Error al crear usuario:', error);
-                alert('Hubo un error al crear el usuario. Por favor, verifique los datos e intente nuevamente.');
+            const respuesta = await fetch('http://localhost:3000/api/v1/usuarios', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(usuario)
             });
+
+            if (respuesta.status === 201) {
+              limpiarFormulario();
+              cargarUsuarios(); // Recarga la lista de usuarios
+            } else {
+              throw new Error('Error al crear el usuario');
+            }
+          } catch (error) {
+            console.error('Error al crear usuario:', error);
+            alert('Hubo un error al crear el usuario. Por favor, verifique los datos e intente nuevamente.');
+          }
         }
 
         // Limpia el formulario de nuevo usuario
@@ -253,6 +275,7 @@
             document.getElementById('edad').value = '';
             document.getElementById('princesa_fav').value = '';
             document.getElementById('edadError').classList.add('hidden');
+            document.getElementById('nombreError').classList.add('hidden');
             
             document.getElementById('newUserForm').classList.add('hidden');
             document.getElementById('addUserCard').classList.remove('hidden');
@@ -275,4 +298,3 @@
     </script>
 </body>
 </html>
-
