@@ -120,7 +120,7 @@
                         </button>
                     </p>
                     <p class="control">
-                        <a class="button is-light" onclick="vaciarForm()">
+                        <a class="button is-light" onclick="vaciarFormulario()">
                             Borrar
                         </a>
                     </p>
@@ -269,7 +269,7 @@
           }
         }
 
-        // Limpia el formulario de nuevo usuario
+        // Limpia el formulario y lo cierra
         function limpiarFormulario() {
             document.getElementById('nombre').value = '';
             document.getElementById('edad').value = '';
@@ -295,6 +295,14 @@
 
             window.location.href = 'pag_principal.html';
         }
+
+        // Limpia valores de los campos del formulario
+        function vaciarFormulario() {
+            document.getElementById('nombre').value = '';
+            document.getElementById('edad').value = '';
+            document.getElementById('princesa_fav').value = '';
+        }
+
     </script>
 </body>
 </html>
