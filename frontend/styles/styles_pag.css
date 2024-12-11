@@ -1,5 +1,5 @@
 body {
-    background-image: url("./img/fondocastillo.png");
+    background-image: url("../assets/img/fondocastillo.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -11,12 +11,14 @@ body {
     padding: 10px;
 }
 
-.checkbox{
+.checkbox {
     margin: 20px;
     padding: 10px;
 }
 
 .navbar {
-    background-color: rgb(255, 255, 255, 0.5); /*50% de transparencia */
-    border-radius: 15px; /* Bordes redondeados radio 15px */
+    background-color: rgb(255, 255, 255, 0.5);
+    /*50% de transparencia */
+    border-radius: 15px;
+    /* Bordes redondeados radio 15px */
 }
