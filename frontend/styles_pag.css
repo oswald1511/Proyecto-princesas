@@ -35,10 +35,12 @@ body {
 
 #nombre-usuario {
     font-weight: bold;/*negrita*/
+    color:#000000 !important;
 }
 
 .navbar-item {
     font-weight: bold;
+    color:#000000;
 }
 
 .button:hover {
