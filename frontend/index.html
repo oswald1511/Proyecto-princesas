@@ -47,6 +47,15 @@
         .start-button:hover {
             background-color: #4a148c;
         }
+        .hidden {
+            display: none;
+        }
+        #back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
@@ -71,6 +80,9 @@
     </div>
 
     <div id="game-content" class="hidden">
+
+        <button id="back-button" class="button is-info">Volver al inicio</button>
+
         <h1>Elige un usuario para jugar</h1>
         <div id="user-grid" class="user-grid">
             <div class="add-user-card" id="addUserCard">
@@ -245,6 +257,22 @@
         
             window.location.href = 'pag_principal.html'; // Redirigir a la página principal
         }
+
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const gameContent = document.getElementById('game-content');
+        const startButton = document.getElementById('start-button');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const backButton = document.getElementById('back-button');
+        backButton.addEventListener('click', () => {
+            gameContent.classList.add('hidden');
+            welcomeScreen.classList.remove('hidden');
+        });
+            startButton.addEventListener('click', () => {
+                welcomeScreen.classList.add('hidden');
+                gameContent.classList.remove('hidden');
+            });
+        });
     </script>
 </body>
 </html>
