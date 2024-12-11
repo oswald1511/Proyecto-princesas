@@ -20,3 +20,23 @@ body {
     background-color: rgb(255, 255, 255, 0.5); /*50% de transparencia */
     border-radius: 15px; /* Bordes redondeados radio 15px */
 }
+
+.button.is-primary { /*comprar y vender*/
+    background-color: #d3c0f9 !important; /* Nuevo color de fondo */
+    border-color: #d3c0f9 !important;    /* Nuevo color de borde */
+    color: #000000 !important;              /* Color del texto */
+}
+
+.button.is-skeleton { /*modificar usuario */
+    background-color: #6db9da !important; /* Nuevo color de fondo */
+    border-color: #6db9da !important;    /* Nuevo color de borde */
+    color: #000000 !important;     
+}
+
+.button:hover {
+    filter: brightness(1.1); /* Aumenta el brillo en hover */
+}
+
+.button.is-primary:hover {
+    background-color: #d3c0f9 !important; /* Color más claro en hover */
+}
