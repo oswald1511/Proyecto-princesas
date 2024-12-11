@@ -33,6 +33,14 @@ body {
     color: #000000 !important;     
 }
 
+#nombre-usuario {
+    font-weight: bold;/*negrita*/
+}
+
+.navbar-item {
+    font-weight: bold;
+}
+
 .button:hover {
     filter: brightness(1.1); /* Aumenta el brillo en hover */
 }
