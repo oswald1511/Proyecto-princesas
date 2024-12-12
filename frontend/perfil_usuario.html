@@ -74,8 +74,7 @@
             </div>
             <div class="field">
                 <div class="control">
-                    <button class="button is-danger" type="submit">Borrar</button>
-                </div>
+                    <button class="button is-danger" type="submit" onclick="limpiarFormulario">Borrar</button>
             </div>
         </form>
     </div>
@@ -253,7 +252,16 @@
                     alert('Hubo un error al actualizar el perfil.');
                 });
             });
+            function limpiarFormulario() {
+            document.getElementById('nombre').value = '';
+            document.getElementById('edad').value = '';
+            document.getElementById('princesa_fav').value = '';
+            document.getElementById('edadError').classList.add('hidden');
+            document.getElementById('nombreError').classList.add('hidden');
             
+            document.getElementById('newUserForm').classList.add('hidden');
+            document.getElementById('addUserCard').classList.remove('hidden');
+        }
     });
 });
 
