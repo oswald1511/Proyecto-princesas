@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 module.exports = router;
 
 router.get('/', async (req, res) => {
-  const usuarios = await prisma.usuario.findMany({
+  const usuarios = await prisma.princesa.findMany({
     orderBy: {
       princesscoin: 'desc', //Ordena de forma ascendente
     },

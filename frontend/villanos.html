@@ -24,6 +24,8 @@
                         <th>Precio</th>
                     </tr>
                 </thead>
+                <tbody id="datos-villanos">
+                </tbody>
             </table>
         </div>
     </div>
@@ -63,9 +65,9 @@
                 let nombre = document.createElement('td');
                 nombre.textContent = villanos.nombre;
                 let nivel_maldad = document.createElement('td');
-                nivel_maldad.textContent = villanos.nivel_maldad;
+                nivel_maldad.textContent = villanos.nivel_de_maldad;
                 let magia = document.createElement('td');
-                magia.textContent = villanos.magia;
+                magia.textContent = villanos.tiene_magia;
                 let alias = document.createElement('td');
                 alias.textContent = villanos.alias;
                 let debilidad = document.createElement('td');

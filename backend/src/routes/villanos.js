@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     const villano = await prisma.villano.create({
         data:{
           nombre: req.body.nombre,
-          nivel_maldad: req.body.niv_maldad,
+          nivel_de_maldad: req.body.nivel_de_maldad,
           tiene_magia: req.body.tiene_magia,
           alias: req.body.alias,
           debilidad: req.body.debilidad,
