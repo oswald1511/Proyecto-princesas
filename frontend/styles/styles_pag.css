@@ -22,38 +22,34 @@ body {
 }
 
 .table-container.mt-5 {
-    background-color: rgb(255, 255, 255, 0.5) !important; /*50% de transparencia */
-    border-radius: 15px !important; /* Bordes redondeados radio 15px */
+    background-color: rgb(255, 255, 255, 0.5) !important;
+    border-radius: 15px !important; 
 }
 
+
+
 .navbar {
-    background-color: rgb(255, 255, 255, 0.5); /*50% de transparencia */
-    border-radius: 15px; /* Bordes redondeados radio 15px */
+    background-color: rgb(255, 255, 255, 0.5); 
+    border-radius: 15px;
 }
 
 .button.is-primary {
     /*comprar y vender*/
     background-color: #d3c0f9 !important;
-    /* Nuevo color de fondo */
     border-color: #d3c0f9 !important;
-    /* Nuevo color de borde */
     color: #000000 !important;
-    /* Color del texto */
 }
 
 .navbar-dropdown {
     background-color: rgb(255, 255, 255, 0.5);
-    /*50% de transparencia */
     border-radius: 15px;
-    /* Bordes redondeados radio 15px */
+    
 }
 
 .button.is-link {
     /*modificar usuario */
     background-color: #6db9da !important;
-    /* Nuevo color de fondo */
     border-color: #6db9da !important;
-    /* Nuevo color de borde */
     color: #000000 !important;
 }
 
@@ -67,7 +63,6 @@ body {
 .navbar-link {
     font-weight: bold;
     color: #000000;
-    /* Color de texto */
     background-color: transparent !important;
     /* Elimina cualquier fondo sólido */
     transition: color 0.3s ease;
@@ -78,6 +73,8 @@ body {
 .navbar-link:hover {
     background-color: rgba(255, 255, 255, 0.747) !important;
     /* Cambia el color del texto al pasar el mouse */
+    border-radius: 15px !important;
+    
 }
 
 .button:hover {
