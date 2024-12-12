@@ -5,9 +5,13 @@ const prisma = new PrismaClient();
 module.exports = router;
 
 router.get('/', async (req, res) => {
-    const princesas = await prisma.princesa.findMany();
-    res.json(princesas);
-});
+    const princesas = await prisma.princesa.findMany({
+        orderBy: {
+          id: 'asc', //Ordena de forma ascendente
+        },
+      });
+      res.json(princesas);
+    });
   
 router.get('/:id', async (req, res) => {
     const princesa = await prisma.princesa.findUnique({ 
