@@ -315,6 +315,17 @@
                             if (newPrincess) document.getElementById('user-princess').textContent = `Princesa Favorita: ${updatedUser.princesa_fav}`;
                             // Ocultar el formulario después de la actualización
                             document.getElementById('edit-form-container').style.display = 'none';
+                            localStorage.setItem('nombreUsuario', updatedUser.nombre);
+
+                            document.addEventListener('DOMContentLoaded', () => {
+                                    const userButton = document.getElementById('nombre-usuario');
+                                    if (userButton) {
+                                    userButton.textContent = updatedUser.nombre;
+                                    location.reload();
+
+                        }
+                        })
+            
                         })
                         .catch(error => {
                             console.error('Error:', error);

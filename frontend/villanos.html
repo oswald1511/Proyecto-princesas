@@ -10,7 +10,7 @@
 <body>
     <div class="container is-fluid">
         <div id="navbar-container"></div>
-        <h1>Villanos</h1>
+        <h1 style="font-size: 40px;">Villanos</h1>
         <div class="table-container mt-5">
             <table class="table is-fullwidth is-bordered is-hoverable">
                 <thead>
@@ -27,14 +27,6 @@
             </table>
         </div>
     </div>
-    <label class="checkbox">
-        <input type="checkbox" class="filtro-obtenido" />
-        Villanos obtenidos
-      </label>
-      <label class="checkbox">
-        <input type="checkbox" class="filtro-no-obtenido"/>
-        Villanos no obtenidos
-      </label>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetch('navbar.html')
@@ -59,33 +51,6 @@
                     }
                 });
         });   
-    //Aca se guarda el ID de los villanos que tiene el usuario
-    let villanos_obtenidos = []; 
-    // Eventos para los checkboxes
-        document.querySelector('.filtro-obtenido').addEventListener('change', function(){
-            filtro_pj();
-        });
-        document.querySelector('.filtro-no-obtenido').addEventListener('change', function(){
-            filtro_pj();
-        });
-    //Funcion para filtrar villanos
-        function filtro_pj(filtro){
-            const obtenido=document.querySelector('.filtro-obtenido').checked;
-            const noObtenido=document.querySelector('.filtro-no-obtenido').checked;
-            const villanos=document.querySelectorAll('#datos-villanos tr');
-            villanos.forEach(villanos => {
-                const id = parseInt(villanos.querySelector('th').innerText);   //Obtengo el id del villano
-                const esta_obtenido = villanos_obtenidos.includes(id);    //Verifica que el usuario tenga el villano
-            //Muestra la fila segun el filtro
-                if((obtenido && esta_obtenido) || (noObtenido && !esta_obtenido)){
-                    villanos.style.display = '';
-                }else if (!obtenido && !noObtenido){
-                    villanos.style.display = '';
-                }else{
-                    villanos.style.display = 'none';
-                }
-            });
-        }
       fetch('http://localhost:3000/api/v1/villanos')
         .then(response => response.json())
         .then(villanos => {
