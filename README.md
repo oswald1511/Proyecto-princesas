@@ -77,8 +77,8 @@ ejecutar los siguientes comandos en el directorio de backend:
 
 ```bash
 npm install
-npx  prisma migrate dev
 docker compose up -d
+npx  prisma migrate dev
 npm run dev
 ```
 #### Como levantar el FE

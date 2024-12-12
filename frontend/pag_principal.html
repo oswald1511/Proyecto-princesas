@@ -10,6 +10,8 @@
         <div class="container is-fluid">
             <div id="navbar-container"></div>
         </div>
+        <button id="Juego"> Jugar </button>
+        <p id="dinero">Dinero:0</p>
     </body>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -34,6 +36,43 @@
                         document.getElementById('nombre-usuario').textContent = nombreUsuario;
                     }
                 });
-        });   
+            const id_usuario= localStorage.getItem('usuarioID');
+            if(!id_usuario){
+                console.error('No hay usuario logueado');
+                return;
+        }
+        }); 
+        let mi_dinero;
+        let dinero_ganado;
+        const id_usuario= localStorage.getItem('usuarioID');
+        fetch(`http://localhost:3000/api/v1/usuarios/${id_usuario}`)
+            .then(response => response.json())
+            .then(data => {
+                mi_dinero = parseInt(data.princesscoin);
+                dinero_ganado = parseInt(data.dinero_por_click);
+                document.getElementById('dinero').innerText= 'Dinero:'+ mi_dinero;
+            }); 
+        
+        //La funcion jugar aumenta el dinero en 1
+        function jugar(){
+            let dinero_ganado=1;
+            const id_usuario= localStorage.getItem('usuarioID');
+            mi_dinero += dinero_ganado;
+            document.getElementById('dinero').innerText= 'Dinero:'+ mi_dinero;
+            localStorage.setItem('mi_dinero',mi_dinero);
+            fetch(`http://localhost:3000/api/v1/usuarios/${id_usuario}`,{
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({princesscoin: mi_dinero})
+            })
+            .then(response => response.json())
+            .then(data => {
+            console.log('Dinero agregado:', data);
+            });
+        }
+        //Añado el evento click al boton "Jugar"
+        document.getElementById('Juego').addEventListener('click',jugar); 
     </script>
 </html>

@@ -56,7 +56,7 @@ model Principe {
   nombre String
   cuento String
   virtud String
-  habilidad String
+  habilidad Int
   alias String
   precio Int
   imagen String 
