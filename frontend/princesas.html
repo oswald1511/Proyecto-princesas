@@ -63,7 +63,7 @@
                 });
         });   
         const id_usuario= localStorage.getItem('usuarioID');
-        fetch('http://localhost:3000/api/v1/usuarios/${id_usuario}/personajes')
+        fetch(`http://localhost:3000/api/v1/usuarios/${id_usuario}/personajes`)
         .then(response => response.json())
         .then(data => {
             princesas_obtenidas = data.princesas_obtenidas.map(princesa => princesa.id);
