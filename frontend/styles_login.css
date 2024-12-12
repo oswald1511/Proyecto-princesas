@@ -98,19 +98,3 @@ h1 {
     color: #7b1fa2;
     margin-bottom: 0.5rem;
 }
-#Juego {
-    width: 150px; 
-    height: 150px; 
-    border-radius: 50%; 
-    background-color: violet; 
-    color: black; 
-    border: none; 
-    font-size: 16px; 
-    cursor: pointer; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    position: absolute; 
-    top: 40%; 
-    left: 45%; 
-}
