@@ -33,13 +33,7 @@
                     </div>
                 </div>
             </div>
-
-            <div id="user-actions" class="mt-4 is-hidden">
-                <button id="edit-profile" class="button is-primary">Editar Perfil</button>
-                <button id="logout" class="button is-light">Cerrar Sesión</button>
-                <button id="delete-user" class="button is-danger">Borrar Usuario</button>
-                <button id="view-purchases" class="button is-info">Ver Compras</button>
-            </div>
+            <div id="contenido-principal" class="columns is-multiline"></div>
         </div>
     </div>
 
@@ -103,28 +97,59 @@
                     alert('No se pudo cargar el perfil del usuario.');
                     window.location.href = 'index.html'; // Cambia la URL según sea necesario
                 });
+                cargarPersonajes();
         }) 
-                
 
-            document.getElementById('edit-profile').addEventListener('click', () => {
-                // Implementar lógica para editar perfil
-                console.log('Editar perfil');
-            });
+        function cargarPersonajes() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const usuario_id= urlParams.get('id');
+            fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}/personajes`)
+                .then(response => response.json())
+                .then(usuario => {
+                    console.log(usuario);
+                    const personajesComprados = {
+                        villanos: new Set(usuario.villanos ? usuario.villanos.map(p => p.villano_id) : []),
+                        principes: new Set(usuario.principes ? usuario.principes.map(p => p.principe_id) : []),
+                        princesas: new Set(usuario.princesas ? usuario.princesas.map(p => p.princesa_id) : [])
+                    };
+                    console.log(personajesComprados);
+                    fetchPersonajes('villano', personajesComprados.villanos);
+                    fetchPersonajes('principe', personajesComprados.principes);                    
+                    fetchPersonajes('princesa', personajesComprados.princesas);
 
-            document.getElementById('logout').addEventListener('click', () => {
-                // Implementar lógica para cerrar sesión
-                console.log('Cerrar sesión');
-            });
-
-            document.getElementById('delete-user').addEventListener('click', () => {
-                // Implementar lógica para borrar usuario
-                console.log('Borrar usuario');
-            });
-
-            document.getElementById('view-purchases').addEventListener('click', () => {
-                // Implementar lógica para ver compras
-                console.log('Ver compras');
-            });
+                }); 
+        }
+        
+        function fetchPersonajes(tipo, personajesComprados) {
+            fetch(`http://localhost:3000/api/v1/${tipo}s`)
+                .then(response => response.json())
+                .then(personajes => {
+                    console.log(personajes);
+                    let contenidoPrincipal = document.getElementById('contenido-principal');
+                    personajes.forEach(personaje => {
+                        if (personajesComprados.has(personaje.id)) {
+                            let carta = document.createElement('div');
+                            carta.className = "column is-one-fifth mt-5";
+                            carta.innerHTML = `
+                                <div class="card">
+                                    <div class="card-image">
+                                        <figure class="image is-4by3">
+                                            <img src="${personaje.imagen}" alt="${personaje.nombre}" style="object-fit: cover;"/>
+                                        </figure>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="content">
+                                            <p class="title is-5 mt-1 mb-2">${personaje.nombre}</p>
+                                            <b>Habilidad</b>: ${personaje.habilidad}
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            contenidoPrincipal.appendChild(carta);
+                        }
+                    });
+                });
+        }
     </script>
 </body>
 </html>
