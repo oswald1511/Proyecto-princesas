@@ -48,7 +48,7 @@ En esta seccion podemos ir agregando screeshots del progreso de la pagina
 
 ## 📸 Screenshots
 Aqui veriamos como se deberia de ver el proyecto terminado
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](./frontend/assets/screenshots/Black%20and%20White%20Minimalist%20Mood%20Photo%20Collage.png)
 
 ## 🚀 Levantar el proyecto de forma local
 
