@@ -34,6 +34,14 @@ En esta seccion podemos ir agregando screeshots del progreso de la pagina
 
 <img src="./frontend/assets/screenshots/04-12-2024.png" alt="04/12/2024" width="700"/>
 
+### 📅 11/12/2024
+
+<img src="./frontend/assets/screenshots/11-12-2024.png" alt="11/12/2024" width="700"/>
+
+### 📅 12/12/2024
+
+<img src="./frontend/assets/screenshots/12-12-2024.png" alt="12/12/2024" width="700"/>
+
 ## 📸 Screenshots
 Aqui veriamos como se deberia de ver el proyecto terminado
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
