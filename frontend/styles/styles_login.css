@@ -9,6 +9,28 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 20px;
+    text-align: center;
+}
+
+p {
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+ul li {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+ul li::before {
+    content: "✨";
+    margin-right: 10px;
 }
 
 h1 {
@@ -97,4 +119,10 @@ h1 {
     font-size: 3rem;
     color: #7b1fa2;
     margin-bottom: 0.5rem;
+}
+
+.button.is-info{
+    background-color: #d3c0f9 !important; /* Nuevo color de fondo */
+    border-color: #d3c0f9 !important;    /* Nuevo color de borde */
+    color: #000000 !important;              /* Color del texto */
 }

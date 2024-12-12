@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,16 +66,28 @@
                         document.getElementById('nombre-usuario').textContent = nombreUsuario;
                     }
                 });
-        });   
-                
+        });  document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const idUsuario = urlParams.get('id');
+
+            // Validación: el ID debe ser un número entero
+            if (!/^\d+$/.test(idUsuario)) { //regex, Asegura que el valor contenga únicamente dígitos (números enteros positivos)
+                alert('ID de usuario no válido. Redirigiendo a la página principal.');
+                window.location.href = 'index.html'; // Cambia la URL según sea necesario
+                return;
+            }
+
             const currentUserId = localStorage.getItem('userId');
 
             fetch(`http://localhost:3000/api/v1/usuarios/${idUsuario}`)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al obtener datos del usuario');
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    document.getElementById('user-image').src = data.imagen;//arreglarlo para que agarre la imagen del usuario de la bdd
+                    document.getElementById('user-image').src = data.imagen;
                     document.getElementById('user-name').textContent = data.nombre;
                     document.getElementById('user-age').textContent = `Edad: ${data.edad}`;
                     document.getElementById('user-princess').textContent = `Princesa Favorita: ${data.princesa_fav}`;
@@ -85,7 +97,14 @@
                     if (idUsuario === currentUserId) {
                         document.getElementById('user-actions').classList.remove('is-hidden');
                     }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('No se pudo cargar el perfil del usuario.');
+                    window.location.href = 'index.html'; // Cambia la URL según sea necesario
                 });
+        }) 
+                
 
             document.getElementById('edit-profile').addEventListener('click', () => {
                 // Implementar lógica para editar perfil
