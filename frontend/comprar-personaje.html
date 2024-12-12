@@ -141,10 +141,12 @@
         }
         const usuario_id = localStorage.getItem('usuarioID');
         let dinero_de_personajes;
+        let cant_princesas;
         fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}`)
             .then(response => response.json())
             .then(data => {
                 dinero_de_personajes = parseInt(data.dinero_por_click);
+                cant_princesas = parseInt(data.cantidad_de_princesas);
             });
 
         function Comprar_personaje(button) {
@@ -168,7 +170,8 @@
                 },
                 body: JSON.stringify({
                     princesscoin: monedas - precio,
-                    dinero_por_click: dinero_de_personajes + habilidad
+                    dinero_por_click: dinero_de_personajes + habilidad,
+                    cantidad_de_princesas: cant_princesas + 1
                 })
             })
 
