@@ -81,6 +81,7 @@ body {
     background-color: #d3c0f9 !important;
     /* Color más claro en hover */
 }
+
 #Juego {
     cursor: pointer;
     display: flex;
@@ -124,4 +125,10 @@ body {
     background-color: #003f7f;
     box-shadow: none;
     transform: translateY(4px);
+}
+
+#dinero {
+    font-size: 2em;
+    color: #000000;
+    /* Ajusta el tamaño según tus necesidades */
 }
