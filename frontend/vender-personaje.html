@@ -159,7 +159,7 @@
                     princesscoin: monedas + precio
                 })
             })
-
+            
             borrar_card(button);
             fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}/${tipo}/${personaje_id}`, {
                 method: 'DELETE',
@@ -180,6 +180,7 @@
             .catch(error => {
                 console.error('Error en la venta:', error);
             });
+            document.getElementById('moneda-text').textContent = `${monedas + precio}`;
         }
 
         function borrar_card(button) {

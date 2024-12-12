@@ -176,12 +176,14 @@
             .then(response => {
                 if(response.status === 201){
                     console.log('Compra realizada con éxito');
-                    alert('Compra realizada con éxito');
+                    alert('Compra realizada con éxito 😛');
                 }
             })
             .catch(error => {
                 console.error('Error en la compra:', error);
             });
+            document.getElementById('moneda-text').textContent = `${monedas - precio}`;
+
         }
 
         function borrar_card(button) {
