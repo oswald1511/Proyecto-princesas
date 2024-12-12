@@ -66,8 +66,6 @@ router.post('/', async (req, res) => {
   res.status(201).send(usuario)
 })
 
-router.post('/:id/princesas/:princesa_id', async (req, res) => {
- 
 router.post('/:id/princesa/:princesa_id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
