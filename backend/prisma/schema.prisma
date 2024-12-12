@@ -14,7 +14,7 @@ model Usuario {
   edad Int
   cantidad_de_princesas Int @default(1)
   princesa_fav String
-  dinero_por_click Int @default(0)
+  dinero_por_click Int @default(1)
   imagen String @default("https://i.postimg.cc/pXN36BZt/DALL-E-2024-12-06-01-16-02-Pixel-art-of-a-simple-circular-default-profile-picture-featuring-a-gra.webp")
 
   princesas usuarios_princesas[]
