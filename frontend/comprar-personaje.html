@@ -130,7 +130,7 @@
                                             <b>Precio</b>: ${personaje.precio}<br>
                                             <b>Habilidad</b>: ${personaje.habilidad}
                                         </div>
-                                        <button class="button is-light" data-tipo="${tipo}" onclick="Comprar_personaje(this)" data-id="${personaje.id}">Comprar</button>
+                                        <button class="button is-light" data-tipo="${tipo}" data-precio="${personaje.precio}" onclick="Comprar_personaje(this)" data-id="${personaje.id}">Comprar</button>
                                     </div>
                                 </div>
                             `;
@@ -144,6 +144,23 @@
             const tipo = button.getAttribute('data-tipo');
             const personaje_id = button.getAttribute('data-id');
             const usuario_id = localStorage.getItem('usuarioID');
+            const precio = parseInt(button.getAttribute('data-precio'));
+            const monedas = parseInt(document.getElementById('moneda-text').textContent);
+            if (monedas < precio) {
+                alert('No tienes suficientes monedas para comprar este personaje 😖');
+                return;
+            }
+            //cambia el valor de las monedas del usuario
+            fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    princesscoin: monedas - precio
+                })
+            })
+
             console.log(`Comprando ${tipo} con ID ${personaje_id}`);
             borrar_card(button);
             fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}/${tipo}/${personaje_id}`, {
