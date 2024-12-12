@@ -20,3 +20,43 @@ body {
     background-color: rgb(255, 255, 255, 0.5); /*50% de transparencia */
     border-radius: 15px; /* Bordes redondeados radio 15px */
 }
+
+.button.is-primary { /*comprar y vender*/
+    background-color: #d3c0f9 !important; /* Nuevo color de fondo */
+    border-color: #d3c0f9 !important;    /* Nuevo color de borde */
+    color: #000000 !important;              /* Color del texto */
+}
+
+.navbar-dropdown{
+    background-color: rgb(255, 255, 255, 0.5); /*50% de transparencia */
+    border-radius: 15px; /* Bordes redondeados radio 15px */
+}
+
+.button.is-link  { /*modificar usuario */
+    background-color: #6db9da !important; /* Nuevo color de fondo */
+    border-color: #6db9da !important;    /* Nuevo color de borde */
+    color: #000000 !important;     
+}
+
+#nombre-usuario {
+    font-weight: bold;/*negrita*/
+    color:#000000 !important;
+}
+
+.navbar-item, .navbar-link {
+    font-weight: bold;
+    color: #000000; /* Color de texto */
+    background-color: transparent !important; /* Elimina cualquier fondo sólido */
+    transition: color 0.3s ease; /* Transición suave en hover */
+}
+.navbar-item:hover, .navbar-link:hover {
+    background-color: rgba(255, 255, 255, 0.747) !important;/* Cambia el color del texto al pasar el mouse */
+}
+
+.button:hover {
+    filter: brightness(1.1); /* Aumenta el brillo en hover */
+}
+
+.button.is-primary:hover {
+    background-color: #d3c0f9 !important; /* Color más claro en hover */
+}

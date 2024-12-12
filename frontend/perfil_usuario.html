@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,13 +34,45 @@
                 </div>
             </div>
 
-            <div id="user-actions" class="mt-4 is-hidden">
-                <button id="edit-profile" class="button is-primary">Editar Perfil</button>
-                <button id="logout" class="button is-light">Cerrar Sesión</button>
+            <div id="user-actions" class="mt-4">
+                <button id="edit-profile" class="button is-link">Editar Perfil</button>
+                <button id="logout" class="button is-success">Cerrar Sesión</button>
                 <button id="delete-user" class="button is-danger">Borrar Usuario</button>
-                <button id="view-purchases" class="button is-info">Ver Compras</button>
             </div>
         </div>
+    </div>
+    <div id="edit-form-container" style="display:none;">
+        <form id="edit-profile-form">
+            <div class="field">
+                <label class="label">Foto de Perfil</label>
+                <div class="control">
+                    <input class="input" type="url" id="new-image" placeholder="URL de la imagen">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Nombre</label>
+                <div class="control">
+                    <input class="input" type="text" id="new-name" placeholder="Nuevo nombre">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Edad</label>
+                <div class="control">
+                    <input class="input" type="number" id="new-age" placeholder="Nueva edad">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Princesa Favorita</label>
+                <div class="control">
+                    <input class="input" type="text" id="new-princess" placeholder="Nueva princesa favorita">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button class="button is-primary" type="submit">Guardar cambios</button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <script>
@@ -124,11 +156,101 @@
                 }
             });
 
-            document.getElementById('view-purchases').addEventListener('click', () => {
-                // Implementar lógica para ver compras
-                console.log('Ver compras');
-            });
         });
+        document.addEventListener('DOMContentLoaded', () => {
+        const ID_usuario = localStorage.getItem('usuarioID'); 
+
+    // Cargar los datos del usuario
+    fetch(`http://localhost:3000/api/v1/usuarios/${ID_usuario}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('user-image').src = data.imagen || './assets/default-profile.png';
+            document.getElementById('user-name').textContent = data.nombre;
+            document.getElementById('user-age').textContent = `Edad: ${data.edad}`;
+            document.getElementById('user-princess').textContent = `Princesa Favorita: ${data.princesa_fav}`;
+            document.getElementById('user-coins').textContent = `PrincessCoins: ${data.princesscoin}`;
+            document.getElementById('user-princesses').textContent = `Cantidad de Princesas: ${data.cantidad_de_princesas}`;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('user-profile').innerHTML = '<p class="has-text-centered is-size-4">Hubo un error al cargar la información del usuario.</p>';
+        });
+
+    // Mostrar formulario de edición al hacer clic en "Editar Perfil"
+    document.getElementById('edit-profile').addEventListener('click', () => {
+        document.getElementById('edit-form-container').style.display = 'block';
+        // Pre-poblar el formulario con los datos actuales
+        document.getElementById('new-image').value = document.getElementById('user-image').src;
+        document.getElementById('new-name').value = document.getElementById('user-name').textContent;
+        document.getElementById('new-age').value = document.getElementById('user-age').textContent.split(': ')[1];
+        document.getElementById('new-princess').value = document.getElementById('user-princess').textContent.split(': ')[1];
+    });
+
+    // Validar y enviar cambios del formulario
+    document.getElementById('edit-profile-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        // Obtener los nuevos valores del formulario
+        const newName = document.getElementById('new-name').value.trim();
+        const newAge = document.getElementById('new-age').value.trim();
+        const newPrincess = document.getElementById('new-princess').value.trim();
+        const newImage = document.getElementById('new-image').value.trim();
+
+        // Validar los valores
+        if (!newName && !newAge && !newPrincess && !newImage) {
+            alert('No se ha cambiado ningún valor.');
+            return;
+        }
+
+        // Verificar si el nombre ya existe (esto lo puedes hacer con una llamada a la API o comparando los usuarios almacenados)
+        fetch('http://localhost:3000/api/v1/usuarios')
+            .then(response => response.json())
+            .then(users => {
+                const nameExists = users.some(user => user.nombre.toLowerCase() === newName.toLowerCase() && newName !== document.getElementById('user-name').textContent);
+                if (nameExists && newName) {
+                    alert('El nombre ya está en uso.');
+                    return;
+                }
+
+                // Preparar los datos a actualizar, solo se envían los campos modificados
+                const updatedData = {};
+                if (newName) updatedData.nombre = newName;
+                if (newAge) {
+                    const parsedAge = parseInt(newAge, 10);
+                    if (!isNaN(parsedAge) && parsedAge > 0 && parsedAge < 100) {
+                        updatedData.edad = parsedAge;
+                    }
+                }
+                if (newPrincess) updatedData.princesa_fav = newPrincess;
+                if (newImage) updatedData.imagen = newImage;
+
+                // Enviar los datos actualizados al servidor
+                fetch(`http://localhost:3000/api/v1/usuarios/${ID_usuario}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedData)
+                })
+                .then(response => response.json())
+                .then(updatedUser => {
+                    alert('Perfil actualizado con éxito.');
+                    // Actualizar los datos en la página solo si fueron modificados
+                    if (newImage) document.getElementById('user-image').src = updatedUser.imagen;
+                    if (newName) document.getElementById('user-name').textContent = updatedUser.nombre;
+                    if (newAge) document.getElementById('user-age').textContent = `Edad: ${updatedUser.edad}`;
+                    if (newPrincess) document.getElementById('user-princess').textContent = `Princesa Favorita: ${updatedUser.princesa_fav}`;
+                    // Ocultar el formulario después de la actualización
+                    document.getElementById('edit-form-container').style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Hubo un error al actualizar el perfil.');
+                });
+            });
+    });
+});
+
     </script>
 </body>
 </html>
