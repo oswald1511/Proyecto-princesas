@@ -40,10 +40,11 @@ router.get('/:identificador', async (req, res) => {
   res.json(usuario);
 });
   
-router.get('/:id/personajes', async (req, res) => {
-  const usuario = await prisma.usuario.findUnique({ 
-    where: {
-      id : parseInt(req.params.id)
+router.get('/:id/personajes', async(req, res) => {
+  const id = parseInt(req.params.id, 10);
+  let usuario =  await prisma.usuario.findUnique({
+    where:{
+      id: id
     },
     include: {
       princesas: true,
@@ -222,6 +223,9 @@ router.put('/:id', async(req, res) => {
       edad: req.body.edad,
       princesa_fav: req.body.princesa_fav,
       princesscoin: req.body.princesscoin,
+      cantidad_princesas: req.body.cantidad_princesas,
+      dinero_por_click: req.body.dinero_por_click,
+      imagen: req.body.imagen
     }
   });
   

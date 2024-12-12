@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reino Mágico de Princesas Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-    <link rel="stylesheet" href="styles_login.css">
+    <link rel="stylesheet" href="./styles/styles_login.css">
     <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
     <style>
         .hidden {
@@ -60,18 +60,20 @@
 </head>
 <body>
     <div id="welcome-screen" class="welcome-screen">
-        <h1 class="welcome-title">Bienvenido al Reino Mágico de Princesas Disney</h1>
+        <h1 class="welcome-title">¡Bienvenido al Reino Mágico de las Princesas Disney!</h1>
         <p class="welcome-text">
-            Prepárate para sumergirte en un mundo de magia y encanto. En este fascinante juego, te convertirás en el guardián de las princesas Disney. Tu misión es ayudarlas a prosperar y brillar en su reino mágico.
+            Prepárate para adentrarte en un universo lleno de hechizos, sueños y encanto. En este maravilloso juego, asumirás el papel del guardián de las queridas princesas Disney. Tu misión será guiarlas, protegerlas y ayudarlas a brillar como nunca antes en su reino mágico.
         </p>
         <p class="welcome-text">
-            Así es como se juega:
-            <br>1. Primero, selecciona tu cuenta existente o crea una nueva.
-            <br>2. Una vez dentro, se te asignará una princesa para comenzar tu aventura.
-            <br>3. Haz clic para ganar PrincessCoins, la moneda mágica del reino.
-            <br>4. Usa tus PrincessCoins para desbloquear nuevas princesas y personajes.
-            <br>5. Cada nuevo personaje aumentará tu ganancia de PrincessCoins por clic.
-            <br>6. ¡Colecciona todas las princesas y conviértete en el guardián más poderoso del reino!
+            <p><strong>¿Cómo comienza esta aventura?</strong></p>
+            <ul>
+                <li><strong>Elige tu destino:</strong> Accede a tu cuenta existente o crea una nueva para empezar.</li>
+                <li><strong>Tu primera aliada:</strong> Recibirás una princesa para comenzar esta fantástica travesía.</li>
+                <li><strong>Magia al alcance de un clic:</strong> Gana <em>PrincessCoins</em>, la moneda encantada del reino, haciendo clic y recolectando recompensas.</li>
+                <li><strong>Haz crecer tu reino:</strong> Usa tus <em>PrincessCoins</em> para desbloquear nuevas princesas y personajes mágicos.</li>
+                <li><strong>Un reino en expansión:</strong> Cada personaje nuevo aumentará tus ganancias por clic, llevando tu reino a nuevas alturas.</li>
+                <li><strong>El desafío definitivo:</strong> Colecciona todas las princesas y conviértete en el guardián más poderoso del Reino Mágico.</li>
+            </ul>
         </p>
         <p class="welcome-text">
             ¿Estás listo para comenzar tu mágica historia?
@@ -96,21 +98,21 @@
                 <div class="field">
                     <label class="label">Nombre</label>
                     <div class="control">
-                        <input id="nombre" class="input" type="text" placeholder="Nombre">
+                        <input id="nombre" class="input" type="text" placeholder="Nombre" required>
                     </div>
                     <p id="nombreError" class="error-message hidden">Este nombre de usuario ya existe. Por favor, elige otro.</p>
                 </div>
                 <div class="field">
                     <label class="label">Edad</label>
                     <div class="control">
-                        <input id="edad" class="input" type="number" placeholder="Edad" min="1" max="100">
+                        <input id="edad" class="input" type="number" placeholder="Edad" min="1" max="100" required>
                     </div>
                     <p id="edadError" class="error-message hidden">La edad debe ser un número valido.</p>
                 </div>
                 <div class="field">
                     <label class="label">Princesa Favorita</label>
                     <div class="control">
-                        <input id="princesa_fav" class="input" type="text" placeholder="Princesa Favorita">
+                        <input id="princesa_fav" class="input" type="text" placeholder="Princesa Favorita" required>
                     </div>
                 </div>
                 <div class="field is-grouped is-grouped-centered">
@@ -218,54 +220,61 @@
         }
 
         async function crearUsuario() {
-          let nombre = document.getElementById('nombre').value;
-          let edad = document.getElementById('edad').value;
-          let princesaFav = document.getElementById('princesa_fav').value;
+            let nombre = document.getElementById('nombre').value.trim();
+            let edad = document.getElementById('edad').value.trim();
+            let princesaFav = document.getElementById('princesa_fav').value.trim();
 
-          // Valida la edad ingresada
-          if (parseInt(edad) <= 0 || parseInt(edad) >= 100) {
-            document.getElementById('edadError').classList.remove('hidden');
-            return;
-          } else {
-            document.getElementById('edadError').classList.add('hidden');
-          }
+            // Verifica que todos los campos estén llenos
+            if (!nombre || !edad || !princesaFav) {
+                alert('Por favor, completa todos los campos.');
+                return;
+            }
 
-          try {
-            // Verifica si el nombre de usuario ya existe
-            const usuarioExiste = await verificarNombreUsuario(nombre);
-            if (usuarioExiste) {
-              document.getElementById('nombreError').classList.remove('hidden');
-              return;
+            // Valida la edad ingresada
+            if (parseInt(edad) <= 0 || parseInt(edad) > 100) {
+                document.getElementById('edadError').classList.remove('hidden');
+                return;
             } else {
-              document.getElementById('nombreError').classList.add('hidden');
+                document.getElementById('edadError').classList.add('hidden');
             }
 
-            let usuario = {
-              nombre: nombre,
-              edad: parseInt(edad),
-              princesa_fav: princesaFav,
-            }
+            try {
+                // Verifica si el nombre de usuario ya existe
+                const usuarioExiste = await verificarNombreUsuario(nombre);
+                if (usuarioExiste) {
+                    document.getElementById('nombreError').classList.remove('hidden');
+                    return;
+                } else {
+                    document.getElementById('nombreError').classList.add('hidden');
+                }
 
-            // Envía la solicitud para crear el nuevo usuario
-            const respuesta = await fetch('http://localhost:3000/api/v1/usuarios', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(usuario)
-            });
+                let usuario = {
+                    nombre: nombre,
+                    edad: parseInt(edad),
+                    princesa_fav: princesaFav,
+                };
 
-            if (respuesta.status === 201) {
-              limpiarFormulario();
-              cargarUsuarios(); // Recarga la lista de usuarios
-            } else {
-              throw new Error('Error al crear el usuario');
+                // Envía la solicitud para crear el nuevo usuario
+                const respuesta = await fetch('http://localhost:3000/api/v1/usuarios', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(usuario),
+                });
+
+                if (respuesta.status === 201) {
+                    limpiarFormulario();
+                    cargarUsuarios(); // Recarga la lista de usuarios
+                } else {
+                    throw new Error('Error al crear el usuario');
+                }
+            } catch (error) {
+                console.error('Error al crear usuario:', error);
+                alert('Hubo un error al crear el usuario. Por favor, verifique los datos e intente nuevamente.');
             }
-          } catch (error) {
-            console.error('Error al crear usuario:', error);
-            alert('Hubo un error al crear el usuario. Por favor, verifique los datos e intente nuevamente.');
-          }
         }
+
 
         // Limpia el formulario y lo cierra
         function limpiarFormulario() {

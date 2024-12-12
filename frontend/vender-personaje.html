@@ -1,81 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="light">
 <head>
     <title>Princesas de Disney</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
-    <style>
-        .cyberpunk-checkbox {
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border: 2px solid #0dd693;
-        border-radius: 5px;
-        background-color: transparent;
-        display: inline-block;
-        position: relative;
-        margin-right: 10px;
-        cursor: pointer;
-        }
-        
-        .card {
-            height: 400px; /* Altura fija para todas las tarjetas */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .moneda-container {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            margin-right: 20px;
-            margin-top: 30px;
-        }
-        .moneda-text {
-            margin-right: 10px;
-            font-size: 18px;
-            color: #fff;
-        }
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .cyberpunk-checkbox:before {
-        content: "";
-        background-color: #0dd693;
-        display: block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0);
-        width: 10px;
-        height: 10px;
-        border-radius: 3px;
-        transition: all 0.3s ease-in-out;
-        }
-
-        .cyberpunk-checkbox:checked:before {
-        transform: translate(-50%, -50%) scale(1);
-        }
-
-        .cyberpunk-checkbox-label {
-        font-size: 16px;
-        color: #fff;
-        cursor: pointer;
-        user-select: none;
-        display: flex;
-        align-items: center;
-        }
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-        }
-    </style>
+    <link rel="stylesheet" href="./styles/styles_pag.css">
+    <link rel="stylesheet" href="./styles/styles_comprar-vender_personajes.css">
 </head>
 <body>
     <div class="container is-fluid">
@@ -201,7 +131,7 @@
                                             <b>Precio</b>: ${precioDescuento}<br>
                                             <b>Habilidad</b>: ${personaje.habilidad}
                                         </div>
-                                        <button class="button is-danger" data-tipo="${tipo}" onclick="Vender_personaje(this)" data-id="${personaje.id}">Vender</button>
+                                        <button class="button is-danger" data-tipo="${tipo}" data-precio="${precioDescuento}" onclick="Vender_personaje(this)" data-id="${personaje.id}">Vender</button>
                                     </div>
                                 </div>
                             `;
@@ -215,7 +145,21 @@
             const tipo = button.getAttribute('data-tipo');
             const personaje_id = button.getAttribute('data-id');
             const usuario_id = localStorage.getItem('usuarioID');
+            const precio = parseInt(button.getAttribute('data-precio'));
+            const monedas = parseInt(document.getElementById('moneda-text').textContent);
+            
             console.log(`Vendiendo ${tipo} con ID ${personaje_id}`);
+            //cambia el valor de las monedas del usuario
+            fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    princesscoin: monedas + precio
+                })
+            })
+            
             borrar_card(button);
             fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}/${tipo}/${personaje_id}`, {
                 method: 'DELETE',
@@ -236,6 +180,7 @@
             .catch(error => {
                 console.error('Error en la venta:', error);
             });
+            document.getElementById('moneda-text').textContent = `${monedas + precio}`;
         }
 
         function borrar_card(button) {
