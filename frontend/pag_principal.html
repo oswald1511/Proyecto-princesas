@@ -9,9 +9,12 @@
     <body>
         <div class="container is-fluid">
             <div id="navbar-container"></div>
+            <div style="display: flex; align-items: center;">
+                <img src="./assets/moneda.png" alt="moneda" style="height: 60px;">
+                <h1 id="dinero"></h1>
+            </div>
         </div>
-        <button id="Juego"> Jugar </button>
-        <p id="dinero">Dinero:0</p>
+        <button id="Juego" class="comic-button">JUGAR!</button>            
     </body>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -50,15 +53,16 @@
             .then(data => {
                 mi_dinero = parseInt(data.princesscoin);
                 dinero_ganado = parseInt(data.dinero_por_click);
-                document.getElementById('dinero').innerText= 'Dinero:'+ mi_dinero;
+                document.getElementById('dinero').innerText= mi_dinero;
+
             }); 
         
         //La funcion jugar aumenta el dinero en 1
         function jugar(){
-            let dinero_ganado=1;
             const id_usuario= localStorage.getItem('usuarioID');
             mi_dinero += dinero_ganado;
-            document.getElementById('dinero').innerText= 'Dinero:'+ mi_dinero;
+            document.getElementById('dinero').innerText= mi_dinero;
+
             localStorage.setItem('mi_dinero',mi_dinero);
             fetch(`http://localhost:3000/api/v1/usuarios/${id_usuario}`,{
                 method: 'PUT',

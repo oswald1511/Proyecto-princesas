@@ -94,3 +94,54 @@ body {
     background-color: #d3c0f9 !important;
     /* Color más claro en hover */
 }
+
+#Juego {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 47%;
+    left: 44%;
+}
+
+.comic-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #FFFFFF;
+    /* Texto blanco */
+    background-color: #007BFF;
+    /* Fondo azul */
+    border: 2px solid #0056b3;
+    /* Borde azul oscuro */
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px #000;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.comic-button:hover {
+    background-color: #0056b3;
+    /* Fondo azul oscuro en hover */
+    color: #FFFFFF;
+    /* Texto blanco */
+    border: 2px solid #003f7f;
+    /* Borde azul más oscuro en hover */
+    box-shadow: 5px 5px 0px #003f7f;
+}
+
+.comic-button:active {
+    background-color: #003f7f;
+    box-shadow: none;
+    transform: translateY(4px);
+}
+
+#dinero {
+    font-size: 2em;
+    color: #000000;
+    /* Ajusta el tamaño según tus necesidades */
+}

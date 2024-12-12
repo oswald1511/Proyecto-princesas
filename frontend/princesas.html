@@ -64,6 +64,17 @@
         });   
         //Aca se guarda el ID de las princesas que tiene el usuario
         let princesas_obtenidas = []; 
+
+        const id_usuario= localStorage.getItem('usuarioID');
+        fetch(`http://localhost:3000/api/v1/usuarios/${id_usuario}/personajes`)
+        .then(response => response.json())
+        .then(data => {
+            if (Array.isArray(data.princesas_obtenidas)){
+            princesas_obtenidas = data.princesas_obtenidas.map(princesa => princesa.id);
+            filtro_pj();
+            }
+        });
+       
         // Eventos para los checkboxes
         document.querySelector('.filtro-obtenido').addEventListener('change', function(){
             filtro_pj();
@@ -71,6 +82,8 @@
         document.querySelector('.filtro-no-obtenido').addEventListener('change', function(){
             filtro_pj();
         });
+        
+
         //Funcion para filtrar princesas
         function filtro_pj(filtro){
             const obtenido=document.querySelector('.filtro-obtenido').checked;

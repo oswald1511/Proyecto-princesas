@@ -131,7 +131,7 @@
                                             <b>Precio</b>: ${precioDescuento}<br>
                                             <b>Habilidad</b>: ${personaje.habilidad}
                                         </div>
-                                        <button class="button is-danger" data-tipo="${tipo}" data-precio="${precioDescuento}" onclick="Vender_personaje(this)" data-id="${personaje.id}">Vender</button>
+                                        <button class="button is-danger" data-tipo="${tipo}" data-precio="${precioDescuento}" onclick="Vender_personaje(this)" data-id="${personaje.id}" data-habilidad="${personaje.habilidad}">Vender</button>
                                     </div>
                                 </div>
                             `;
@@ -141,10 +141,18 @@
                 });
         }
 
+        const usuario_id = localStorage.getItem('usuarioID');
+        let dinero_de_personajes;
+        fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}`)
+            .then(response => response.json())
+            .then(data => {
+                dinero_de_personajes = parseInt(data.dinero_por_click);
+            });
+
         function Vender_personaje(button) {
             const tipo = button.getAttribute('data-tipo');
             const personaje_id = button.getAttribute('data-id');
-            const usuario_id = localStorage.getItem('usuarioID');
+            const habilidad= parseInt(button.getAttribute('data-habilidad'));
             const precio = parseInt(button.getAttribute('data-precio'));
             const monedas = parseInt(document.getElementById('moneda-text').textContent);
             
@@ -156,7 +164,8 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    princesscoin: monedas + precio
+                    princesscoin: monedas + precio,
+                    dinero_por_click: dinero_de_personajes - habilidad
                 })
             })
             
