@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-
+            <div id="contenido-principal" class="columns is-multiline"></div>
             <div id="user-actions" class="mt-4">
                 <button id="edit-profile" class="button is-link">Editar Perfil</button>
                 <button id="logout" class="button is-success">Cerrar Sesión</button>
@@ -73,7 +73,6 @@
                 </div>
             </div>
         </form>
-        <div id="contenido-principal" class="columns is-multiline"></div>
     </div>
 
     <script>
@@ -175,7 +174,7 @@
                     fetchPersonajes('principe', personajesComprados.principes);                    
                     fetchPersonajes('princesa', personajesComprados.princesas);
 
-                });
+                }); 
         }
         
         function fetchPersonajes(tipo, personajesComprados) {
