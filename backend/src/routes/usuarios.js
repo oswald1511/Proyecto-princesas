@@ -5,7 +5,11 @@ const prisma = new PrismaClient();
 module.exports = router;
 
 router.get('/', async (req, res) => {
-  const usuarios = await prisma.usuario.findMany();
+  const usuarios = await prisma.usuario.findMany({
+    orderBy: {
+      princesscoin: 'desc', //Ordena de forma ascendente
+    },
+  });
   res.json(usuarios);
 });
 
@@ -66,7 +70,7 @@ router.post('/', async (req, res) => {
   })
   res.status(201).send(usuario)
 })
- 
+
 router.post('/:id/princesa/:princesa_id', async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
@@ -223,11 +227,11 @@ router.put('/:id', async(req, res) => {
       dinero_por_click: req.body.dinero_por_click,
       imagen: req.body.imagen
     }
-  })
+  });
   
   res.send(usuario)
   
-})
+});
 
 router.delete('/', async (req, res) => {
   await prisma.usuario.deleteMany();
