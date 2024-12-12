@@ -54,6 +54,7 @@
                 mi_dinero = parseInt(data.princesscoin);
                 dinero_ganado = parseInt(data.dinero_por_click);
                 document.getElementById('dinero').innerText= mi_dinero;
+
             }); 
         
         //La funcion jugar aumenta el dinero en 1
@@ -62,6 +63,7 @@
             const id_usuario= localStorage.getItem('usuarioID');
             mi_dinero += dinero_ganado;
             document.getElementById('dinero').innerText= mi_dinero;
+
             localStorage.setItem('mi_dinero',mi_dinero);
             fetch(`http://localhost:3000/api/v1/usuarios/${id_usuario}`,{
                 method: 'PUT',

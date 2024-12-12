@@ -130,7 +130,6 @@
             </div>
         </div>
     </div>
-
     <script>
         // Configura los eventos de los botones de inicio y retroceso
         document.addEventListener('DOMContentLoaded', () => {
@@ -160,7 +159,6 @@
                 formularioNuevoUsuario.classList.remove('hidden');
             });
         });
-
         // Carga y muestra los usuarios existentes
         function cargarUsuarios(){
             fetch('http://localhost:3000/api/v1/usuarios')
@@ -299,8 +297,9 @@
             .then(response => response.json())
             .then(usuario => {
                 localStorage.setItem('usuarioID', usuario.id);
+                window.location.href = 'pag_principal.html'; // Redirigir a la página principal
             })
-            window.location.href = 'pag_principal.html'; // Redirigir a la página principal
+            
         }
 
         // Limpia valores de los campos del formulario
