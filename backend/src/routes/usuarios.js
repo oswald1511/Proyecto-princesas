@@ -44,7 +44,7 @@ router.get('/:id/personajes', async(req, res) => {
   const id = parseInt(req.params.id, 10);
   let usuario =  await prisma.usuario.findUnique({
     where:{
-      id: id
+      id: parseInt(req.params.id)
     },
     include: {
       princesas: true,
