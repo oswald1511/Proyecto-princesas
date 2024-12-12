@@ -31,53 +31,49 @@
                         <p id="user-coins"></p>
                         <p id="user-princesses"></p>
                     </div>
+                    <div id="user-actions" class="mt-4">
+                        <button id="edit-profile" class="button is-link">Editar Perfil</button>
+                        <button id="logout" class="button is-success">Cerrar Sesión</button>
+                        <button id="delete-user" class="button is-danger">Borrar Usuario</button>
+                    </div>
+                    <div id="edit-form-container" style="display:none;">
+                        <form id="edit-profile-form">
+                            <div class="field">
+                                <label class="label">Foto de Perfil</label>
+                                <div class="control">
+                                    <input class="input" type="url" id="new-image" placeholder="URL de la imagen">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Nombre</label>
+                                <div class="control">
+                                    <input class="input" type="text" id="new-name" placeholder="Nuevo nombre">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Edad</label>
+                                <div class="control">
+                                    <input class="input" type="number" id="new-age" placeholder="Nueva edad">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Princesa Favorita</label>
+                                <div class="control">
+                                    <input class="input" type="text" id="new-princess" placeholder="Nueva princesa favorita">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-primary" type="submit">Guardar cambios</button>
+                                    <button class="button is-danger" type="button" id="close-form">Cerrar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div id="contenido-principal" class="columns is-multiline"></div>
-            <div id="user-actions" class="mt-4">
-                <button id="edit-profile" class="button is-link">Editar Perfil</button>
-                <button id="logout" class="button is-success">Cerrar Sesión</button>
-                <button id="delete-user" class="button is-danger">Borrar Usuario</button>
-            </div>
         </div>
-    </div>
-    <div id="edit-form-container" style="display:none;">
-        <form id="edit-profile-form">
-            <div class="field">
-                <label class="label">Foto de Perfil</label>
-                <div class="control">
-                    <input class="input" type="url" id="new-image" placeholder="URL de la imagen">
-                </div>
-            </div>
-            <div class="field">
-                <label class="label">Nombre</label>
-                <div class="control">
-                    <input class="input" type="text" id="new-name" placeholder="Nuevo nombre">
-                </div>
-            </div>
-            <div class="field">
-                <label class="label">Edad</label>
-                <div class="control">
-                    <input class="input" type="number" id="new-age" placeholder="Nueva edad">
-                </div>
-            </div>
-            <div class="field">
-                <label class="label">Princesa Favorita</label>
-                <div class="control">
-                    <input class="input" type="text" id="new-princess" placeholder="Nueva princesa favorita">
-                </div>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <button class="button is-primary" type="submit">Guardar cambios</button>
-                </div>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <button class="button is-danger" type="button" id="close-form">Cerrar</button>
-                </div>
-            </div>
-        </form>
     </div>
 
     <script>
@@ -106,6 +102,7 @@
                             userButton.textContent = nombreUsuario;
                         }
                     }
+                    cargarPersonajes();
                 });
             
             // Obtener el ID del usuario
@@ -176,8 +173,8 @@
             document.getElementById('edit-profile-form').addEventListener('submit', (event) => {
                 event.preventDefault();
 
-            cargarPersonajes();
         });
+    });
 
         function cargarPersonajes() {
             const usuario_id = localStorage.getItem('usuarioID');
@@ -326,6 +323,7 @@
                     });
             });
         });
+        
     </script>
 </body>
 </html>
