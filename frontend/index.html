@@ -288,8 +288,9 @@
             .then(response => response.json())
             .then(usuario => {
                 localStorage.setItem('usuarioID', usuario.id);
+                window.location.href = 'pag_principal.html'; // Redirigir a la página principal
             })
-            window.location.href = 'pag_principal.html'; // Redirigir a la página principal
+            
         }
 
         // Limpia valores de los campos del formulario
