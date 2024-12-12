@@ -48,8 +48,8 @@
         fetch(`http://localhost:3000/api/v1/usuarios/${id_usuario}`)
             .then(response => response.json())
             .then(data => {
-               // dinero_ganado = parseInt(data.dinero_por_click);
                 mi_dinero = parseInt(data.princesscoin);
+                dinero_ganado = parseInt(data.dinero_por_click);
                 document.getElementById('dinero').innerText= 'Dinero:'+ mi_dinero;
             }); 
         
