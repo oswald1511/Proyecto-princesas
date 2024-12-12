@@ -73,6 +73,7 @@
                 </div>
             </div>
         </form>
+        <div id="contenido-principal" class="columns is-multiline"></div>
     </div>
 
     <script>
@@ -155,10 +156,65 @@
                     });
                 }
             });
-
+            cargarPersonajes();
         });
-        document.addEventListener('DOMContentLoaded', () => {
-        const ID_usuario = localStorage.getItem('usuarioID'); 
+
+        function cargarPersonajes() {
+            const usuario_id = localStorage.getItem('usuarioID');
+            fetch(`http://localhost:3000/api/v1/usuarios/${usuario_id}/personajes`)
+                .then(response => response.json())
+                .then(usuario => {
+                    console.log(usuario);
+                    const personajesComprados = {
+                        villanos: new Set(usuario.villanos ? usuario.villanos.map(p => p.villano_id) : []),
+                        principes: new Set(usuario.principes ? usuario.principes.map(p => p.principe_id) : []),
+                        princesas: new Set(usuario.princesas ? usuario.princesas.map(p => p.princesa_id) : [])
+                    };
+                    console.log(personajesComprados);
+                    fetchPersonajes('villano', personajesComprados.villanos);
+                    fetchPersonajes('principe', personajesComprados.principes);                    
+                    fetchPersonajes('princesa', personajesComprados.princesas);
+
+                });
+        }
+        
+        function fetchPersonajes(tipo, personajesComprados) {
+            fetch(`http://localhost:3000/api/v1/${tipo}s`)
+                .then(response => response.json())
+                .then(personajes => {
+                    console.log(personajes);
+                    let contenidoPrincipal = document.getElementById('contenido-principal');
+                    personajes.forEach(personaje => {
+                        if (personajesComprados.has(personaje.id)) {
+                            let carta = document.createElement('div');
+                            carta.className = "column is-one-fifth mt-5";
+                            carta.innerHTML = `
+                                <div class="card">
+                                    <div class="card-image">
+                                        <figure class="image is-4by3">
+                                            <img src="${personaje.imagen}" alt="${personaje.nombre}" style="object-fit: cover;"/>
+                                        </figure>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="content">
+                                            <p class="title is-5 mt-1 mb-2">${personaje.nombre}</p>
+                                            <b>Habilidad</b>: ${personaje.habilidad}
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            contenidoPrincipal.appendChild(carta);
+                        }
+                    });
+                });
+        }
+
+
+        
+        
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const ID_usuario = localStorage.getItem('usuarioID'); 
 
     // Cargar los datos del usuario
     fetch(`http://localhost:3000/api/v1/usuarios/${ID_usuario}`)
