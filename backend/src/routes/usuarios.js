@@ -218,6 +218,10 @@ router.put('/:id', async(req, res) => {
       nombre : req.body.nombre,
       edad: req.body.edad,
       princesa_fav: req.body.princesa_fav,
+      princesscoin: req.body.princesscoin,
+      cantidad_princesas: req.body.cantidad_princesas,
+      dinero_por_click: req.body.dinero_por_click,
+      imagen: req.body.imagen
     }
   })
   
